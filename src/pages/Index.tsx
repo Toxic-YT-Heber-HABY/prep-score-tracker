@@ -164,7 +164,7 @@ const Index = () => {
               <span className="text-gray-500 dark:text-gray-400">HABY</span>
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              &copy; {new Date().getFullYear()} Prep Score Tracker - Desarrollado por <span className="font-medium">Heber Zadkiel García Pérez</span>
+              &copy; {new Date().getFullYear()} HABY Score Tracker - Desarrollado por <span className="font-medium">Heber Zadkiel García Pérez</span>
             </p>
           </div>
         </div>
