@@ -8,8 +8,9 @@ import AddCategoryForm from '@/components/AddCategoryForm';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import { Button } from '@/components/ui/button';
 import { Toaster } from "@/components/ui/sonner";
-import { Info, RefreshCw } from 'lucide-react';
+import { Info, RefreshCw, MoonIcon, SunIcon } from 'lucide-react';
 import { toast } from "sonner";
+import { useTheme } from 'next-themes';
 
 const LOCAL_STORAGE_KEY = 'prep-score-tracker-data';
 
@@ -28,6 +29,9 @@ const Index = () => {
     // Default starting categories
     return [];
   });
+  
+  // Theme toggle
+  const { theme, setTheme } = useTheme();
   
   // Save to localStorage whenever categories change
   useEffect(() => {
@@ -98,14 +102,22 @@ const Index = () => {
     }
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Header />
       
       <main className="container px-4 py-6 md:px-6 mx-auto max-w-5xl">
         <div className="flex flex-wrap justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">Calculadora de Calificaciones</h2>
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Calculadora de Calificaciones</h2>
           <div className="flex space-x-2">
+            <Button variant="outline" onClick={toggleTheme} className="text-sm">
+              {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
+              {theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+            </Button>
             <Button variant="outline" onClick={handleLoadExample} className="text-sm">
               <Info className="h-4 w-4 mr-1" />
               Cargar Ejemplo
@@ -119,7 +131,7 @@ const Index = () => {
         
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-7/12">
-            <h3 className="text-lg font-semibold mb-4">Categorías</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Categorías</h3>
             
             {categories.map(category => (
               <CategoryCard
@@ -134,14 +146,14 @@ const Index = () => {
           </div>
           
           <div className="w-full lg:w-5/12">
-            <h3 className="text-lg font-semibold mb-4">Resultado Final</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Resultado Final</h3>
             <ResultsDisplay categories={categories} />
           </div>
         </div>
       </main>
       
-      <footer className="bg-white py-4 border-t mt-6">
-        <div className="container mx-auto text-center text-sm text-gray-500">
+      <footer className="bg-white dark:bg-gray-800 py-4 border-t dark:border-gray-700 mt-6 transition-colors duration-300">
+        <div className="container mx-auto text-center text-sm text-gray-500 dark:text-gray-400">
           &copy; {new Date().getFullYear()} Prep Score Tracker - Calculadora de Calificaciones
         </div>
       </footer>

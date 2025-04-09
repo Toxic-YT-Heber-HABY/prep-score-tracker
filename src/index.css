@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +97,21 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+}
+
+/* Agregamos algunas clases de utilidad adicionales */
+@layer components {
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg;
+  }
+  
+  .input-focused {
+    @apply focus:ring-2 focus:ring-education-primary focus:border-education-primary;
+  }
+  
+  .btn-hover {
+    @apply transition-all duration-200 hover:scale-105;
   }
 }
