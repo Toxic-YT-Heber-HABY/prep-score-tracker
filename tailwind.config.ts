@@ -63,13 +63,20 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Education theme colors
+				// Education theme colors - Expanded palette
 				education: {
 					primary: '#3b82f6', // blue-500
 					secondary: '#60a5fa', // blue-400
 					accent: '#93c5fd', // blue-300
 					light: '#dbeafe', // blue-100
 					dark: '#1e3a8a', // blue-900
+					highlight: '#eff6ff', // blue-50
+					text: '#334155', // slate-700
+					border: '#bfdbfe', // blue-200
+					success: '#10b981', // emerald-500
+					warning: '#f59e0b', // amber-500
+					error: '#ef4444', // red-500
+					info: '#06b6d4', // cyan-500
 				}
 			},
 			borderRadius: {
@@ -113,14 +120,24 @@ export default {
 						transform: 'scale(1)',
 						opacity: '1'
 					}
-				}
+				},
+        'pulse-soft': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' },
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.3s ease-out',
-				'scale-in': 'scale-in 0.2s ease-out'
-			}
+				'scale-in': 'scale-in 0.2s ease-out',
+        'pulse-soft': 'pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+			},
+      boxShadow: {
+        'inner-sm': 'inset 0 1px 2px 0 rgb(0 0 0 / 0.05)',
+        'soft': '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06)',
+        'card': '0 4px 10px rgba(0, 0, 0, 0.05)'
+      }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

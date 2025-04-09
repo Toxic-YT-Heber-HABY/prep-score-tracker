@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Download, FileDown, Share2 } from 'lucide-react';
 import { toast } from "sonner";
 import html2canvas from 'html2canvas';
-import jspdf from 'jspdf';
+import { jsPDF } from 'jspdf';
 
 const ExportOptions = () => {
   const handleExportPDF = async () => {
@@ -15,16 +15,39 @@ const ExportOptions = () => {
         return;
       }
       
-      const canvas = await html2canvas(element);
-      const data = canvas.toDataURL('image/png');
+      // Clonar el elemento y aplicar estilos específicos para la exportación
+      const clone = element.cloneNode(true) as HTMLElement;
+      clone.style.backgroundColor = 'white';
+      clone.style.padding = '20px';
+      clone.style.width = '800px';
+      document.body.appendChild(clone);
       
-      const pdf = new jspdf();
-      const imgProperties = pdf.getImageProperties(data);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+      const canvas = await html2canvas(clone, {
+        scale: 2, // Mayor calidad
+        logging: false,
+        backgroundColor: '#ffffff'
+      });
       
-      pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save("calificacion.pdf");
+      document.body.removeChild(clone);
+      
+      const imgData = canvas.toDataURL('image/png');
+      
+      // Usar jsPDF con constructor apropiado
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = pageWidth - 20; // Margen de 10mm por cada lado
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      // Centrar la imagen en la página
+      pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+      
+      pdf.save("HABY_Calificacion.pdf");
       
       toast.success("PDF exportado correctamente");
     } catch (error) {
@@ -41,12 +64,24 @@ const ExportOptions = () => {
         return;
       }
       
-      const canvas = await html2canvas(element);
-      const data = canvas.toDataURL('image/png');
+      // Clonar el elemento y aplicar estilos específicos para la exportación
+      const clone = element.cloneNode(true) as HTMLElement;
+      clone.style.backgroundColor = 'white';
+      clone.style.padding = '20px';
+      clone.style.width = '800px';
+      document.body.appendChild(clone);
+      
+      const canvas = await html2canvas(clone, {
+        scale: 2, // Mayor calidad
+        logging: false,
+        backgroundColor: '#ffffff'
+      });
+      
+      document.body.removeChild(clone);
       
       const link = document.createElement('a');
-      link.href = data;
-      link.download = 'calificacion.png';
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'HABY_Calificacion.png';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -60,27 +95,97 @@ const ExportOptions = () => {
   
   const handleExportCSV = () => {
     try {
-      // Esta función solo mostrará un toast informativo por ahora
-      toast.success("Exportación a CSV será implementada próximamente");
+      const results = document.querySelectorAll('#results-card table tbody tr');
+      if (results.length === 0) {
+        toast.error("No se encontraron datos para exportar");
+        return;
+      }
+      
+      // Cabeceras del CSV
+      let csvContent = "Categoría,Peso,Promedio,Puntos (100),Puntos (10)\n";
+      
+      // Recorrer filas de resultados (omitiendo la última que es el total)
+      results.forEach((row, index) => {
+        if (index < results.length - 1) { // Evitar la fila de totales
+          const cells = row.querySelectorAll('td');
+          const rowData = Array.from(cells).map(cell => {
+            // Escapar comillas y envolver en comillas si contiene comas
+            const text = cell.textContent?.trim() || '';
+            return `"${text.replace(/"/g, '""')}"`;
+          });
+          csvContent += rowData.join(',') + '\n';
+        }
+      });
+      
+      // Agregar la fila de totales
+      const totalRow = results[results.length - 1];
+      if (totalRow) {
+        const totalCells = totalRow.querySelectorAll('td');
+        csvContent += `"Calificación Total",,,"${totalCells[3]?.textContent?.trim() || ''}","${totalCells[4]?.textContent?.trim() || ''}"\n`;
+      }
+      
+      // Crear el archivo y descargarlo
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', 'HABY_Calificacion.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast.success("CSV exportado correctamente");
     } catch (error) {
       console.error("Error al exportar CSV:", error);
       toast.error("Error al exportar CSV");
     }
   };
   
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: 'Mis Calificaciones',
-        text: 'Mira mis calificaciones calculadas con Prep Score Tracker',
-      })
-      .then(() => toast.success('¡Compartido con éxito!'))
-      .catch(error => {
-        console.error('Error al compartir:', error);
-        toast.error('Error al compartir');
-      });
-    } else {
-      toast.info('Tu navegador no soporta la función de compartir');
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        // Generar imagen para compartir
+        const element = document.getElementById('results-card');
+        if (!element) {
+          toast.error("No se pudo encontrar la sección de resultados");
+          return;
+        }
+        
+        const canvas = await html2canvas(element, { 
+          scale: 2,
+          logging: false,
+          backgroundColor: '#ffffff'
+        });
+        
+        // Convertir canvas a blob para compartir
+        canvas.toBlob(async (blob) => {
+          if (blob) {
+            try {
+              const file = new File([blob], 'HABY_Calificacion.png', { type: 'image/png' });
+              
+              await navigator.share({
+                title: 'Mi calificación HABY',
+                text: 'Mira mi calificación calculada con HABY Score Tracker',
+                files: [file]
+              });
+              
+              toast.success('¡Compartido con éxito!');
+            } catch (error) {
+              // Intento alternativo sin archivo (por compatibilidad)
+              await navigator.share({
+                title: 'Mi calificación HABY',
+                text: 'Mira mi calificación calculada con HABY Score Tracker',
+              });
+              
+              toast.success('¡Compartido con éxito!');
+            }
+          }
+        }, 'image/png');
+      } else {
+        toast.info('Tu navegador no soporta la función de compartir');
+      }
+    } catch (error) {
+      console.error('Error al compartir:', error);
+      toast.error('Error al compartir');
     }
   };
   

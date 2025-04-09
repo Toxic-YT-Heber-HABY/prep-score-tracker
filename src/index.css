@@ -124,4 +124,40 @@
   .dark .shadow-card {
     @apply shadow-lg shadow-blue-900/10;
   }
+  
+  /* Gradientes y efectos profesionales */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-education-primary to-education-secondary;
+  }
+  
+  .gradient-dark {
+    @apply bg-gradient-to-r from-education-dark to-education-primary;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/20 dark:bg-black/20;
+  }
+  
+  /* Animaciones mejoradas */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  /* Mejoras para tablas responsivas */
+  .table-responsive {
+    @apply w-full overflow-x-auto rounded-lg border;
+  }
+  
+  /* Asegurarse de que las tablas se vean bien en modo oscuro */
+  .dark .table-header {
+    @apply bg-gray-800 text-gray-200;
+  }
+  
+  .dark .table-row-alt {
+    @apply bg-gray-800/50;
+  }
+  
+  .dark .table-row-hover {
+    @apply hover:bg-gray-700/50;
+  }
 }
