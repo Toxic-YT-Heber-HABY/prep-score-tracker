@@ -153,8 +153,20 @@ const Index = () => {
       </main>
       
       <footer className="bg-white dark:bg-gray-800 py-4 border-t dark:border-gray-700 mt-6 transition-colors duration-300">
-        <div className="container mx-auto text-center text-sm text-gray-500 dark:text-gray-400">
-          &copy; {new Date().getFullYear()} Prep Score Tracker - Calculadora de Calificaciones
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center mb-2 md:mb-0">
+              <img 
+                src="/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png" 
+                alt="HABY Logo" 
+                className="h-8 w-auto mr-2" 
+              />
+              <span className="text-gray-500 dark:text-gray-400">HABY</span>
+            </div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              &copy; {new Date().getFullYear()} Prep Score Tracker - Desarrollado por <span className="font-medium">Heber Zadkiel García Pérez</span>
+            </p>
+          </div>
         </div>
       </footer>
       
