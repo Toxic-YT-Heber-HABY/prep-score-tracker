@@ -9,6 +9,7 @@ import AddActivityForm from './AddActivityForm';
 import { calculateCategoryAverage } from '@/lib/calculator';
 import { Trash2, Edit2, Save, X, PlusCircle } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { useI18n } from '@/lib/i18n';
 
 interface CategoryCardProps {
   category: Category;
@@ -17,6 +18,7 @@ interface CategoryCardProps {
 }
 
 const CategoryCard = ({ category, onUpdate, onDelete }: CategoryCardProps) => {
+  const { t } = useI18n();
   const [isEditing, setIsEditing] = useState(false);
   const [categoryName, setCategoryName] = useState(category.name);
   const [categoryWeight, setCategoryWeight] = useState(category.weight.toString());
@@ -74,30 +76,30 @@ const CategoryCard = ({ category, onUpdate, onDelete }: CategoryCardProps) => {
           {isEditing ? (
             <div className="flex flex-wrap gap-2">
               <div className="flex-1 min-w-[200px]">
-                <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Nombre de la categoría</label>
+                <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">{t('categoryName')}</label>
                 <Input
                   value={categoryName}
                   onChange={handleNameChange}
-                  placeholder="Nombre de la categoría"
-                  className="input-focused"
+                  placeholder={t('categoryName')}
+                  className="input-focused dark:bg-gray-700 dark:border-gray-600"
                 />
               </div>
-              <div className="w-24">
-                <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Peso (%)</label>
+              <div className="w-32">
+                <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">{t('categoryWeight')}</label>
                 <Input
                   type="number"
                   min="0"
                   max="100" 
                   value={categoryWeight}
                   onChange={handleWeightChange}
-                  placeholder="Peso %"
-                  className="input-focused"
+                  placeholder={t('categoryWeight')}
+                  className="input-focused dark:bg-gray-700 dark:border-gray-600"
                 />
               </div>
               <div className="flex items-end mt-2 gap-2">
                 <Button onClick={handleSaveCategory} className="bg-education-primary hover:bg-education-dark btn-hover">
                   <Save className="h-4 w-4 mr-1" />
-                  Guardar
+                  {t('grade')}
                 </Button>
                 <Button variant="outline" onClick={() => setIsEditing(false)} className="btn-hover">
                   <X className="h-4 w-4 mr-1" />
@@ -117,7 +119,7 @@ const CategoryCard = ({ category, onUpdate, onDelete }: CategoryCardProps) => {
                   </CardTitle>
                   {category.activities.length > 0 && (
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      Promedio: {average.toFixed(2)}
+                      {t('average')}: {average.toFixed(2)}
                     </p>
                   )}
                 </div>
@@ -153,7 +155,7 @@ const CategoryCard = ({ category, onUpdate, onDelete }: CategoryCardProps) => {
               ))
             ) : (
               <p className="text-center text-gray-400 dark:text-gray-500 py-4">
-                No hay actividades aún. Añade una actividad usando el formulario debajo.
+                {t('noActivities')}
               </p>
             )}
           </CardContent>

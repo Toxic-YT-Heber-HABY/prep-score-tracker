@@ -6,12 +6,14 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
+import { useI18n } from '@/lib/i18n';
 
 interface AddCategoryFormProps {
   onAddCategory: (category: Category) => void;
 }
 
 const AddCategoryForm = ({ onAddCategory }: AddCategoryFormProps) => {
+  const { t } = useI18n();
   const [categoryName, setCategoryName] = useState('');
   const [categoryWeight, setCategoryWeight] = useState('');
 
@@ -37,7 +39,7 @@ const AddCategoryForm = ({ onAddCategory }: AddCategoryFormProps) => {
   return (
     <Card className="mb-6 border-dashed border-2 shadow-sm">
       <CardHeader className="pb-2">
-        <h3 className="font-medium text-gray-500">Añadir nueva categoría</h3>
+        <h3 className="font-medium text-gray-500 dark:text-gray-400">{t('addCategory')}</h3>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-wrap gap-2">
@@ -45,8 +47,8 @@ const AddCategoryForm = ({ onAddCategory }: AddCategoryFormProps) => {
             <Input
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
-              placeholder="Nombre de la categoría"
-              className="w-full"
+              placeholder={t('categoryName')}
+              className="w-full dark:bg-gray-700 dark:border-gray-600"
             />
           </div>
           <div className="w-32">
@@ -54,15 +56,15 @@ const AddCategoryForm = ({ onAddCategory }: AddCategoryFormProps) => {
               type="number"
               value={categoryWeight}
               onChange={(e) => setCategoryWeight(e.target.value)}
-              placeholder="Peso (%)"
+              placeholder={t('categoryWeight')}
               min="0"
               max="100"
-              className="w-full"
+              className="w-full dark:bg-gray-700 dark:border-gray-600"
             />
           </div>
           <div>
             <Button type="submit" className="bg-education-primary">
-              <Plus className="h-4 w-4 mr-1" /> Categoría
+              <Plus className="h-4 w-4 mr-1" /> {t('categories')}
             </Button>
           </div>
         </form>

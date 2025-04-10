@@ -4,6 +4,7 @@ import { Activity } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { X } from 'lucide-react';
+import { useI18n } from '@/lib/i18n';
 
 interface ActivityItemProps {
   activity: Activity;
@@ -12,6 +13,8 @@ interface ActivityItemProps {
 }
 
 const ActivityItem = ({ activity, onUpdate, onDelete }: ActivityItemProps) => {
+  const { t } = useI18n();
+  
   const handleChange = (field: keyof Activity, value: string) => {
     let parsedValue: string | number = value;
     
@@ -26,36 +29,36 @@ const ActivityItem = ({ activity, onUpdate, onDelete }: ActivityItemProps) => {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-2 p-3 border rounded-md bg-white mb-2">
+    <div className="flex flex-wrap items-center gap-2 p-3 border rounded-md bg-white dark:bg-gray-800 mb-2">
       <div className="flex-1 min-w-[150px]">
-        <label className="text-xs text-gray-500 block">Nombre</label>
+        <label className="text-xs text-gray-500 dark:text-gray-400 block">{t('activityName')}</label>
         <Input
           value={activity.name}
           onChange={(e) => handleChange('name', e.target.value)}
-          className="mt-1"
-          placeholder="Nombre de la actividad"
+          className="mt-1 dark:bg-gray-700 dark:border-gray-600"
+          placeholder={t('activityName')}
         />
       </div>
-      <div className="w-20">
-        <label className="text-xs text-gray-500 block">Peso (%)</label>
+      <div className="w-24">
+        <label className="text-xs text-gray-500 dark:text-gray-400 block">{t('activityWeight')}</label>
         <Input
           type="number"
           min="0"
           max="100"
           value={activity.weight}
           onChange={(e) => handleChange('weight', e.target.value)}
-          className="mt-1"
+          className="mt-1 dark:bg-gray-700 dark:border-gray-600"
         />
       </div>
-      <div className="w-20">
-        <label className="text-xs text-gray-500 block">Calif.</label>
+      <div className="w-24">
+        <label className="text-xs text-gray-500 dark:text-gray-400 block">{t('grade')}</label>
         <Input
           type="number"
           min="0"
           max="100"
           value={activity.grade}
           onChange={(e) => handleChange('grade', e.target.value)}
-          className="mt-1"
+          className="mt-1 dark:bg-gray-700 dark:border-gray-600"
         />
       </div>
       <Button 

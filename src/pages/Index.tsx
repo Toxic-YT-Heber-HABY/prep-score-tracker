@@ -11,10 +11,12 @@ import { Toaster } from "@/components/ui/sonner";
 import { Info, RefreshCw, MoonIcon, SunIcon } from 'lucide-react';
 import { toast } from "sonner";
 import { useTheme } from 'next-themes';
+import { useI18n } from '@/lib/i18n';
 
 const LOCAL_STORAGE_KEY = 'haby-score-tracker-data';
 
 const Index = () => {
+  const { t } = useI18n();
   const [categories, setCategories] = useState<Category[]>(() => {
     // Try to load from localStorage on initial render
     const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -112,19 +114,21 @@ const Index = () => {
       
       <main className="container px-4 py-8 md:px-6 mx-auto max-w-5xl">
         <div className="flex flex-wrap justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Calculadora de Calificaciones</h2>
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+            {t('categories')}
+          </h2>
           <div className="flex space-x-2 mt-2 sm:mt-0">
             <Button variant="outline" onClick={toggleTheme} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
               {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
-              {theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+              {theme === 'dark' ? t('lightMode') : t('darkMode')}
             </Button>
             <Button variant="outline" onClick={handleLoadExample} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
               <Info className="h-4 w-4 mr-1" />
-              Cargar Ejemplo
+              {t('loadExample')}
             </Button>
             <Button variant="outline" onClick={handleReset} className="text-sm text-destructive hover:text-destructive-foreground hover:bg-destructive/10">
               <RefreshCw className="h-4 w-4 mr-1" />
-              Reiniciar
+              {t('reset')}
             </Button>
           </div>
         </div>
@@ -132,8 +136,8 @@ const Index = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="w-full lg:w-7/12 space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Categorías</h3>
-              <span className="text-sm text-gray-500 dark:text-gray-400">Agregar todas las ponderaciones necesarias</span>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{t('categories')}</h3>
+              <span className="text-sm text-gray-500 dark:text-gray-400">{t('categoryWeightExplanation')}</span>
             </div>
             
             {categories.map(category => (
@@ -150,8 +154,8 @@ const Index = () => {
           
           <div className="w-full lg:w-5/12">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Resultado Final</h3>
-              <span className="text-sm text-gray-500 dark:text-gray-400">Calificación calculada</span>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{t('finalResults')}</h3>
+              <span className="text-sm text-gray-500 dark:text-gray-400">{t('gradeWeightExplanation')}</span>
             </div>
             <ResultsDisplay categories={categories} />
           </div>
