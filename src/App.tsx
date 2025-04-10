@@ -20,7 +20,12 @@ const queryClient = new QueryClient({
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider 
+      attribute="class" 
+      defaultTheme="system"
+      enableSystem={true}
+      storageKey="haby-theme-preference"
+    >
       <TooltipProvider>
         <Toaster />
         <Sonner richColors closeButton position="top-right" />

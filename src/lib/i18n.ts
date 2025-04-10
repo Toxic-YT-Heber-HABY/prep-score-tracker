@@ -34,7 +34,8 @@ export type TranslationKey =
   | 'darkMode'
   | 'lightMode'
   | 'gradeWeightExplanation'
-  | 'categoryWeightExplanation';
+  | 'categoryWeightExplanation'
+  | 'appDescription';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   es: {
@@ -70,7 +71,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkMode: 'Modo oscuro',
     lightMode: 'Modo claro',
     gradeWeightExplanation: 'Calificación: Puntuación obtenida en la actividad o categoría, expresada en una escala de 0 a 100.',
-    categoryWeightExplanation: 'Peso de la categoría (%): Porcentaje que determina la importancia relativa de esta categoría en el cálculo de la calificación final. La suma de todos los pesos debe ser igual al 100%.'
+    categoryWeightExplanation: 'Peso de la categoría (%): Porcentaje que determina la importancia relativa de esta categoría en el cálculo de la calificación final. La suma de todos los pesos debe ser igual al 100%.',
+    appDescription: 'Calcula tu calificación de forma precisa'
   },
   en: {
     categories: 'Categories',
@@ -105,7 +107,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkMode: 'Dark Mode',
     lightMode: 'Light Mode',
     gradeWeightExplanation: 'Grade: Score obtained in the activity or category, expressed on a scale from 0 to 100.',
-    categoryWeightExplanation: 'Category weight (%): Percentage that determines the relative importance of this category in calculating the final grade. The sum of all weights must equal 100%.'
+    categoryWeightExplanation: 'Category weight (%): Percentage that determines the relative importance of this category in calculating the final grade. The sum of all weights must equal 100%.',
+    appDescription: 'Calculate your grade accurately'
   }
 };
 
@@ -124,7 +127,10 @@ export const useI18n = create<I18nState>()(
   persist(
     (set, get) => ({
       language: 'es',
-      t: (key: TranslationKey) => translations[get().language][key],
+      t: (key: TranslationKey) => {
+        const currentLanguage = get().language;
+        return translations[currentLanguage][key] || key;
+      },
       setLanguage: (language: Language) => set({ language }),
       toggleLanguage: () => set(state => ({ 
         language: state.language === 'es' ? 'en' : 'es' 
@@ -132,6 +138,7 @@ export const useI18n = create<I18nState>()(
     }),
     {
       name: 'i18n-storage',
+      getStorage: () => localStorage,
     }
   )
 );

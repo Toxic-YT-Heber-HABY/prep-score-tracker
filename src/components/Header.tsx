@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Globe } from 'lucide-react';
 
 const Header = () => {
-  const { language, toggleLanguage } = useI18n();
+  const { language, toggleLanguage, t } = useI18n();
   
   return (
     <header className="bg-gradient-to-r from-education-primary to-education-secondary text-white py-4 px-6 shadow-lg">
@@ -25,7 +25,7 @@ const Header = () => {
             {language === 'es' ? 'English' : 'Español'}
           </Button>
           <p className="text-sm md:text-base opacity-90">
-            {language === 'es' ? 'Calcula tu calificación de forma precisa' : 'Calculate your grade accurately'}
+            {t('appDescription')}
           </p>
         </div>
       </div>

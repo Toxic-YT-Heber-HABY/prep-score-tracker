@@ -32,8 +32,14 @@ const Index = () => {
     return [];
   });
   
-  // Theme toggle
+  // Theme toggle with initial state check
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  // Effect to ensure hydration is complete before rendering theme-dependent UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   // Save to localStorage whenever categories change
   useEffect(() => {
@@ -98,15 +104,20 @@ const Index = () => {
   };
   
   const handleReset = () => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar todas las categorías y actividades?")) {
+    if (window.confirm(t('language') === 'es' ? "¿Estás seguro de que deseas eliminar todas las categorías y actividades?" : "Are you sure you want to delete all categories and activities?")) {
       setCategories([]);
-      toast.success("Datos reiniciados correctamente");
+      toast.success(t('language') === 'es' ? "Datos reiniciados correctamente" : "Data reset successfully");
     }
   };
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
+  // If not mounted yet, don't render theme-dependent UI to prevent flash
+  if (!mounted) {
+    return <div className="min-h-screen bg-gray-50 dark:bg-gray-900"></div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
@@ -118,8 +129,15 @@ const Index = () => {
             {t('categories')}
           </h2>
           <div className="flex space-x-2 mt-2 sm:mt-0">
-            <Button variant="outline" onClick={toggleTheme} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
-              {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
+            <Button 
+              variant="outline" 
+              onClick={toggleTheme} 
+              className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30"
+            >
+              {theme === 'dark' ? 
+                <SunIcon className="h-4 w-4 mr-1" /> : 
+                <MoonIcon className="h-4 w-4 mr-1" />
+              }
               {theme === 'dark' ? t('lightMode') : t('darkMode')}
             </Button>
             <Button variant="outline" onClick={handleLoadExample} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
