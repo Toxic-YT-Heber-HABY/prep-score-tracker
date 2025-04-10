@@ -16,7 +16,7 @@ import { useI18n } from '@/lib/i18n';
 const LOCAL_STORAGE_KEY = 'haby-score-tracker-data';
 
 const Index = () => {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [categories, setCategories] = useState<Category[]>(() => {
     // Try to load from localStorage on initial render
     const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -104,9 +104,9 @@ const Index = () => {
   };
   
   const handleReset = () => {
-    if (window.confirm(t('language') === 'es' ? "¿Estás seguro de que deseas eliminar todas las categorías y actividades?" : "Are you sure you want to delete all categories and activities?")) {
+    if (window.confirm(language === 'es' ? "¿Estás seguro de que deseas eliminar todas las categorías y actividades?" : "Are you sure you want to delete all categories and activities?")) {
       setCategories([]);
-      toast.success(t('language') === 'es' ? "Datos reiniciados correctamente" : "Data reset successfully");
+      toast.success(language === 'es' ? "Datos reiniciados correctamente" : "Data reset successfully");
     }
   };
 

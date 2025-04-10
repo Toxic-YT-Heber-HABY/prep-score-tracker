@@ -138,7 +138,7 @@ export const useI18n = create<I18nState>()(
     }),
     {
       name: 'i18n-storage',
-      getStorage: () => localStorage,
+      storage: localStorage,
     }
   )
 );
