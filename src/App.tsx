@@ -8,16 +8,26 @@ import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
-// Crear el cliente de Query
+/**
+ * Create React Query client with optimized configuration
+ */
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutos
-      retry: 1,
+      staleTime: 5 * 60 * 1000, // 5 minutes cache time
+      retry: 1, // Only retry failed queries once
+      refetchOnWindowFocus: false, // Don't refetch when window regains focus
     },
   },
 });
 
+/**
+ * Main application component with providers for:
+ * - State management (React Query)
+ * - Theming (dark/light mode)
+ * - UI components (tooltips, toasts)
+ * - Routing
+ */
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider 
@@ -25,6 +35,7 @@ const App = () => (
       defaultTheme="system"
       enableSystem={true}
       storageKey="haby-theme-preference"
+      disableTransitionOnChange={false} // Enable smooth transitions between themes
     >
       <TooltipProvider>
         <Toaster />

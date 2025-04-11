@@ -1,8 +1,17 @@
+
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
+/**
+ * Type definition for supported languages in the application
+ * Currently supporting Spanish (es) and English (en)
+ */
 type Language = 'es' | 'en';
 
+/**
+ * Comprehensive list of all translatable keys in the application.
+ * This type ensures type safety when accessing translations.
+ */
 export type TranslationKey = 
   | 'categories'
   | 'addCategory'
@@ -39,6 +48,10 @@ export type TranslationKey =
   | 'categoryWeightExplanation'
   | 'appDescription';
 
+/**
+ * Translation dictionary containing all text content in both supported languages.
+ * Structured as a nested record with language as the first key and translation key as the second.
+ */
 const translations: Record<Language, Record<TranslationKey, string>> = {
   es: {
     categories: 'Categorías',
@@ -114,29 +127,53 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
   }
 };
 
+/**
+ * Interface defining the state and methods for the internationalization store.
+ */
 interface I18nState {
+  /** Current language selection */
   language: Language;
+  /** Translation function that returns text for a given key in the current language */
   t: (key: TranslationKey) => string;
+  /** Function to explicitly set a specific language */
   setLanguage: (lang: Language) => void;
+  /** Function to toggle between available languages */
   toggleLanguage: () => void;
 }
 
+/**
+ * Zustand store for managing internationalization state.
+ * Uses the persist middleware to save language preference to localStorage.
+ */
 export const useI18n = create<I18nState>()(
   persist(
     (set, get) => ({
-      language: 'es',
+      language: 'es', // Default language
+      
+      /**
+       * Translation function - retrieves text for the given key in the current language
+       * Falls back to the key itself if translation is missing
+       */
       t: (key: TranslationKey) => {
         const currentLanguage = get().language;
         return translations[currentLanguage][key] || key;
       },
+      
+      /**
+       * Sets the active language explicitly
+       */
       setLanguage: (language: Language) => set({ language }),
+      
+      /**
+       * Toggles between available languages (es <-> en)
+       */
       toggleLanguage: () => set(state => ({ 
         language: state.language === 'es' ? 'en' : 'es' 
       })),
     }),
     {
-      name: 'i18n-storage',
-      storage: createJSONStorage(() => localStorage),
+      name: 'i18n-storage', // Local storage key
+      storage: createJSONStorage(() => localStorage), // Use localStorage with proper JSON serialization
     }
   )
 );
