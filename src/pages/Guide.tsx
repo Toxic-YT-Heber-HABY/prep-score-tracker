@@ -1,534 +1,647 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useI18n } from '@/lib/i18n';
 import Header from '@/components/Header';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import { 
-  ArrowLeft, 
-  BookOpen, 
-  Calculator, 
-  ChevronRight, 
-  GraduationCap, 
-  Lightbulb, 
-  List, 
-  Percent, 
-  PlusCircle, 
-  Settings
-} from 'lucide-react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { BookOpen, Search, Copy, ArrowLeft, ArrowUp, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { useI18n } from '@/lib/i18n';
 
 /**
- * Comprehensive guide page that explains how to use the HABY Score Tracker application
+ * User guide page with detailed information about using the HABY Score Tracker
  */
 const Guide = () => {
-  const { language } = useI18n();
+  const { language, t } = useI18n();
+  const { toast } = useToast();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentStep, setCurrentStep] = useState(0);
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Separate translation types to fix type issues
+  const spanishSteps = [
+    "Crear categorías",
+    "Agregar actividades",
+    "Configurar pesos",
+    "Ver resultados"
+  ];
   
-  // Translation function for this component
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      es: {
-        title: "Guía completa de uso",
-        subtitle: "Aprende a utilizar HABY Score Tracker paso a paso",
-        backToApp: "Volver a la aplicación",
-        basicUsage: "Uso básico",
-        categoriesSection: "Categorías",
-        activitiesSection: "Actividades",
-        calculationSection: "Cálculo de calificaciones",
-        tipsSection: "Consejos y trucos",
-        faqSection: "Preguntas frecuentes",
-        categoriesExplanation: "Las categorías representan los diferentes componentes de evaluación de un curso o asignatura. Por ejemplo: exámenes, tareas, proyectos, participación, etc.",
-        activitiesExplanation: "Las actividades son las evaluaciones específicas dentro de cada categoría. Por ejemplo, dentro de la categoría 'Exámenes' podrías tener: Examen parcial 1, Examen parcial 2, Examen final.",
-        calculationExplanation: "HABY Score Tracker calcula tu calificación final basándose en el peso asignado a cada categoría y a cada actividad dentro de las categorías. Para una calificación precisa, asegúrate de que los pesos de las categorías sumen exactamente 100%.",
-        weightConsiderations: "El peso de cada categoría determina su importancia en la calificación final. Por ejemplo, si 'Exámenes' tiene un peso de 40%, contribuirá con hasta 40% de la calificación final.",
-        activityWeights: "Los pesos de las actividades dentro de una categoría deben sumar 100% para una representación precisa.",
-        stepByStepTitle: "Guía paso a paso",
-        step1Title: "Añade categorías",
-        step2Title: "Añade actividades",
-        step3Title: "Revisa los resultados",
-        step1Detail: "Crea las categorías de evaluación con sus respectivos pesos. Por ejemplo: Exámenes (40%), Proyectos (30%), Tareas (20%), Participación (10%).",
-        step2Detail: "Dentro de cada categoría, agrega las actividades evaluadas con su peso y calificación. Por ejemplo, en Exámenes: Parcial 1 (30%, 85 pts), Parcial 2 (30%, 90 pts), Final (40%, 78 pts).",
-        step3Detail: "Observa tu calificación final calculada automáticamente en base a los pesos y calificaciones asignadas. La explicación detallada del cálculo aparece en el panel de resultados.",
-      },
-      en: {
-        title: "Complete User Guide",
-        subtitle: "Learn how to use HABY Score Tracker step by step",
-        backToApp: "Back to application",
-        basicUsage: "Basic Usage",
-        categoriesSection: "Categories",
-        activitiesSection: "Activities",
-        calculationSection: "Grade Calculation",
-        tipsSection: "Tips and Tricks",
-        faqSection: "Frequently Asked Questions",
-        categoriesExplanation: "Categories represent the different evaluation components of a course or subject. For example: exams, assignments, projects, participation, etc.",
-        activitiesExplanation: "Activities are the specific evaluations within each category. For example, within the 'Exams' category you might have: Midterm 1, Midterm 2, Final Exam.",
-        calculationExplanation: "HABY Score Tracker calculates your final grade based on the weight assigned to each category and each activity within categories. For accurate grading, ensure that the category weights add up to exactly 100%.",
-        weightConsiderations: "The weight of each category determines its importance in the final grade. For example, if 'Exams' has a weight of 40%, it will contribute up to 40% of the final grade.",
-        activityWeights: "The weights of activities within a category should add up to 100% for accurate representation.",
-        stepByStepTitle: "Step by step guide",
-        step1Title: "Add categories",
-        step2Title: "Add activities",
-        step3Title: "Review results",
-        step1Detail: "Create evaluation categories with their respective weights. For example: Exams (40%), Projects (30%), Assignments (20%), Participation (10%).",
-        step2Detail: "Within each category, add evaluated activities with their weight and grade. For example, in Exams: Midterm 1 (30%, 85 pts), Midterm 2 (30%, 90 pts), Final (40%, 78 pts).",
-        step3Detail: "Observe your final grade automatically calculated based on the assigned weights and grades. Detailed explanation of the calculation appears in the results panel.",
-      }
-    };
-    
-    return translations[language]?.[key] || key;
+  const englishSteps = [
+    "Create categories",
+    "Add activities",
+    "Configure weights",
+    "View results"
+  ];
+
+  // FAQ data as arrays, not strings
+  const spanishFaq = [
+    { 
+      question: "¿Cómo agrego una nueva categoría?", 
+      answer: "Para agregar una nueva categoría, completa el formulario 'Agregar categoría' con el nombre y el peso deseados, luego haz clic en 'Agregar'." 
+    },
+    { 
+      question: "¿Cómo puedo eliminar una actividad?", 
+      answer: "Para eliminar una actividad, haz clic en el botón con el icono de papelera junto a la actividad que deseas eliminar." 
+    },
+    { 
+      question: "¿Qué sucede si el total de los pesos no suma 100%?", 
+      answer: "El sistema mostrará un error y no podrá calcular la calificación final hasta que los pesos sumen exactamente 100%." 
+    },
+    { 
+      question: "¿Puedo exportar mis resultados?", 
+      answer: "Sí, puedes exportar tus resultados en formato PDF o imagen usando los botones de exportación en la sección de resultados." 
+    },
+    { 
+      question: "¿Los datos se guardan automáticamente?", 
+      answer: "Sí, todos los datos se guardan automáticamente en el almacenamiento local de tu navegador." 
+    }
+  ];
+  
+  const englishFaq = [
+    { 
+      question: "How do I add a new category?", 
+      answer: "To add a new category, fill out the 'Add category' form with the desired name and weight, then click 'Add'." 
+    },
+    { 
+      question: "How can I delete an activity?", 
+      answer: "To delete an activity, click on the trash icon button next to the activity you want to remove." 
+    },
+    { 
+      question: "What happens if the total weights don't add up to 100%?", 
+      answer: "The system will display an error and won't be able to calculate the final grade until the weights add up to exactly 100%." 
+    },
+    { 
+      question: "Can I export my results?", 
+      answer: "Yes, you can export your results in PDF or image format using the export buttons in the results section." 
+    },
+    { 
+      question: "Is data saved automatically?", 
+      answer: "Yes, all data is automatically saved in your browser's local storage." 
+    }
+  ];
+
+  // Features data as arrays, not strings
+  const spanishFeatures = [
+    { 
+      title: "Categorías personalizables", 
+      description: "Organiza tus calificaciones en categorías como exámenes, tareas, proyectos, etc." 
+    },
+    { 
+      title: "Ponderación flexible", 
+      description: "Asigna diferentes pesos a categorías y actividades según su importancia." 
+    },
+    { 
+      title: "Cálculo automático", 
+      description: "Obtén tu calificación final calculada automáticamente según los pesos asignados." 
+    },
+    { 
+      title: "Exportación de resultados", 
+      description: "Guarda o comparte tus resultados en formato PDF o imagen." 
+    },
+    { 
+      title: "Interfaz intuitiva", 
+      description: "Diseño simple y fácil de usar para administrar tus calificaciones eficientemente." 
+    }
+  ];
+  
+  const englishFeatures = [
+    { 
+      title: "Customizable categories", 
+      description: "Organize your grades into categories such as exams, assignments, projects, etc." 
+    },
+    { 
+      title: "Flexible weighting", 
+      description: "Assign different weights to categories and activities based on their importance." 
+    },
+    { 
+      title: "Automatic calculation", 
+      description: "Get your final grade calculated automatically based on the assigned weights." 
+    },
+    { 
+      title: "Results export", 
+      description: "Save or share your results in PDF or image format." 
+    },
+    { 
+      title: "Intuitive interface", 
+      description: "Simple and easy-to-use design to manage your grades efficiently." 
+    }
+  ];
+
+  // Tutorial steps
+  const spanishTutorialSteps = [
+    { title: "Paso 1: Crear categorías", content: "Comienza creando las categorías para tus calificaciones (exámenes, tareas, etc.) y asignando el porcentaje que cada categoría representa en tu calificación final. Recuerda que la suma debe ser exactamente 100%." },
+    { title: "Paso 2: Agregar actividades", content: "Dentro de cada categoría, agrega las actividades específicas (por ejemplo: 'Examen parcial 1', 'Tarea semanal', etc.) y asigna el peso que cada actividad tiene dentro de su categoría." },
+    { title: "Paso 3: Ingresar calificaciones", content: "Ingresa las calificaciones obtenidas en cada actividad en una escala de 0 a 100." },
+    { title: "Paso 4: Revisar resultados", content: "Revisa la sección de resultados para ver tu calificación final calculada, junto con el desglose por categorías." }
+  ];
+  
+  const englishTutorialSteps = [
+    { title: "Step 1: Create categories", content: "Start by creating categories for your grades (exams, assignments, etc.) and assigning the percentage that each category represents in your final grade. Remember that the sum must be exactly 100%." },
+    { title: "Step 2: Add activities", content: "Within each category, add specific activities (e.g., 'Midterm exam 1', 'Weekly assignment', etc.) and assign the weight that each activity has within its category." },
+    { title: "Step 3: Enter grades", content: "Enter the grades obtained for each activity on a scale of 0 to 100." },
+    { title: "Step 4: Review results", content: "Check the results section to see your calculated final grade, along with the breakdown by category." }
+  ];
+
+  // Use the correct type of data based on language
+  const steps = language === 'es' ? spanishSteps : englishSteps;
+  const faq = language === 'es' ? spanishFaq : englishFaq;
+  const features = language === 'es' ? spanishFeatures : englishFeatures;
+  const tutorialSteps = language === 'es' ? spanishTutorialSteps : englishTutorialSteps;
+
+  // For table of contents navigation
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // For copying examples
+  const handleCopyExample = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: language === 'es' ? "Copiado" : "Copied",
+      description: language === 'es' ? "Ejemplo copiado al portapapeles" : "Example copied to clipboard",
+    });
   };
   
-  // Define arrays and objects separately from the translation function
-  const addCategorySteps = language === 'es' ? [
-    "Haz clic en el formulario 'Añadir nueva categoría'",
-    "Ingresa el nombre de la categoría (por ejemplo, 'Exámenes')",
-    "Asigna un peso porcentual a la categoría (por ejemplo, '40')",
-    "Haz clic en el botón 'Añadir'"
-  ] : [
-    "Click on the 'Add new category' form",
-    "Enter the category name (e.g., 'Exams')",
-    "Assign a percentage weight to the category (e.g., '40')",
-    "Click the 'Add' button"
-  ];
-  
-  const addActivitySteps = language === 'es' ? [
-    "Localiza la categoría a la que deseas añadir una actividad",
-    "En el formulario 'Añadir actividad', ingresa el nombre",
-    "Asigna un peso dentro de la categoría",
-    "Ingresa la calificación obtenida (de 0 a 100)",
-    "Haz clic en 'Añadir'"
-  ] : [
-    "Locate the category where you want to add an activity",
-    "In the 'Add activity' form, enter the name",
-    "Assign a weight within the category",
-    "Enter the grade obtained (from 0 to 100)",
-    "Click 'Add'"
-  ];
-  
-  const faqQuestions = language === 'es' ? [
-    {
-      question: "¿Qué significa el porcentaje de peso?",
-      answer: "El porcentaje de peso representa la importancia relativa de una categoría o actividad en el cálculo de la calificación final. Cuanto mayor sea el porcentaje, más influencia tendrá en el resultado final."
-    },
-    {
-      question: "¿Cómo se calcula la calificación final?",
-      answer: "La calificación final se calcula obteniendo primero el promedio ponderado de las actividades dentro de cada categoría. Luego, estos promedios se multiplican por el peso de su categoría y se suman todos los resultados. El sistema muestra el resultado tanto en escala de 100 como de 10 puntos."
-    },
-    {
-      question: "¿Puedo modificar o eliminar categorías y actividades?",
-      answer: "Sí, puedes editar o eliminar cualquier categoría o actividad haciendo clic en los iconos correspondientes junto a cada elemento."
-    },
-    {
-      question: "¿Se guardan mis datos automáticamente?",
-      answer: "Sí, todos los datos se guardan automáticamente en el almacenamiento local de tu navegador. Sin embargo, si limpias los datos del navegador, perderás esta información."
-    }
-  ] : [
-    {
-      question: "What does the weight percentage mean?",
-      answer: "The weight percentage represents the relative importance of a category or activity in calculating the final grade. The higher the percentage, the more influence it will have on the final result."
-    },
-    {
-      question: "How is the final grade calculated?",
-      answer: "The final grade is calculated by first obtaining the weighted average of activities within each category. Then, these averages are multiplied by the weight of their category and all results are added together. The system displays the result in both 100 and 10-point scales."
-    },
-    {
-      question: "Can I modify or delete categories and activities?",
-      answer: "Yes, you can edit or delete any category or activity by clicking on the corresponding icons next to each item."
-    },
-    {
-      question: "Are my data automatically saved?",
-      answer: "Yes, all data is automatically saved in your browser's local storage. However, if you clear your browser data, you will lose this information."
-    }
-  ];
-  
-  const tips = language === 'es' ? [
-    {
-      title: "Usa el ejemplo",
-      description: "Si es tu primera vez, utiliza la función 'Cargar ejemplo' para entender cómo funciona la aplicación con datos de muestra."
-    },
-    {
-      title: "Mantén los pesos en 100%",
-      description: "Asegúrate de que los pesos de todas las categorías sumen exactamente 100% para obtener un cálculo preciso."
-    },
-    {
-      title: "Actividades sin calificación",
-      description: "Para actividades futuras que aún no tienes calificación, puedes añadirlas con calificación 0 o esperar a tenerlas para mantener precisos los cálculos."
-    },
-    {
-      title: "Simulación de escenarios",
-      description: "Usa HABY para simular diferentes escenarios y conocer qué calificaciones necesitas en evaluaciones futuras para alcanzar tu meta."
-    }
-  ] : [
-    {
-      title: "Use the example",
-      description: "If it's your first time, use the 'Load example' function to understand how the application works with sample data."
-    },
-    {
-      title: "Keep weights at 100%",
-      description: "Make sure that the weights of all categories add up to exactly 100% for an accurate calculation."
-    },
-    {
-      title: "Ungraded activities",
-      description: "For future activities that you don't have a grade for yet, you can add them with a grade of 0 or wait until you have them to keep calculations accurate."
-    },
-    {
-      title: "Scenario simulation",
-      description: "Use HABY to simulate different scenarios and know what grades you need in future evaluations to reach your goal."
-    }
-  ];
+  // Handle search filtering
+  const filterContent = (content: any[], term: string) => {
+    if (!term) return content;
+    
+    return content.filter(item => {
+      if (typeof item === 'string') {
+        return item.toLowerCase().includes(term.toLowerCase());
+      } else if (item.question) { // FAQ item
+        return item.question.toLowerCase().includes(term.toLowerCase()) || 
+               item.answer.toLowerCase().includes(term.toLowerCase());
+      } else if (item.title) { // Feature or tutorial item
+        return item.title.toLowerCase().includes(term.toLowerCase()) || 
+               item.description?.toLowerCase().includes(term.toLowerCase()) ||
+               item.content?.toLowerCase().includes(term.toLowerCase());
+      }
+      return false;
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Header />
       
-      <main className="container mx-auto px-4 py-8 md:px-6 max-w-5xl">
-        {/* Header section */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2 mb-2">
-            <Link to="/">
-              <Button variant="outline" size="sm" className="flex items-center gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                {t('backToApp')}
-              </Button>
-            </Link>
-          </div>
-          
-          <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent">
-            {t('title')}
-          </h1>
-          <p className="text-gray-700 dark:text-gray-300 max-w-3xl">
-            {t('subtitle')}
-          </p>
-        </div>
-        
-        {/* Step by step guide */}
-        <section className="mb-12 p-6 rounded-lg bg-gradient-to-r from-education-primary/10 to-education-secondary/10 border border-education-primary/20">
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <BookOpen className="h-5 w-5 text-education-primary" />
-            {t('stepByStepTitle')}
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <div className="h-6 w-6 rounded-full bg-education-primary text-white flex items-center justify-center font-medium">1</div>
-                  {t('step1Title')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {t('step1Detail')}
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <div className="h-6 w-6 rounded-full bg-education-secondary text-white flex items-center justify-center font-medium">2</div>
-                  {t('step2Title')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {t('step2Detail')}
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <div className="h-6 w-6 rounded-full bg-education-dark text-white flex items-center justify-center font-medium">3</div>
-                  {t('step3Title')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {t('step3Detail')}
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-        
-        {/* Detailed categories section */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <List className="h-5 w-5 text-education-primary" />
-            {t('categoriesSection')}
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <main className="container mx-auto px-4 py-8 max-w-6xl">
+        {/* Guide Header */}
+        <div className="mb-8 bg-gradient-to-r from-education-primary to-education-secondary text-white rounded-lg p-6 shadow-lg">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <p className="mb-4 text-gray-700 dark:text-gray-300">
-                {t('categoriesExplanation')}
-              </p>
-              
-              <h3 className="text-lg font-medium mb-3 text-education-primary">
-                {language === 'es' ? 'Cómo añadir una categoría:' : 'How to add a category:'}
-              </h3>
-              
-              <ol className="space-y-2 mb-4">
-                {addCategorySteps.map((step, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <ChevronRight className="h-5 w-5 text-education-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700 dark:text-gray-300">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border dark:border-gray-700">
-              <h3 className="text-lg font-medium mb-3 text-education-primary">
-                {language === 'es' ? 'Consideraciones sobre el peso:' : 'Weight considerations:'}
-              </h3>
-              
-              <p className="mb-4 text-gray-700 dark:text-gray-300">
-                {t('weightConsiderations')}
-              </p>
-              
-              <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-md border border-yellow-200 dark:border-yellow-800/30 mb-3">
-                <div className="flex gap-2">
-                  <Percent className="h-5 w-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0" />
-                  <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                    {language === 'es' 
-                      ? 'Importante: La suma de los pesos de todas las categorías debe ser exactamente 100%.'
-                      : 'Important: The sum of all category weights must be exactly 100%.'}
-                  </p>
-                </div>
-              </div>
-              
-              <div className="mt-4">
-                <strong className="text-education-primary text-sm">
-                  {language === 'es' ? 'Ejemplo:' : 'Example:'}
-                </strong>
-                <ul className="mt-2 space-y-1 text-sm">
-                  <li className="text-gray-700 dark:text-gray-300">• {language === 'es' ? 'Exámenes: 40%' : 'Exams: 40%'}</li>
-                  <li className="text-gray-700 dark:text-gray-300">• {language === 'es' ? 'Proyectos: 30%' : 'Projects: 30%'}</li>
-                  <li className="text-gray-700 dark:text-gray-300">• {language === 'es' ? 'Tareas: 20%' : 'Assignments: 20%'}</li>
-                  <li className="text-gray-700 dark:text-gray-300">• {language === 'es' ? 'Participación: 10%' : 'Participation: 10%'}</li>
-                  <li className="font-medium text-education-primary mt-1">= 100%</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* Activities section */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <PlusCircle className="h-5 w-5 text-education-primary" />
-            {t('activitiesSection')}
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border dark:border-gray-700 order-2 md:order-1">
-              <h3 className="text-lg font-medium mb-3 text-education-primary">
-                {language === 'es' ? 'Ejemplo de actividades:' : 'Example activities:'}
-              </h3>
-              
-              <div className="mb-5">
-                <div className="font-medium text-education-secondary mb-1">
-                  {language === 'es' ? 'Categoría: Exámenes (40%)' : 'Category: Exams (40%)'}
-                </div>
-                <ul className="pl-5 space-y-1 text-sm">
-                  <li className="text-gray-700 dark:text-gray-300">• {language === 'es' ? 'Parcial 1: 30%, 85 pts' : 'Midterm 1: 30%, 85 pts'}</li>
-                  <li className="text-gray-700 dark:text-gray-300">• {language === 'es' ? 'Parcial 2: 30%, 90 pts' : 'Midterm 2: 30%, 90 pts'}</li>
-                  <li className="text-gray-700 dark:text-gray-300">• {language === 'es' ? 'Final: 40%, 78 pts' : 'Final: 40%, 78 pts'}</li>
-                </ul>
-              </div>
-              
-              <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-md border border-blue-200 dark:border-blue-800/30">
-                <div className="flex gap-2">
-                  <Lightbulb className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-                  <p className="text-sm text-blue-800 dark:text-blue-200">
-                    {language === 'es' 
-                      ? 'Consejo: Los pesos de las actividades dentro de cada categoría también deben sumar 100%.'
-                      : 'Tip: Activity weights within each category should also add up to 100%.'}
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="order-1 md:order-2">
-              <p className="mb-4 text-gray-700 dark:text-gray-300">
-                {t('activitiesExplanation')}
-              </p>
-              
-              <h3 className="text-lg font-medium mb-3 text-education-primary">
-                {language === 'es' ? 'Cómo añadir una actividad:' : 'How to add an activity:'}
-              </h3>
-              
-              <ol className="space-y-2">
-                {addActivitySteps.map((step, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <ChevronRight className="h-5 w-5 text-education-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700 dark:text-gray-300">{step}</span>
-                  </li>
-                ))}
-              </ol>
-              
-              <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                {t('activityWeights')}
-              </p>
-            </div>
-          </div>
-        </section>
-        
-        {/* Calculation section */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <Calculator className="h-5 w-5 text-education-primary" />
-            {t('calculationSection')}
-          </h2>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>{language === 'es' ? 'Cálculo de la calificación final' : 'Final grade calculation'}</CardTitle>
-              <CardDescription>
+              <h1 className="text-3xl font-bold mb-2 flex items-center">
+                <BookOpen className="mr-2" /> 
+                {language === 'es' ? 'Guía de Usuario HABY' : 'HABY User Guide'}
+              </h1>
+              <p className="text-white/80 max-w-2xl">
                 {language === 'es' 
-                  ? 'Entendiendo cómo HABY calcula tu calificación final'
-                  : 'Understanding how HABY calculates your final grade'}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4 text-gray-700 dark:text-gray-300">
-                {t('calculationExplanation')}
+                  ? 'Aprende a utilizar todas las funciones de la calculadora de calificaciones HABY para obtener el máximo provecho.' 
+                  : 'Learn how to use all the features of the HABY grade calculator to get the most out of it.'}
               </p>
-              
-              <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg border dark:border-gray-700">
-                <h4 className="font-medium mb-2 text-education-secondary">
-                  {language === 'es' ? 'Fórmula de cálculo:' : 'Calculation formula:'}
-                </h4>
-                
-                <ol className="space-y-3 text-sm">
-                  <li className="flex gap-2">
-                    <span className="font-medium text-education-primary">1.</span>
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {language === 'es' 
-                        ? 'Para cada categoría, se calcula el promedio ponderado de las actividades:'
-                        : 'For each category, calculate the weighted average of activities:'}
-                      <br />
-                      <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">
-                        {language === 'es' 
-                          ? 'PromedioCategoria = Σ(Calificación × Peso) ÷ 100'
-                          : 'CategoryAverage = Σ(Grade × Weight) ÷ 100'}
-                      </code>
-                    </span>
-                  </li>
-                  
-                  <li className="flex gap-2">
-                    <span className="font-medium text-education-primary">2.</span>
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {language === 'es' 
-                        ? 'Se multiplica el promedio de cada categoría por su peso:'
-                        : 'Multiply each category average by its weight:'}
-                      <br />
-                      <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">
-                        {language === 'es' 
-                          ? 'PuntosCategoria = PromedioCategoria × PesoCategoria ÷ 100'
-                          : 'CategoryPoints = CategoryAverage × CategoryWeight ÷ 100'}
-                      </code>
-                    </span>
-                  </li>
-                  
-                  <li className="flex gap-2">
-                    <span className="font-medium text-education-primary">3.</span>
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {language === 'es' 
-                        ? 'Se suman todos los puntos de las categorías para obtener la calificación final:'
-                        : 'Add up all category points to get the final grade:'}
-                      <br />
-                      <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">
-                        {language === 'es' 
-                          ? 'CalificaciónFinal = Σ(PuntosCategoria)'
-                          : 'FinalGrade = Σ(CategoryPoints)'}
-                      </code>
-                    </span>
-                  </li>
-                </ol>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-        
-        {/* Tips section */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <Lightbulb className="h-5 w-5 text-education-primary" />
-            {t('tipsSection')}
-          </h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {tips.map((tip, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 p-4 rounded-lg border dark:border-gray-700">
-                <h3 className="font-medium mb-2 text-education-primary flex items-center gap-2">
-                  <div className="h-5 w-5 rounded-full bg-education-light dark:bg-education-primary/20 text-education-primary flex items-center justify-center text-xs font-bold">
-                    {index + 1}
-                  </div>
-                  {tip.title}
-                </h3>
-                <p className="text-sm text-gray-700 dark:text-gray-300">{tip.description}</p>
-              </div>
-            ))}
+            </div>
+            <div className="flex gap-2">
+              <Link to="/">
+                <Button variant="outline" size="sm" className="bg-white/10 hover:bg-white/20 text-white border-white/20">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  {language === 'es' ? 'Volver a la calculadora' : 'Back to calculator'}
+                </Button>
+              </Link>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                onClick={() => setShowTutorial(!showTutorial)}
+              >
+                {showTutorial 
+                  ? (language === 'es' ? 'Cerrar tutorial' : 'Close tutorial') 
+                  : (language === 'es' ? 'Iniciar tutorial' : 'Start tutorial')}
+              </Button>
+            </div>
           </div>
-        </section>
-        
-        {/* FAQ section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-            <Settings className="h-5 w-5 text-education-primary" />
-            {t('faqSection')}
-          </h2>
+        </div>
+
+        {/* Tutorial Overlay */}
+        {showTutorial && (
+          <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full p-6 shadow-xl">
+              <h3 className="text-2xl font-bold mb-4">
+                {tutorialSteps[currentStep].title}
+              </h3>
+              <div className="mb-6">
+                <p className="text-gray-700 dark:text-gray-300">
+                  {tutorialSteps[currentStep].content}
+                </p>
+              </div>
+              <div className="border-t pt-4 flex justify-between">
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                  disabled={currentStep === 0}
+                >
+                  {language === 'es' ? 'Anterior' : 'Previous'}
+                </Button>
+                <div className="flex gap-1">
+                  {tutorialSteps.map((_, idx) => (
+                    <span 
+                      key={idx}
+                      className={`h-2 w-2 rounded-full ${idx === currentStep ? 'bg-education-primary' : 'bg-gray-300'}`}
+                    />
+                  ))}
+                </div>
+                {currentStep < tutorialSteps.length - 1 ? (
+                  <Button
+                    onClick={() => setCurrentStep(currentStep + 1)}
+                  >
+                    {language === 'es' ? 'Siguiente' : 'Next'}
+                  </Button>
+                ) : (
+                  <Button onClick={() => setShowTutorial(false)}>
+                    <CheckCircle2 className="mr-2 h-4 w-4" />
+                    {language === 'es' ? 'Finalizar' : 'Finish'}
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Quick Navigation Bar & Search */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-6 shadow-md">
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+            <div className="flex gap-2 flex-wrap">
+              <Button size="sm" variant="outline" onClick={() => scrollToSection('overview')}>
+                {language === 'es' ? 'Vista general' : 'Overview'}
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => scrollToSection('features')}>
+                {language === 'es' ? 'Características' : 'Features'}
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => scrollToSection('how-to')}>
+                {language === 'es' ? 'Cómo usar' : 'How to use'}
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => scrollToSection('faq')}>
+                {language === 'es' ? 'Preguntas frecuentes' : 'FAQ'}
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => scrollToSection('examples')}>
+                {language === 'es' ? 'Ejemplos' : 'Examples'}
+              </Button>
+            </div>
+            <div className="relative w-full md:w-64">
+              <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <Input
+                placeholder={language === 'es' ? "Buscar en la guía..." : "Search guide..."}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-8"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Left Sidebar - Table of Contents */}
+          <div className="md:col-span-1">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md sticky top-4">
+              <h2 className="text-lg font-semibold mb-4 border-b pb-2">
+                {language === 'es' ? 'Tabla de contenido' : 'Table of Contents'}
+              </h2>
+              <nav className="space-y-1">
+                <a 
+                  href="#overview" 
+                  className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('overview'); }}
+                >
+                  {language === 'es' ? 'Vista general' : 'Overview'}
+                </a>
+                <a 
+                  href="#features" 
+                  className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('features'); }}
+                >
+                  {language === 'es' ? 'Características principales' : 'Main features'}
+                </a>
+                <a 
+                  href="#how-to" 
+                  className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('how-to'); }}
+                >
+                  {language === 'es' ? 'Cómo usar HABY' : 'How to use HABY'}
+                </a>
+                <div className="pl-4 border-l border-gray-200 dark:border-gray-700 ml-2 mt-1">
+                  {steps.map((step, index) => (
+                    <a
+                      key={index}
+                      href={`#step-${index + 1}`}
+                      className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-sm transition-colors"
+                      onClick={(e) => { e.preventDefault(); scrollToSection(`step-${index + 1}`); }}
+                    >
+                      {step}
+                    </a>
+                  ))}
+                </div>
+                <a 
+                  href="#faq" 
+                  className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
+                >
+                  {language === 'es' ? 'Preguntas frecuentes' : 'FAQ'}
+                </a>
+                <a 
+                  href="#examples" 
+                  className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  onClick={(e) => { e.preventDefault(); scrollToSection('examples'); }}
+                >
+                  {language === 'es' ? 'Ejemplos prácticos' : 'Practical examples'}
+                </a>
+              </nav>
+              
+              {/* Quick Actions */}
+              <div className="mt-6 pt-4 border-t">
+                <h3 className="text-sm font-medium mb-2">
+                  {language === 'es' ? 'Acciones rápidas' : 'Quick actions'}
+                </h3>
+                <div className="space-y-2">
+                  <Link to="/" className="flex items-center text-sm text-education-primary hover:underline">
+                    <ArrowLeft className="mr-2 h-3 w-3" />
+                    {language === 'es' ? 'Volver a la calculadora' : 'Back to calculator'}
+                  </Link>
+                  <button 
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="flex items-center text-sm text-education-primary hover:underline"
+                  >
+                    <ArrowUp className="mr-2 h-3 w-3" />
+                    {language === 'es' ? 'Volver arriba' : 'Back to top'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
           
-          <Card>
-            <CardContent className="pt-6">
-              <Accordion type="single" collapsible className="w-full">
-                {faqQuestions.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`}>
-                    <AccordionTrigger className="text-left">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <p className="text-gray-700 dark:text-gray-300 py-2">
-                        {faq.answer}
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </CardContent>
-          </Card>
-        </section>
-        
-        {/* Back to app button */}
-        <div className="flex justify-center mb-12">
-          <Link to="/">
-            <Button className="bg-education-primary hover:bg-education-dark text-white flex items-center gap-2">
-              <GraduationCap className="h-4 w-4" />
-              {language === 'es' ? 'Volver a la calculadora' : 'Back to calculator'}
-            </Button>
-          </Link>
+          {/* Main Content Area */}
+          <div className="md:col-span-2 space-y-8">
+            <Tabs defaultValue="guide" className="w-full">
+              <TabsList className="w-full grid grid-cols-2 mb-4">
+                <TabsTrigger value="guide">
+                  {language === 'es' ? 'Guía de uso' : 'User guide'}
+                </TabsTrigger>
+                <TabsTrigger value="examples">
+                  {language === 'es' ? 'Ejemplos prácticos' : 'Practical examples'}
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="guide" className="space-y-6">
+                {/* Overview Section */}
+                <section id="overview" className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                  <h2 className="text-2xl font-bold mb-4 text-education-primary">
+                    {language === 'es' ? 'Vista general' : 'Overview'}
+                  </h2>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    {language === 'es'
+                      ? 'HABY Score Tracker es una calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando pesos específicos para obtener tu calificación final de manera precisa. Con HABY, puedes calcular fácilmente tus calificaciones finales basadas en diferentes criterios de evaluación y ponderaciones.'
+                      : 'HABY Score Tracker is a grade calculator that allows you to organize your evaluations by categories and activities, assigning specific weights to obtain your final grade accurately. With HABY, you can easily calculate your final grades based on different evaluation criteria and weightings.'}
+                  </p>
+                </section>
+                
+                {/* Features Section */}
+                <section id="features" className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                  <h2 className="text-2xl font-bold mb-4 text-education-primary">
+                    {language === 'es' ? 'Características principales' : 'Main features'}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {filterContent(features, searchTerm).map((feature, index) => (
+                      <div key={index} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <h3 className="text-lg font-semibold mb-1">{feature.title}</h3>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{feature.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+                
+                {/* How to Use Section */}
+                <section id="how-to" className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                  <h2 className="text-2xl font-bold mb-4 text-education-primary">
+                    {language === 'es' ? 'Cómo usar HABY' : 'How to use HABY'}
+                  </h2>
+                  
+                  {steps.map((step, index) => (
+                    <div id={`step-${index + 1}`} key={index} className="mb-6 last:mb-0">
+                      <h3 className="text-lg font-semibold mb-2 flex items-center">
+                        <Badge variant="outline" className="mr-2 bg-education-primary/10 text-education-primary border-education-primary/20">
+                          {index + 1}
+                        </Badge>
+                        {step}
+                      </h3>
+                      <div className="pl-9">
+                        <p className="text-gray-700 dark:text-gray-300">
+                          {tutorialSteps[index].content}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </section>
+                
+                {/* FAQ Section */}
+                <section id="faq" className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                  <h2 className="text-2xl font-bold mb-4 text-education-primary">
+                    {language === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions'}
+                  </h2>
+                  <Accordion type="single" collapsible className="w-full">
+                    {filterContent(faq, searchTerm).map((item, index) => (
+                      <AccordionItem key={index} value={`faq-${index}`}>
+                        <AccordionTrigger className="text-left">
+                          {item.question}
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <p className="text-gray-700 dark:text-gray-300">{item.answer}</p>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </section>
+              </TabsContent>
+              
+              {/* Examples Tab */}
+              <TabsContent value="examples" className="space-y-6">
+                <section id="examples" className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                  <h2 className="text-2xl font-bold mb-4 text-education-primary">
+                    {language === 'es' ? 'Ejemplos prácticos' : 'Practical examples'}
+                  </h2>
+                  
+                  <div className="space-y-6">
+                    {/* Example 1 */}
+                    <div className="border rounded-lg p-4">
+                      <h3 className="text-lg font-semibold mb-2">
+                        {language === 'es' ? 'Ejemplo 1: Curso universitario estándar' : 'Example 1: Standard university course'}
+                      </h3>
+                      <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded relative">
+                        <Button 
+                          size="icon" 
+                          variant="outline" 
+                          className="absolute top-2 right-2 h-8 w-8"
+                          onClick={() => handleCopyExample(language === 'es' ? 'Ejemplo 1 - Categorías:\n\nExámenes (40%)\n- Examen parcial 1 (50%): 85\n- Examen parcial 2 (50%): 92\n\nTrabajos (30%)\n- Trabajo 1 (30%): 88\n- Trabajo 2 (30%): 76\n- Trabajo 3 (40%): 95\n\nParticipación (10%)\n- Asistencia (50%): 100\n- Participación en clase (50%): 80\n\nProyecto final (20%)\n- Proyecto (100%): 90' : 'Example 1 - Categories:\n\nExams (40%)\n- Midterm 1 (50%): 85\n- Midterm 2 (50%): 92\n\nAssignments (30%)\n- Assignment 1 (30%): 88\n- Assignment 2 (30%): 76\n- Assignment 3 (40%): 95\n\nParticipation (10%)\n- Attendance (50%): 100\n- Class participation (50%): 80\n\nFinal project (20%)\n- Project (100%): 90')}
+                        >
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                        <pre className="whitespace-pre-wrap text-sm font-mono">
+{language === 'es' ? `Categorías:
+
+Exámenes (40%)
+- Examen parcial 1 (50%): 85
+- Examen parcial 2 (50%): 92
+
+Trabajos (30%)
+- Trabajo 1 (30%): 88
+- Trabajo 2 (30%): 76
+- Trabajo 3 (40%): 95
+
+Participación (10%)
+- Asistencia (50%): 100
+- Participación en clase (50%): 80
+
+Proyecto final (20%)
+- Proyecto (100%): 90` : `Categories:
+
+Exams (40%)
+- Midterm 1 (50%): 85
+- Midterm 2 (50%): 92
+
+Assignments (30%)
+- Assignment 1 (30%): 88
+- Assignment 2 (30%): 76
+- Assignment 3 (40%): 95
+
+Participation (10%)
+- Attendance (50%): 100
+- Class participation (50%): 80
+
+Final project (20%)
+- Project (100%): 90`}
+                        </pre>
+                      </div>
+                      <div className="mt-4">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {language === 'es' 
+                            ? 'Calificación final calculada: 88.5 / 100 = 8.85 / 10' 
+                            : 'Final calculated grade: 88.5 / 100 = 8.85 / 10'}
+                        </p>
+                        <div className="mt-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => {
+                              // This would load the example in the calculator
+                              toast({
+                                title: language === 'es' ? "Ejemplo cargado" : "Example loaded",
+                                description: language === 'es' ? "Vuelve a la calculadora para ver el ejemplo" : "Go back to the calculator to see the example",
+                              });
+                            }}
+                          >
+                            <ArrowRight className="mr-2 h-4 w-4" />
+                            {language === 'es' ? 'Cargar este ejemplo' : 'Load this example'}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Example 2 */}
+                    <div className="border rounded-lg p-4">
+                      <h3 className="text-lg font-semibold mb-2">
+                        {language === 'es' ? 'Ejemplo 2: Curso con laboratorio' : 'Example 2: Course with laboratory'}
+                      </h3>
+                      <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded relative">
+                        <Button 
+                          size="icon" 
+                          variant="outline" 
+                          className="absolute top-2 right-2 h-8 w-8"
+                          onClick={() => handleCopyExample(language === 'es' ? 'Ejemplo 2 - Categorías:\n\nTeoría (50%)\n- Examen teórico 1 (25%): 78\n- Examen teórico 2 (25%): 82\n- Examen final (50%): 88\n\nLaboratorio (40%)\n- Práctica 1 (20%): 90\n- Práctica 2 (20%): 85\n- Práctica 3 (20%): 92\n- Proyecto de laboratorio (40%): 95\n\nAsistencia (10%)\n- Asistencia (100%): 90' : 'Example 2 - Categories:\n\nTheory (50%)\n- Theory exam 1 (25%): 78\n- Theory exam 2 (25%): 82\n- Final exam (50%): 88\n\nLaboratory (40%)\n- Lab 1 (20%): 90\n- Lab 2 (20%): 85\n- Lab 3 (20%): 92\n- Lab project (40%): 95\n\nAttendance (10%)\n- Attendance (100%): 90')}
+                        >
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                        <pre className="whitespace-pre-wrap text-sm font-mono">
+{language === 'es' ? `Categorías:
+
+Teoría (50%)
+- Examen teórico 1 (25%): 78
+- Examen teórico 2 (25%): 82
+- Examen final (50%): 88
+
+Laboratorio (40%)
+- Práctica 1 (20%): 90
+- Práctica 2 (20%): 85
+- Práctica 3 (20%): 92
+- Proyecto de laboratorio (40%): 95
+
+Asistencia (10%)
+- Asistencia (100%): 90` : `Categories:
+
+Theory (50%)
+- Theory exam 1 (25%): 78
+- Theory exam 2 (25%): 82
+- Final exam (50%): 88
+
+Laboratory (40%)
+- Lab 1 (20%): 90
+- Lab 2 (20%): 85
+- Lab 3 (20%): 92
+- Lab project (40%): 95
+
+Attendance (10%)
+- Attendance (100%): 90`}
+                        </pre>
+                      </div>
+                      <div className="mt-4">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {language === 'es' 
+                            ? 'Calificación final calculada: 87.8 / 100 = 8.78 / 10' 
+                            : 'Final calculated grade: 87.8 / 100 = 8.78 / 10'}
+                        </p>
+                        <div className="mt-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => {
+                              // This would load the example in the calculator
+                              toast({
+                                title: language === 'es' ? "Ejemplo cargado" : "Example loaded",
+                                description: language === 'es' ? "Vuelve a la calculadora para ver el ejemplo" : "Go back to the calculator to see the example",
+                              });
+                            }}
+                          >
+                            <ArrowRight className="mr-2 h-4 w-4" />
+                            {language === 'es' ? 'Cargar este ejemplo' : 'Load this example'}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </TabsContent>
+            </Tabs>
+            
+            {/* Back to top button (fixed) */}
+            <button 
+              className="fixed bottom-6 right-6 bg-education-primary text-white rounded-full p-3 shadow-lg hover:bg-education-secondary transition-colors"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <ArrowUp className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </main>
       
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 py-6 border-t dark:border-gray-700 transition-colors duration-300">
+      <footer className="bg-white dark:bg-gray-800 py-6 border-t dark:border-gray-700 mt-12 transition-colors duration-300">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-4 md:mb-0">
@@ -541,7 +654,7 @@ const Guide = () => {
             </div>
             <div className="flex flex-col items-center md:items-end">
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                &copy; {new Date().getFullYear()} HABY Score Tracker - Desarrollado por <span className="font-medium">Heber Zadkiel García Pérez</span>
+                &copy; {new Date().getFullYear()} HABY Score Tracker - {language === 'es' ? 'Desarrollado por' : 'Developed by'} <span className="font-medium">Heber Zadkiel García Pérez</span>
               </p>
             </div>
           </div>
@@ -552,3 +665,4 @@ const Guide = () => {
 };
 
 export default Guide;
+
