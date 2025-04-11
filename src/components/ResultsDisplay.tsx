@@ -9,12 +9,13 @@ import { Progress } from '@/components/ui/progress';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import ExportOptions from './ExportOptions';
 import { useI18n } from '@/lib/i18n';
+import { Button } from '@/components/ui/button'; // Added missing Button import
 
 interface ResultsDisplayProps {
   categories: Category[];
 }
 
-// Función para determinar el color basado en la puntuación
+// Function to determine color based on score
 const getProgressColorClass = (points: number): string => {
   if (points < 6) return 'bg-red-500';
   if (points < 7) return 'bg-amber-500';
@@ -26,7 +27,7 @@ const getProgressColorClass = (points: number): string => {
  * Component that calculates and displays the final results based on all categories and activities
  */
 const ResultsDisplay = ({ categories }: ResultsDisplayProps) => {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   
   const hasCategories = categories.length > 0;
   const hasActivities = categories.some(category => category.activities.length > 0);
@@ -84,12 +85,12 @@ const ResultsDisplay = ({ categories }: ResultsDisplayProps) => {
             <AlertCircle className="h-4 w-4 mr-2" />
             <AlertDescription>
               {t('invalidWeights')}
-              {` (${t('actual')}: ${categories.reduce((sum, cat) => sum + cat.weight, 0)}%)`}
+              {` (${t('weightTotal')}: ${categories.reduce((sum, cat) => sum + cat.weight, 0)}%)`}
             </AlertDescription>
           </Alert>
           <div className="p-4 border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 rounded-md mt-4">
             <p className="text-sm text-red-700 dark:text-red-400">
-              {t('language') === 'es' 
+              {language === 'es' 
                 ? "Para calcular correctamente la calificación final, es necesario que la suma de los pesos de todas las categorías sea exactamente 100%." 
                 : "To correctly calculate the final grade, the sum of all category weights must be exactly 100%."}
             </p>
@@ -116,8 +117,8 @@ const ResultsDisplay = ({ categories }: ResultsDisplayProps) => {
   // Determine pass/fail status
   const isPassing = totalPoints >= 6;
   const statusText = isPassing 
-    ? (t('language') === 'es' ? 'Aprobado' : 'Passing') 
-    : (t('language') === 'es' ? 'Reprobado' : 'Failing');
+    ? (language === 'es' ? 'Aprobado' : 'Passing') 
+    : (language === 'es' ? 'Reprobado' : 'Failing');
   const statusClass = isPassing ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
   
   return (
@@ -210,23 +211,12 @@ const ResultsDisplay = ({ categories }: ResultsDisplayProps) => {
       </CardContent>
       <CardFooter className="border-t pt-4 flex justify-between items-center dark:border-gray-700 bg-gray-50 dark:bg-gray-800/10">
         <div className="text-sm text-gray-500 dark:text-gray-400">
-          {t('language') === 'es' 
+          {language === 'es' 
             ? "Última actualización: " 
             : "Last update: "}{new Date().toLocaleDateString()}
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="flex items-center gap-1">
-            <Printer size={16} />
-            {t('language') === 'es' ? "Imprimir" : "Print"}
-          </Button>
-          <Button variant="outline" size="sm" className="flex items-center gap-1">
-            <Download size={16} />
-            {t('language') === 'es' ? "Descargar PDF" : "Download PDF"}
-          </Button>
-          <Button variant="outline" size="sm" className="flex items-center gap-1">
-            <Share2 size={16} />
-            {t('language') === 'es' ? "Compartir" : "Share"}
-          </Button>
+          <ExportOptions />
         </div>
       </CardFooter>
     </Card>
