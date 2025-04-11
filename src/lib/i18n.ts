@@ -29,6 +29,7 @@ export type TranslationKey =
   | 'noCategories'
   | 'noActivities'
   | 'invalidWeights'
+  | 'weightTotal'  // Added the missing translation key
   | 'calculation'
   | 'calculationExplanation1'
   | 'calculationExplanation2'
@@ -71,6 +72,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noCategories: 'Añade categorías para ver los resultados',
     noActivities: 'Añade actividades a tus categorías para ver los resultados',
     invalidWeights: 'Las ponderaciones de las categorías deben sumar exactamente 100%',
+    weightTotal: 'Total actual', // Added Spanish translation for weightTotal
     calculation: 'Explicación del cálculo:',
     calculationExplanation1: 'Para cada categoría con múltiples actividades, se calcula un promedio ponderado.',
     calculationExplanation2: 'Para categorías con una sola actividad, se usa directamente la calificación.',
@@ -108,6 +110,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noCategories: 'Add categories to see results',
     noActivities: 'Add activities to your categories to see results',
     invalidWeights: 'Category weights must add up to exactly 100%',
+    weightTotal: 'Current total', // Added English translation for weightTotal
     calculation: 'Calculation explanation:',
     calculationExplanation1: 'For each category with multiple activities, a weighted average is calculated.',
     calculationExplanation2: 'For categories with a single activity, the grade is used directly.',
