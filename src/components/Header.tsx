@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-import { Globe, HelpCircle } from 'lucide-react';
+import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare } from 'lucide-react';
 import { toast } from "sonner";
 
 /**
@@ -43,6 +43,28 @@ const Header = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
+          <div className="hidden sm:flex gap-3 mr-4">
+            <a href="https://www.facebook.com/zadkiel.garcia.31" target="_blank" rel="noopener noreferrer" 
+              className="text-white hover:text-white/80 transition-colors" title="Facebook">
+              <Facebook size={18} />
+            </a>
+            <a href="https://www.instagram.com/habydoors/" target="_blank" rel="noopener noreferrer" 
+              className="text-white hover:text-white/80 transition-colors" title="Instagram">
+              <Instagram size={18} />
+            </a>
+            <a href="https://www.youtube.com/@HABYOpenDoors?themeRefresh=1" target="_blank" rel="noopener noreferrer" 
+              className="text-white hover:text-white/80 transition-colors" title="YouTube">
+              <Youtube size={18} />
+            </a>
+            <a href="https://x.com/Haby_Open_Doors" target="_blank" rel="noopener noreferrer" 
+              className="text-white hover:text-white/80 transition-colors" title="Twitter">
+              <Twitter size={18} />
+            </a>
+            <a href="https://wa.me/5222043720380" target="_blank" rel="noopener noreferrer" 
+              className="text-white hover:text-white/80 transition-colors" title="WhatsApp">
+              <MessageSquare size={18} />
+            </a>
+          </div>
           <Button 
             variant="outline" 
             size="sm"
