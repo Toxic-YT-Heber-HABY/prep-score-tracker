@@ -1,3 +1,5 @@
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 type Language = 'es' | 'en';
 
@@ -112,10 +114,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
   }
 };
 
-// Hook para manejar el idioma
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-
 interface I18nState {
   language: Language;
   t: (key: TranslationKey) => string;
@@ -138,7 +136,7 @@ export const useI18n = create<I18nState>()(
     }),
     {
       name: 'i18n-storage',
-      storage: localStorage,
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
