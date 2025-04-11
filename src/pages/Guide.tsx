@@ -53,57 +53,8 @@ const Guide = () => {
         categoriesExplanation: "Las categorías representan los diferentes componentes de evaluación de un curso o asignatura. Por ejemplo: exámenes, tareas, proyectos, participación, etc.",
         activitiesExplanation: "Las actividades son las evaluaciones específicas dentro de cada categoría. Por ejemplo, dentro de la categoría 'Exámenes' podrías tener: Examen parcial 1, Examen parcial 2, Examen final.",
         calculationExplanation: "HABY Score Tracker calcula tu calificación final basándose en el peso asignado a cada categoría y a cada actividad dentro de las categorías. Para una calificación precisa, asegúrate de que los pesos de las categorías sumen exactamente 100%.",
-        addCategorySteps: [
-          "Haz clic en el formulario 'Añadir nueva categoría'",
-          "Ingresa el nombre de la categoría (por ejemplo, 'Exámenes')",
-          "Asigna un peso porcentual a la categoría (por ejemplo, '40')",
-          "Haz clic en el botón 'Añadir'"
-        ],
-        addActivitySteps: [
-          "Localiza la categoría a la que deseas añadir una actividad",
-          "En el formulario 'Añadir actividad', ingresa el nombre",
-          "Asigna un peso dentro de la categoría",
-          "Ingresa la calificación obtenida (de 0 a 100)",
-          "Haz clic en 'Añadir'"
-        ],
         weightConsiderations: "El peso de cada categoría determina su importancia en la calificación final. Por ejemplo, si 'Exámenes' tiene un peso de 40%, contribuirá con hasta 40% de la calificación final.",
         activityWeights: "Los pesos de las actividades dentro de una categoría deben sumar 100% para una representación precisa.",
-        faqQuestions: [
-          {
-            question: "¿Qué significa el porcentaje de peso?",
-            answer: "El porcentaje de peso representa la importancia relativa de una categoría o actividad en el cálculo de la calificación final. Cuanto mayor sea el porcentaje, más influencia tendrá en el resultado final."
-          },
-          {
-            question: "¿Cómo se calcula la calificación final?",
-            answer: "La calificación final se calcula obteniendo primero el promedio ponderado de las actividades dentro de cada categoría. Luego, estos promedios se multiplican por el peso de su categoría y se suman todos los resultados. El sistema muestra el resultado tanto en escala de 100 como de 10 puntos."
-          },
-          {
-            question: "¿Puedo modificar o eliminar categorías y actividades?",
-            answer: "Sí, puedes editar o eliminar cualquier categoría o actividad haciendo clic en los iconos correspondientes junto a cada elemento."
-          },
-          {
-            question: "¿Se guardan mis datos automáticamente?",
-            answer: "Sí, todos los datos se guardan automáticamente en el almacenamiento local de tu navegador. Sin embargo, si limpias los datos del navegador, perderás esta información."
-          }
-        ],
-        tips: [
-          {
-            title: "Usa el ejemplo",
-            description: "Si es tu primera vez, utiliza la función 'Cargar ejemplo' para entender cómo funciona la aplicación con datos de muestra."
-          },
-          {
-            title: "Mantén los pesos en 100%",
-            description: "Asegúrate de que los pesos de todas las categorías sumen exactamente 100% para obtener un cálculo preciso."
-          },
-          {
-            title: "Actividades sin calificación",
-            description: "Para actividades futuras que aún no tienes calificación, puedes añadirlas con calificación 0 o esperar a tenerlas para mantener precisos los cálculos."
-          },
-          {
-            title: "Simulación de escenarios",
-            description: "Usa HABY para simular diferentes escenarios y conocer qué calificaciones necesitas en evaluaciones futuras para alcanzar tu meta."
-          }
-        ],
         stepByStepTitle: "Guía paso a paso",
         step1Title: "Añade categorías",
         step2Title: "Añade actividades",
@@ -125,57 +76,8 @@ const Guide = () => {
         categoriesExplanation: "Categories represent the different evaluation components of a course or subject. For example: exams, assignments, projects, participation, etc.",
         activitiesExplanation: "Activities are the specific evaluations within each category. For example, within the 'Exams' category you might have: Midterm 1, Midterm 2, Final Exam.",
         calculationExplanation: "HABY Score Tracker calculates your final grade based on the weight assigned to each category and each activity within categories. For accurate grading, ensure that the category weights add up to exactly 100%.",
-        addCategorySteps: [
-          "Click on the 'Add new category' form",
-          "Enter the category name (e.g., 'Exams')",
-          "Assign a percentage weight to the category (e.g., '40')",
-          "Click the 'Add' button"
-        ],
-        addActivitySteps: [
-          "Locate the category where you want to add an activity",
-          "In the 'Add activity' form, enter the name",
-          "Assign a weight within the category",
-          "Enter the grade obtained (from 0 to 100)",
-          "Click 'Add'"
-        ],
         weightConsiderations: "The weight of each category determines its importance in the final grade. For example, if 'Exams' has a weight of 40%, it will contribute up to 40% of the final grade.",
         activityWeights: "The weights of activities within a category should add up to 100% for accurate representation.",
-        faqQuestions: [
-          {
-            question: "What does the weight percentage mean?",
-            answer: "The weight percentage represents the relative importance of a category or activity in calculating the final grade. The higher the percentage, the more influence it will have on the final result."
-          },
-          {
-            question: "How is the final grade calculated?",
-            answer: "The final grade is calculated by first obtaining the weighted average of activities within each category. Then, these averages are multiplied by the weight of their category and all results are added together. The system displays the result in both 100 and 10-point scales."
-          },
-          {
-            question: "Can I modify or delete categories and activities?",
-            answer: "Yes, you can edit or delete any category or activity by clicking on the corresponding icons next to each item."
-          },
-          {
-            question: "Are my data automatically saved?",
-            answer: "Yes, all data is automatically saved in your browser's local storage. However, if you clear your browser data, you will lose this information."
-          }
-        ],
-        tips: [
-          {
-            title: "Use the example",
-            description: "If it's your first time, use the 'Load example' function to understand how the application works with sample data."
-          },
-          {
-            title: "Keep weights at 100%",
-            description: "Make sure that the weights of all categories add up to exactly 100% for an accurate calculation."
-          },
-          {
-            title: "Ungraded activities",
-            description: "For future activities that you don't have a grade for yet, you can add them with a grade of 0 or wait until you have them to keep calculations accurate."
-          },
-          {
-            title: "Scenario simulation",
-            description: "Use HABY to simulate different scenarios and know what grades you need in future evaluations to reach your goal."
-          }
-        ],
         stepByStepTitle: "Step by step guide",
         step1Title: "Add categories",
         step2Title: "Add activities",
@@ -188,6 +90,105 @@ const Guide = () => {
     
     return translations[language]?.[key] || key;
   };
+  
+  // Define arrays and objects separately from the translation function
+  const addCategorySteps = language === 'es' ? [
+    "Haz clic en el formulario 'Añadir nueva categoría'",
+    "Ingresa el nombre de la categoría (por ejemplo, 'Exámenes')",
+    "Asigna un peso porcentual a la categoría (por ejemplo, '40')",
+    "Haz clic en el botón 'Añadir'"
+  ] : [
+    "Click on the 'Add new category' form",
+    "Enter the category name (e.g., 'Exams')",
+    "Assign a percentage weight to the category (e.g., '40')",
+    "Click the 'Add' button"
+  ];
+  
+  const addActivitySteps = language === 'es' ? [
+    "Localiza la categoría a la que deseas añadir una actividad",
+    "En el formulario 'Añadir actividad', ingresa el nombre",
+    "Asigna un peso dentro de la categoría",
+    "Ingresa la calificación obtenida (de 0 a 100)",
+    "Haz clic en 'Añadir'"
+  ] : [
+    "Locate the category where you want to add an activity",
+    "In the 'Add activity' form, enter the name",
+    "Assign a weight within the category",
+    "Enter the grade obtained (from 0 to 100)",
+    "Click 'Add'"
+  ];
+  
+  const faqQuestions = language === 'es' ? [
+    {
+      question: "¿Qué significa el porcentaje de peso?",
+      answer: "El porcentaje de peso representa la importancia relativa de una categoría o actividad en el cálculo de la calificación final. Cuanto mayor sea el porcentaje, más influencia tendrá en el resultado final."
+    },
+    {
+      question: "¿Cómo se calcula la calificación final?",
+      answer: "La calificación final se calcula obteniendo primero el promedio ponderado de las actividades dentro de cada categoría. Luego, estos promedios se multiplican por el peso de su categoría y se suman todos los resultados. El sistema muestra el resultado tanto en escala de 100 como de 10 puntos."
+    },
+    {
+      question: "¿Puedo modificar o eliminar categorías y actividades?",
+      answer: "Sí, puedes editar o eliminar cualquier categoría o actividad haciendo clic en los iconos correspondientes junto a cada elemento."
+    },
+    {
+      question: "¿Se guardan mis datos automáticamente?",
+      answer: "Sí, todos los datos se guardan automáticamente en el almacenamiento local de tu navegador. Sin embargo, si limpias los datos del navegador, perderás esta información."
+    }
+  ] : [
+    {
+      question: "What does the weight percentage mean?",
+      answer: "The weight percentage represents the relative importance of a category or activity in calculating the final grade. The higher the percentage, the more influence it will have on the final result."
+    },
+    {
+      question: "How is the final grade calculated?",
+      answer: "The final grade is calculated by first obtaining the weighted average of activities within each category. Then, these averages are multiplied by the weight of their category and all results are added together. The system displays the result in both 100 and 10-point scales."
+    },
+    {
+      question: "Can I modify or delete categories and activities?",
+      answer: "Yes, you can edit or delete any category or activity by clicking on the corresponding icons next to each item."
+    },
+    {
+      question: "Are my data automatically saved?",
+      answer: "Yes, all data is automatically saved in your browser's local storage. However, if you clear your browser data, you will lose this information."
+    }
+  ];
+  
+  const tips = language === 'es' ? [
+    {
+      title: "Usa el ejemplo",
+      description: "Si es tu primera vez, utiliza la función 'Cargar ejemplo' para entender cómo funciona la aplicación con datos de muestra."
+    },
+    {
+      title: "Mantén los pesos en 100%",
+      description: "Asegúrate de que los pesos de todas las categorías sumen exactamente 100% para obtener un cálculo preciso."
+    },
+    {
+      title: "Actividades sin calificación",
+      description: "Para actividades futuras que aún no tienes calificación, puedes añadirlas con calificación 0 o esperar a tenerlas para mantener precisos los cálculos."
+    },
+    {
+      title: "Simulación de escenarios",
+      description: "Usa HABY para simular diferentes escenarios y conocer qué calificaciones necesitas en evaluaciones futuras para alcanzar tu meta."
+    }
+  ] : [
+    {
+      title: "Use the example",
+      description: "If it's your first time, use the 'Load example' function to understand how the application works with sample data."
+    },
+    {
+      title: "Keep weights at 100%",
+      description: "Make sure that the weights of all categories add up to exactly 100% for an accurate calculation."
+    },
+    {
+      title: "Ungraded activities",
+      description: "For future activities that you don't have a grade for yet, you can add them with a grade of 0 or wait until you have them to keep calculations accurate."
+    },
+    {
+      title: "Scenario simulation",
+      description: "Use HABY to simulate different scenarios and know what grades you need in future evaluations to reach your goal."
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
@@ -283,7 +284,7 @@ const Guide = () => {
               </h3>
               
               <ol className="space-y-2 mb-4">
-                {t('addCategorySteps').map((step, index) => (
+                {addCategorySteps.map((step, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <ChevronRight className="h-5 w-5 text-education-primary flex-shrink-0 mt-0.5" />
                     <span className="text-gray-700 dark:text-gray-300">{step}</span>
@@ -374,7 +375,7 @@ const Guide = () => {
               </h3>
               
               <ol className="space-y-2">
-                {t('addActivitySteps').map((step, index) => (
+                {addActivitySteps.map((step, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <ChevronRight className="h-5 w-5 text-education-primary flex-shrink-0 mt-0.5" />
                     <span className="text-gray-700 dark:text-gray-300">{step}</span>
@@ -474,7 +475,7 @@ const Guide = () => {
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {t('tips').map((tip, index) => (
+            {tips.map((tip, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-4 rounded-lg border dark:border-gray-700">
                 <h3 className="font-medium mb-2 text-education-primary flex items-center gap-2">
                   <div className="h-5 w-5 rounded-full bg-education-light dark:bg-education-primary/20 text-education-primary flex items-center justify-center text-xs font-bold">
@@ -498,7 +499,7 @@ const Guide = () => {
           <Card>
             <CardContent className="pt-6">
               <Accordion type="single" collapsible className="w-full">
-                {t('faqQuestions').map((faq, index) => (
+                {faqQuestions.map((faq, index) => (
                   <AccordionItem key={index} value={`item-${index}`}>
                     <AccordionTrigger className="text-left">
                       {faq.question}
