@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Category } from '@/types';
 import Header from '@/components/Header';
@@ -164,13 +165,6 @@ const Index = () => {
   };
 
   /**
-   * Opens the guide in a new tab
-   */
-  const openGuide = () => {
-    window.open('https://docs.haby-calculator.com/guia', '_blank');
-  };
-
-  /**
    * Closes the intro panel
    */
   const handleCloseIntro = () => {
@@ -201,14 +195,15 @@ const Index = () => {
               : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific weights to obtain your final grade accurately."}
           </p>
           <div className="flex gap-2 mt-4">
-            <Button 
-              variant="outline" 
-              className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30"
-              onClick={openGuide}
-            >
-              <BookOpen size={16} />
-              {language === 'es' ? "Ver guía completa" : "View complete guide"}
-            </Button>
+            <Link to="/guide">
+              <Button 
+                variant="outline" 
+                className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30"
+              >
+                <BookOpen size={16} />
+                {language === 'es' ? "Ver guía completa" : "View complete guide"}
+              </Button>
+            </Link>
             <Button 
               variant="outline" 
               className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30"

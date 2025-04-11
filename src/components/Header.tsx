@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import { Globe, HelpCircle } from 'lucide-react';
@@ -51,7 +52,7 @@ const Header = () => {
             <Globe className="h-4 w-4 mr-1" />
             {language === 'es' ? 'English' : 'Español'}
           </Button>
-          <a href="https://docs.haby-calculator.com/guia" target="_blank" rel="noopener noreferrer">
+          <Link to="/guide">
             <Button 
               variant="outline"
               size="sm"
@@ -60,7 +61,7 @@ const Header = () => {
               <HelpCircle className="h-4 w-4 mr-1" />
               {language === 'es' ? 'Guía de uso' : 'User guide'}
             </Button>
-          </a>
+          </Link>
         </div>
       </div>
     </header>
