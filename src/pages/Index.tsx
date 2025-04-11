@@ -8,10 +8,11 @@ import AddCategoryForm from '@/components/AddCategoryForm';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import { Button } from '@/components/ui/button';
 import { Toaster } from "@/components/ui/sonner";
-import { Info, RefreshCw, MoonIcon, SunIcon } from 'lucide-react';
+import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen } from 'lucide-react';
 import { toast } from "sonner";
 import { useTheme } from 'next-themes';
 import { useI18n } from '@/lib/i18n';
+import IntroPanel from '@/components/IntroPanel';
 
 // Local storage key for persisting user data
 const LOCAL_STORAGE_KEY = 'haby-score-tracker-data';
@@ -22,6 +23,11 @@ const LOCAL_STORAGE_KEY = 'haby-score-tracker-data';
  */
 const Index = () => {
   const { t, language } = useI18n();
+  
+  // State for showing intro panel
+  const [showIntro, setShowIntro] = useState(() => {
+    return !localStorage.getItem(LOCAL_STORAGE_KEY);
+  });
   
   // State for storing categories with initial data from localStorage
   const [categories, setCategories] = useState<Category[]>(() => {
@@ -157,6 +163,20 @@ const Index = () => {
       : (language === 'es' ? "Tema cambiado a modo oscuro" : "Theme changed to dark mode"));
   };
 
+  /**
+   * Opens the guide in a new tab
+   */
+  const openGuide = () => {
+    window.open('https://docs.haby-calculator.com/guia', '_blank');
+  };
+
+  /**
+   * Closes the intro panel
+   */
+  const handleCloseIntro = () => {
+    setShowIntro(false);
+  };
+
   // If not mounted yet, don't render theme-dependent UI to prevent flash
   if (!mounted) {
     return <div className="min-h-screen bg-gray-50 dark:bg-gray-900"></div>;
@@ -166,13 +186,46 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Header />
       
-      <main className="container px-4 py-8 md:px-6 mx-auto max-w-5xl">
+      {/* Intro Panel - shown only on first visit */}
+      {showIntro && <IntroPanel onClose={handleCloseIntro} />}
+      
+      <main className="container px-4 py-8 md:px-6 mx-auto max-w-6xl">
+        {/* App Introduction */}
+        <div className="mb-8 p-6 rounded-lg bg-gradient-to-r from-education-primary/10 to-education-secondary/10 dark:from-education-primary/20 dark:to-education-secondary/20 border border-education-primary/20 dark:border-education-secondary/20">
+          <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent">
+            {t('appName') || 'HABY Score Tracker'}
+          </h1>
+          <p className="text-gray-700 dark:text-gray-300 max-w-3xl">
+            {language === 'es' 
+              ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando pesos específicos para obtener tu calificación final de manera precisa."
+              : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific weights to obtain your final grade accurately."}
+          </p>
+          <div className="flex gap-2 mt-4">
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30"
+              onClick={openGuide}
+            >
+              <BookOpen size={16} />
+              {language === 'es' ? "Ver guía completa" : "View complete guide"}
+            </Button>
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30"
+              onClick={() => setShowIntro(true)}
+            >
+              <HelpCircle size={16} />
+              {language === 'es' ? "Mostrar introducción" : "Show introduction"}
+            </Button>
+          </div>
+        </div>
+
         {/* Header with action buttons */}
-        <div className="flex flex-wrap justify-between items-center mb-8">
+        <div className="flex flex-wrap justify-between items-center mb-8 gap-3">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent pb-1">
             {t('categories')}
           </h2>
-          <div className="flex space-x-2 mt-2 sm:mt-0">
+          <div className="flex flex-wrap gap-2">
             <Button 
               variant="outline" 
               onClick={toggleTheme} 
@@ -204,9 +257,9 @@ const Index = () => {
         </div>
         
         {/* Main content area */}
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left side - Categories */}
-          <div className="w-full lg:w-7/12 space-y-6">
+          <div className="lg:col-span-7 space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{t('categories')}</h3>
               <span className="text-sm text-gray-500 dark:text-gray-400">{t('categoryWeightExplanation')}</span>
@@ -227,7 +280,7 @@ const Index = () => {
           </div>
           
           {/* Right side - Results */}
-          <div className="w-full lg:w-5/12">
+          <div className="lg:col-span-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{t('finalResults')}</h3>
               <span className="text-sm text-gray-500 dark:text-gray-400">{t('gradeWeightExplanation')}</span>
@@ -249,9 +302,22 @@ const Index = () => {
               />
               <span className="text-education-primary font-semibold dark:text-education-secondary">HABY</span>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              &copy; {new Date().getFullYear()} HABY Score Tracker - Desarrollado por <span className="font-medium">Heber Zadkiel García Pérez</span>
-            </p>
+            <div className="flex flex-col items-center md:items-end">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                &copy; {new Date().getFullYear()} HABY Score Tracker - Desarrollado por <span className="font-medium">Heber Zadkiel García Pérez</span>
+              </p>
+              <div className="flex gap-3 mt-2">
+                <a href="#" className="text-xs text-education-primary hover:underline">
+                  {language === 'es' ? "Términos y condiciones" : "Terms and conditions"}
+                </a>
+                <a href="#" className="text-xs text-education-primary hover:underline">
+                  {language === 'es' ? "Política de privacidad" : "Privacy policy"}
+                </a>
+                <a href="#" className="text-xs text-education-primary hover:underline">
+                  {language === 'es' ? "Contacto" : "Contact"}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </footer>

@@ -13,6 +13,7 @@ type Language = 'es' | 'en';
  * This type ensures type safety when accessing translations.
  */
 export type TranslationKey = 
+  | 'appName'
   | 'categories'
   | 'addCategory'
   | 'categoryName'
@@ -54,6 +55,7 @@ export type TranslationKey =
  */
 const translations: Record<Language, Record<TranslationKey, string>> = {
   es: {
+    appName: 'HABY Score Tracker',
     categories: 'Categorías',
     addCategory: 'Añadir nueva categoría',
     categoryName: 'Nombre de la categoría',
@@ -90,6 +92,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     appDescription: 'Calcula tu calificación de forma precisa'
   },
   en: {
+    appName: 'HABY Score Tracker',
     categories: 'Categories',
     addCategory: 'Add new category',
     categoryName: 'Category name',

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-import { Globe } from 'lucide-react';
+import { Globe, HelpCircle } from 'lucide-react';
 import { toast } from "sonner";
 
 /**
@@ -34,7 +34,12 @@ const Header = () => {
             alt="HABY Logo" 
             className="h-10 w-auto filter drop-shadow-md" 
           />
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">HABY</h1>
+          <div>
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight">HABY</h1>
+            <p className="text-xs text-white/80">
+              {language === 'es' ? "Calculadora de calificaciones" : "Grade calculator"}
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <Button 
@@ -46,9 +51,16 @@ const Header = () => {
             <Globe className="h-4 w-4 mr-1" />
             {language === 'es' ? 'English' : 'Español'}
           </Button>
-          <p className="text-sm md:text-base opacity-90">
-            {t('appDescription')}
-          </p>
+          <a href="https://docs.haby-calculator.com/guia" target="_blank" rel="noopener noreferrer">
+            <Button 
+              variant="outline"
+              size="sm"
+              className="bg-white/10 hover:bg-white/20 text-white border-white/20 transition-all"
+            >
+              <HelpCircle className="h-4 w-4 mr-1" />
+              {language === 'es' ? 'Guía de uso' : 'User guide'}
+            </Button>
+          </a>
         </div>
       </div>
     </header>
