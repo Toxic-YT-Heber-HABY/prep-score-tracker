@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -10,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { BookOpen, Search, Copy, ArrowLeft, ArrowUp, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useI18n } from '@/lib/i18n';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 
 /**
  * User guide page with detailed information about using the HABY Score Tracker
@@ -20,10 +20,22 @@ const Guide = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentStep, setCurrentStep] = useState(0);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [activeTab, setActiveTab] = useState('guide');
 
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Handle URL hash for direct navigation
+  useEffect(() => {
+    const hash = window.location.hash.substr(1);
+    if (hash === 'examples') {
+      setActiveTab('examples');
+      setTimeout(() => {
+        scrollToSection('examples');
+      }, 100);
+    }
   }, []);
 
   // Separate translation types to fix type issues
@@ -173,6 +185,16 @@ const Guide = () => {
     });
   };
   
+  // Handle tab change
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    if (value === 'examples') {
+      setTimeout(() => {
+        scrollToSection('examples');
+      }, 100);
+    }
+  };
+
   // Handle search filtering
   const filterContent = (content: any[], term: string) => {
     if (!term) return content;
@@ -293,7 +315,16 @@ const Guide = () => {
               <Button size="sm" variant="outline" onClick={() => scrollToSection('faq')}>
                 {language === 'es' ? 'Preguntas frecuentes' : 'FAQ'}
               </Button>
-              <Button size="sm" variant="outline" onClick={() => scrollToSection('examples')}>
+              <Button 
+                size="sm" 
+                variant="outline" 
+                onClick={() => {
+                  setActiveTab('examples');
+                  setTimeout(() => {
+                    scrollToSection('examples');
+                  }, 100);
+                }}
+              >
                 {language === 'es' ? 'Ejemplos' : 'Examples'}
               </Button>
             </div>
@@ -361,7 +392,13 @@ const Guide = () => {
                 <a 
                   href="#examples" 
                   className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  onClick={(e) => { e.preventDefault(); scrollToSection('examples'); }}
+                  onClick={(e) => { 
+                    e.preventDefault(); 
+                    setActiveTab('examples');
+                    setTimeout(() => {
+                      scrollToSection('examples');
+                    }, 100);
+                  }}
                 >
                   {language === 'es' ? 'Ejemplos prácticos' : 'Practical examples'}
                 </a>
@@ -391,7 +428,7 @@ const Guide = () => {
           
           {/* Main Content Area */}
           <div className="md:col-span-2 space-y-8">
-            <Tabs defaultValue="guide" className="w-full">
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
               <TabsList className="w-full grid grid-cols-2 mb-4">
                 <TabsTrigger value="guide">
                   {language === 'es' ? 'Guía de uso' : 'User guide'}
@@ -485,14 +522,23 @@ const Guide = () => {
                         {language === 'es' ? 'Ejemplo 1: Curso universitario estándar' : 'Example 1: Standard university course'}
                       </h3>
                       <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded relative">
-                        <Button 
-                          size="icon" 
-                          variant="outline" 
-                          className="absolute top-2 right-2 h-8 w-8"
-                          onClick={() => handleCopyExample(language === 'es' ? 'Ejemplo 1 - Categorías:\n\nExámenes (40%)\n- Examen parcial 1 (50%): 85\n- Examen parcial 2 (50%): 92\n\nTrabajos (30%)\n- Trabajo 1 (30%): 88\n- Trabajo 2 (30%): 76\n- Trabajo 3 (40%): 95\n\nParticipación (10%)\n- Asistencia (50%): 100\n- Participación en clase (50%): 80\n\nProyecto final (20%)\n- Proyecto (100%): 90' : 'Example 1 - Categories:\n\nExams (40%)\n- Midterm 1 (50%): 85\n- Midterm 2 (50%): 92\n\nAssignments (30%)\n- Assignment 1 (30%): 88\n- Assignment 2 (30%): 76\n- Assignment 3 (40%): 95\n\nParticipation (10%)\n- Attendance (50%): 100\n- Class participation (50%): 80\n\nFinal project (20%)\n- Project (100%): 90')}
-                        >
-                          <Copy className="h-4 w-4" />
-                        </Button>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button 
+                                size="icon" 
+                                variant="outline" 
+                                className="absolute top-2 right-2 h-8 w-8"
+                                onClick={() => handleCopyExample(language === 'es' ? 'Ejemplo 1 - Categorías:\n\nExámenes (40%)\n- Examen parcial 1 (50%): 85\n- Examen parcial 2 (50%): 92\n\nTrabajos (30%)\n- Trabajo 1 (30%): 88\n- Trabajo 2 (30%): 76\n- Trabajo 3 (40%): 95\n\nParticipación (10%)\n- Asistencia (50%): 100\n- Participación en clase (50%): 80\n\nProyecto final (20%)\n- Proyecto (100%): 90' : 'Example 1 - Categories:\n\nExams (40%)\n- Midterm 1 (50%): 85\n- Midterm 2 (50%): 92\n\nAssignments (30%)\n- Assignment 1 (30%): 88\n- Assignment 2 (30%): 76\n- Assignment 3 (40%): 95\n\nParticipation (10%)\n- Attendance (50%): 100\n- Class participation (50%): 80\n\nFinal project (20%)\n- Project (100%): 90')}
+                              >
+                                <Copy className="h-4 w-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              {language === 'es' ? 'Copiar ejemplo' : 'Copy example'}
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                         <pre className="whitespace-pre-wrap text-sm font-mono">
 {language === 'es' ? `Categorías:
 
@@ -560,14 +606,23 @@ Final project (20%)
                         {language === 'es' ? 'Ejemplo 2: Curso con laboratorio' : 'Example 2: Course with laboratory'}
                       </h3>
                       <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded relative">
-                        <Button 
-                          size="icon" 
-                          variant="outline" 
-                          className="absolute top-2 right-2 h-8 w-8"
-                          onClick={() => handleCopyExample(language === 'es' ? 'Ejemplo 2 - Categorías:\n\nTeoría (50%)\n- Examen teórico 1 (25%): 78\n- Examen teórico 2 (25%): 82\n- Examen final (50%): 88\n\nLaboratorio (40%)\n- Práctica 1 (20%): 90\n- Práctica 2 (20%): 85\n- Práctica 3 (20%): 92\n- Proyecto de laboratorio (40%): 95\n\nAsistencia (10%)\n- Asistencia (100%): 90' : 'Example 2 - Categories:\n\nTheory (50%)\n- Theory exam 1 (25%): 78\n- Theory exam 2 (25%): 82\n- Final exam (50%): 88\n\nLaboratory (40%)\n- Lab 1 (20%): 90\n- Lab 2 (20%): 85\n- Lab 3 (20%): 92\n- Lab project (40%): 95\n\nAttendance (10%)\n- Attendance (100%): 90')}
-                        >
-                          <Copy className="h-4 w-4" />
-                        </Button>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button 
+                                size="icon" 
+                                variant="outline" 
+                                className="absolute top-2 right-2 h-8 w-8"
+                                onClick={() => handleCopyExample(language === 'es' ? 'Ejemplo 2 - Categorías:\n\nTeoría (50%)\n- Examen teórico 1 (25%): 78\n- Examen teórico 2 (25%): 82\n- Examen final (50%): 88\n\nLaboratorio (40%)\n- Práctica 1 (20%): 90\n- Práctica 2 (20%): 85\n- Práctica 3 (20%): 92\n- Proyecto de laboratorio (40%): 95\n\nAsistencia (10%)\n- Asistencia (100%): 90' : 'Example 2 - Categories:\n\nTheory (50%)\n- Theory exam 1 (25%): 78\n- Theory exam 2 (25%): 82\n- Final exam (50%): 88\n\nLaboratory (40%)\n- Lab 1 (20%): 90\n- Lab 2 (20%): 85\n- Lab 3 (20%): 92\n- Lab project (40%): 95\n\nAttendance (10%)\n- Attendance (100%): 90')}
+                              >
+                                <Copy className="h-4 w-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              {language === 'es' ? 'Copiar ejemplo' : 'Copy example'}
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                         <pre className="whitespace-pre-wrap text-sm font-mono">
 {language === 'es' ? `Categorías:
 
@@ -665,4 +720,3 @@ Attendance (10%)
 };
 
 export default Guide;
-
