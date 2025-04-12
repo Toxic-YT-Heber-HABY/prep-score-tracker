@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare } from 'lucide-react';
+import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail } from 'lucide-react';
 import { toast } from "sonner";
 
 /**
@@ -24,6 +24,16 @@ const Header = () => {
       ? 'Language changed to English' 
       : 'Idioma cambiado a Español';
     toast.success(message);
+  };
+
+  /**
+   * Handle email support click
+   */
+  const handleEmailSupport = () => {
+    window.location.href = "mailto:habyopenthedoors@gmail.com";
+    toast.success(language === 'es' 
+      ? 'Abriendo cliente de correo electrónico' 
+      : 'Opening email client');
   };
   
   return (
@@ -65,6 +75,16 @@ const Header = () => {
               <MessageSquare size={18} />
             </a>
           </div>
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={handleEmailSupport}
+            className="bg-white/10 hover:bg-white/20 text-white border-white/20 transition-all"
+            title={language === 'es' ? "Soporte técnico" : "Technical support"}
+          >
+            <Mail className="h-4 w-4 mr-1" />
+            {language === 'es' ? 'Soporte' : 'Support'}
+          </Button>
           <Button 
             variant="outline" 
             size="sm"

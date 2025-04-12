@@ -5,10 +5,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import { Facebook, Instagram, Youtube, Twitter, MessageSquare } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail } from 'lucide-react';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Guide from "./pages/Guide";
+import { useI18n } from "@/lib/i18n";
 
 /**
  * Create React Query client with optimized configuration
@@ -27,6 +28,15 @@ const queryClient = new QueryClient({
  * Footer component with social media links
  */
 const Footer = () => {
+  const { language } = useI18n();
+  
+  /**
+   * Handle email support click
+   */
+  const handleEmailSupport = () => {
+    window.location.href = "mailto:habyopenthedoors@gmail.com";
+  };
+  
   return (
     <footer className="bg-white dark:bg-gray-800 py-6 border-t dark:border-gray-700 mt-12 transition-colors duration-300">
       <div className="container mx-auto px-4">
@@ -61,19 +71,23 @@ const Footer = () => {
                 className="text-education-primary hover:text-education-secondary transition-colors" title="WhatsApp">
                 <MessageSquare size={20} />
               </a>
+              <button onClick={handleEmailSupport} 
+                className="text-education-primary hover:text-education-secondary transition-colors" title={language === 'es' ? "Soporte técnico" : "Technical support"}>
+                <Mail size={20} />
+              </button>
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               &copy; {new Date().getFullYear()} HABY Score Tracker - Desarrollado por <span className="font-medium">Heber Zadkiel García Pérez</span>
             </p>
             <div className="flex gap-3 mt-2">
               <a href="#" className="text-xs text-education-primary hover:underline">
-                Términos y condiciones
+                {language === 'es' ? "Términos y condiciones" : "Terms and conditions"}
               </a>
               <a href="#" className="text-xs text-education-primary hover:underline">
-                Política de privacidad
+                {language === 'es' ? "Política de privacidad" : "Privacy policy"}
               </a>
-              <a href="#" className="text-xs text-education-primary hover:underline">
-                Contacto
+              <a href="mailto:habyopenthedoors@gmail.com" className="text-xs text-education-primary hover:underline">
+                {language === 'es' ? "Contacto" : "Contact"}
               </a>
             </div>
           </div>

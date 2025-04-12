@@ -48,7 +48,10 @@ export type TranslationKey =
   | 'lightMode'
   | 'gradeWeightExplanation'
   | 'categoryWeightExplanation'
-  | 'appDescription';
+  | 'appDescription'
+  | 'emailSupport'
+  | 'technicalSupport'
+  | 'reportBugs';
 
 /**
  * Translation dictionary containing all text content in both supported languages.
@@ -72,7 +75,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noCategories: 'Añade categorías para ver los resultados',
     noActivities: 'Añade actividades a tus categorías para ver los resultados',
     invalidWeights: 'Las ponderaciones de las categorías deben sumar exactamente 100%',
-    weightTotal: 'Total actual', // Added Spanish translation for weightTotal
+    weightTotal: 'Total actual',
     calculation: 'Explicación del cálculo:',
     calculationExplanation1: 'Para cada categoría con múltiples actividades, se calcula un promedio ponderado.',
     calculationExplanation2: 'Para categorías con una sola actividad, se usa directamente la calificación.',
@@ -91,7 +94,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lightMode: 'Modo claro',
     gradeWeightExplanation: 'Calificación: Puntuación obtenida en la actividad o categoría, expresada en una escala de 0 a 100.',
     categoryWeightExplanation: 'Peso de la categoría (%): Porcentaje que determina la importancia relativa de esta categoría en el cálculo de la calificación final. La suma de todos los pesos debe ser igual al 100%.',
-    appDescription: 'Calcula tu calificación de forma precisa'
+    appDescription: 'Calcula tu calificación de forma precisa',
+    emailSupport: 'Soporte por correo electrónico',
+    technicalSupport: 'Soporte técnico',
+    reportBugs: 'Reportar errores'
   },
   en: {
     appName: 'HABY Score Tracker',
@@ -110,7 +116,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noCategories: 'Add categories to see results',
     noActivities: 'Add activities to your categories to see results',
     invalidWeights: 'Category weights must add up to exactly 100%',
-    weightTotal: 'Current total', // Added English translation for weightTotal
+    weightTotal: 'Current total',
     calculation: 'Calculation explanation:',
     calculationExplanation1: 'For each category with multiple activities, a weighted average is calculated.',
     calculationExplanation2: 'For categories with a single activity, the grade is used directly.',
@@ -129,7 +135,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lightMode: 'Light Mode',
     gradeWeightExplanation: 'Grade: Score obtained in the activity or category, expressed on a scale from 0 to 100.',
     categoryWeightExplanation: 'Category weight (%): Percentage that determines the relative importance of this category in calculating the final grade. The sum of all weights must equal 100%.',
-    appDescription: 'Calculate your grade accurately'
+    appDescription: 'Calculate your grade accurately',
+    emailSupport: 'Email support',
+    technicalSupport: 'Technical support',
+    reportBugs: 'Report bugs'
   }
 };
 
@@ -154,7 +163,7 @@ interface I18nState {
 export const useI18n = create<I18nState>()(
   persist(
     (set, get) => ({
-      language: 'es', // Default language
+      language: 'es', // Default language is Spanish (Mexico)
       
       /**
        * Translation function - retrieves text for the given key in the current language
