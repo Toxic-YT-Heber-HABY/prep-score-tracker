@@ -31,9 +31,13 @@ const AccordionTrigger = React.forwardRef<
         className
       )}
       {...props}
+      aria-label={typeof children === 'string' ? `Expandir ${children}` : 'Expandir sección'}
     >
       {children}
-      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+      <ChevronDown 
+        className="h-4 w-4 shrink-0 transition-transform duration-300 ease-in-out" 
+        aria-hidden="true"
+      />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ))
@@ -46,7 +50,7 @@ const AccordionContent = React.forwardRef<
   <AccordionPrimitive.Content
     ref={ref}
     className={cn(
-      "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+      "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down transition-all duration-300 ease-in-out",
       className
     )}
     {...props}
