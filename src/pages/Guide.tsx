@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { BookOpen, Search, Copy, ArrowLeft, ArrowUp, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { useI18n } from '@/lib/i18n';
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 
 /**
  * User guide page with detailed information about using the HABY Score Tracker
@@ -189,9 +180,15 @@ const Guide = () => {
   const handleTabChange = (value: string) => {
     setActiveTab(value);
     if (value === 'examples') {
+      // Ensure smooth scroll to examples section
       setTimeout(() => {
         scrollToSection('examples');
+        // Update URL hash without page reload
+        window.history.replaceState(null, '', '#examples');
       }, 100);
+    } else {
+      // Remove hash when not in examples tab
+      window.history.replaceState(null, '', window.location.pathname);
     }
   };
 
@@ -375,7 +372,7 @@ const Guide = () => {
                     <a
                       key={index}
                       href={`#step-${index + 1}`}
-                      className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-sm transition-colors"
+                      className="block py-1 px-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       onClick={(e) => { e.preventDefault(); scrollToSection(`step-${index + 1}`); }}
                     >
                       {step}
