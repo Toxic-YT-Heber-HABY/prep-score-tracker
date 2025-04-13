@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/hooks/use-toast";
+import { useI18n } from '@/lib/i18n';
+import { 
+  ArrowLeft, 
+  ArrowRight, 
+  ArrowUp, 
+  BookOpen, 
+  CheckCircle2, 
+  Copy, 
+  Search 
+} from 'lucide-react';
 
 /**
  * User guide page with detailed information about using the HABY Score Tracker
@@ -213,7 +229,34 @@ const Guide = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <Header />
+      <header className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 py-4 shadow-sm transition-colors duration-300">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <img 
+                src="/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png" 
+                alt="HABY Logo" 
+                className="h-8 w-auto mr-2" 
+              />
+              <span className="text-xl font-bold text-education-primary">HABY Score Tracker</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <button
+                className="text-gray-600 dark:text-gray-300 hover:text-education-primary dark:hover:text-education-secondary transition-colors"
+                onClick={() => {/* Toggle theme function would go here */}}
+              >
+                {language === 'es' ? 'Cambiar tema' : 'Toggle theme'}
+              </button>
+              <button
+                className="text-gray-600 dark:text-gray-300 hover:text-education-primary dark:hover:text-education-secondary transition-colors"
+                onClick={() => {/* Toggle language function would go here */}}
+              >
+                {language === 'es' ? 'EN' : 'ES'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
       
       <main className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Guide Header */}
