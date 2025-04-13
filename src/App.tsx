@@ -11,6 +11,7 @@ import Guide from "./pages/Guide";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Contact from "./pages/Contact";
+import VersionHistory from "./pages/VersionHistory";
 import { useI18n } from "@/lib/i18n";
 import Footer from "./components/Footer";
 
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/version-history" element={<VersionHistory />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

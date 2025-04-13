@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail } from 'lucide-react';
+import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail, History } from 'lucide-react';
 import { toast } from "sonner";
 
 /**
@@ -39,7 +39,7 @@ const Header = () => {
   return (
     <header className="bg-gradient-to-r from-education-primary to-education-secondary text-white py-4 px-6 shadow-lg">
       <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
-        <div className="flex items-center space-x-3 mb-2 sm:mb-0">
+        <Link to="/" className="flex items-center space-x-3 mb-2 sm:mb-0 hover:opacity-90 transition-opacity">
           <img 
             src="/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png" 
             alt="HABY Logo" 
@@ -51,7 +51,7 @@ const Header = () => {
               {language === 'es' ? "Calculadora de calificaciones" : "Grade calculator"}
             </p>
           </div>
-        </div>
+        </Link>
         <div className="flex items-center gap-4">
           <div className="hidden sm:flex gap-3 mr-4">
             <a href="https://www.facebook.com/zadkiel.garcia.31" target="_blank" rel="noopener noreferrer" 
@@ -75,6 +75,16 @@ const Header = () => {
               <MessageSquare size={18} />
             </a>
           </div>
+          <Link to="/version-history">
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="bg-white/10 hover:bg-white/20 text-white border-white/20 transition-all hidden sm:flex"
+            >
+              <History className="h-4 w-4 mr-1" />
+              {language === 'es' ? 'Historial' : 'History'}
+            </Button>
+          </Link>
           <Button 
             variant="outline" 
             size="sm"
