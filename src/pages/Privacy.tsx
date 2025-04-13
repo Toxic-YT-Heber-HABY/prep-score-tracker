@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Shield, UserCheck, Database, Share2, User, Lock, Refresh, Phone } from "lucide-react";
+import { ArrowLeft, Shield, UserCheck, Database, Share2, User, Lock, RefreshCw, Phone } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import { useI18n } from "@/lib/i18n";
