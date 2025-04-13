@@ -50,7 +50,7 @@ const Footer = () => {
                 className="text-education-primary hover:text-education-secondary transition-colors" title="Twitter">
                 <Twitter size={20} />
               </a>
-              <a href="https://wa.me/522204372038" target="_blank" rel="noopener noreferrer" 
+              <a href="https://wa.me/5221565368123" target="_blank" rel="noopener noreferrer" 
                 className="text-education-primary hover:text-education-secondary transition-colors" title="WhatsApp">
                 <MessageSquare size={20} />
               </a>

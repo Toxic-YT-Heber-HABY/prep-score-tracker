@@ -70,7 +70,7 @@ const Header = () => {
               className="text-white hover:text-white/80 transition-colors" title="Twitter">
               <Twitter size={18} />
             </a>
-            <a href="https://wa.me/5222043720380" target="_blank" rel="noopener noreferrer" 
+            <a href="https://wa.me/5221565368123" target="_blank" rel="noopener noreferrer" 
               className="text-white hover:text-white/80 transition-colors" title="WhatsApp">
               <MessageSquare size={18} />
             </a>
