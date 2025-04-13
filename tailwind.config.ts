@@ -20,15 +20,17 @@ export default {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border) / 0.1)", // Softer border color
-        input: "hsl(var(--input) / 0.2)", // Lighter input border
-        ring: "hsl(var(--ring) / 0.2)", // Softer ring color
+        background: "hsl(var(--background))", // Add this line
+        foreground: "hsl(var(--foreground))", // Add this line
+        border: "hsl(var(--border) / 0.1)", 
+        input: "hsl(var(--input) / 0.2)", 
+        ring: "hsl(var(--ring) / 0.2)", 
       },
       borderWidth: {
-        DEFAULT: '1px', // Thinner default border
+        DEFAULT: '1px', 
       },
       borderRadius: {
-        lg: "0.75rem", // Softer rounded corners
+        lg: "0.75rem", 
         md: "0.5rem",
         sm: "0.25rem"
       }
