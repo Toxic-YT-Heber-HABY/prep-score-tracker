@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Shield, UserCheck, Database, Share2, User, Lock, RefreshCw, Phone } from 'lucide-react';
@@ -182,7 +181,7 @@ const Privacy = () => {
                     <section className="transform transition-all hover:-translate-y-1 hover:shadow-md p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
                       <div className="flex items-start">
                         <div className="bg-education-primary/10 p-3 rounded-full mr-5">
-                          <Refresh className="h-6 w-6 text-education-primary" />
+                          <RefreshCw className="h-6 w-6 text-education-primary" />
                         </div>
                         <div>
                           <h2 className="text-2xl font-bold mb-3 text-education-primary">7. Cambios a esta política</h2>
@@ -370,7 +369,7 @@ const Privacy = () => {
                     <section className="transform transition-all hover:-translate-y-1 hover:shadow-md p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
                       <div className="flex items-start">
                         <div className="bg-education-primary/10 p-3 rounded-full mr-5">
-                          <Refresh className="h-6 w-6 text-education-primary" />
+                          <RefreshCw className="h-6 w-6 text-education-primary" />
                         </div>
                         <div>
                           <h2 className="text-2xl font-bold mb-3 text-education-primary">7. Changes to This Policy</h2>
