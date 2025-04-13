@@ -102,7 +102,7 @@
   }
   
   .input-focused {
-    @apply focus:ring-2 focus:ring-education-primary focus:border-education-primary;
+    @apply focus:ring-2 focus:ring-[#9b87f5] focus:border-[#9b87f5];
   }
   
   .btn-hover {
@@ -159,5 +159,26 @@
   
   .dark .table-row-hover {
     @apply hover:bg-gray-700/50;
+  }
+  
+  /* Estilos adicionales para páginas de términos y privacidad */
+  .prose {
+    @apply text-gray-800 dark:text-gray-200 leading-relaxed;
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-bold mt-8 mb-4 text-education-primary;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-semibold mt-6 mb-3 text-gray-700 dark:text-gray-300;
+  }
+  
+  .prose p {
+    @apply my-4;
+  }
+  
+  .prose ul {
+    @apply my-4 list-disc pl-6 space-y-2;
   }
 }

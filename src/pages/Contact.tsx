@@ -47,7 +47,7 @@ const Contact = () => {
   };
   
   const handleWhatsAppClick = () => {
-    window.open("https://wa.me/5221565368123", "_blank");
+    window.open("https://wa.me/5256536812377", "_blank");
     toast.success(language === 'es' 
       ? 'Abriendo WhatsApp' 
       : 'Opening WhatsApp');
@@ -188,7 +188,7 @@ const Contact = () => {
                     className="flex items-center text-education-primary hover:text-education-secondary transition-colors"
                   >
                     <MessageSquare className="mr-2 h-4 w-4" />
-                    +52 1 56 5368 1237
+                    +52 56 5368 1237
                   </button>
                 </div>
                 
