@@ -8,6 +8,9 @@ import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Guide from "./pages/Guide";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Contact from "./pages/Contact";
 import { useI18n } from "@/lib/i18n";
 import Footer from "./components/Footer";
 
@@ -47,6 +50,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/guide" element={<Guide />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
@@ -57,4 +63,3 @@ const App = () => (
 );
 
 export default App;
-

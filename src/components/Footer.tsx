@@ -3,6 +3,7 @@ import React from "react";
 import { Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail } from 'lucide-react';
 import { useI18n } from "@/lib/i18n";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 /**
  * Footer component with social media links
@@ -63,15 +64,15 @@ const Footer = () => {
               &copy; {new Date().getFullYear()} HABY Score Tracker - Desarrollado por <span className="font-medium">Heber Zadkiel García Pérez</span>
             </p>
             <div className="flex gap-3 mt-2">
-              <a href="#" className="text-xs text-education-primary hover:underline">
+              <Link to="/terms" className="text-xs text-education-primary hover:underline">
                 {language === 'es' ? "Términos y condiciones" : "Terms and conditions"}
-              </a>
-              <a href="#" className="text-xs text-education-primary hover:underline">
+              </Link>
+              <Link to="/privacy" className="text-xs text-education-primary hover:underline">
                 {language === 'es' ? "Política de privacidad" : "Privacy policy"}
-              </a>
-              <a href="mailto:habyopenthedoors@gmail.com" className="text-xs text-education-primary hover:underline">
+              </Link>
+              <Link to="/contact" className="text-xs text-education-primary hover:underline">
                 {language === 'es' ? "Contacto" : "Contact"}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
