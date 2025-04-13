@@ -20,11 +20,18 @@ export default {
     },
     extend: {
       colors: {
-        background: "hsl(var(--background))", // Add this line
-        foreground: "hsl(var(--foreground))", // Add this line
+        background: "hsl(var(--background))", 
+        foreground: "hsl(var(--foreground))", 
         border: "hsl(var(--border) / 0.1)", 
         input: "hsl(var(--input) / 0.2)", 
         ring: "hsl(var(--ring) / 0.2)", 
+        // Education theme colors
+        education: {
+          primary: "#9b87f5", // Purple color for primary actions
+          secondary: "#a798f7", // Lighter purple for secondary elements
+          dark: "#7a67d4", // Darker purple for hover states
+          light: "#e8e4fc", // Very light purple for backgrounds
+        },
       },
       borderWidth: {
         DEFAULT: '1px', 
