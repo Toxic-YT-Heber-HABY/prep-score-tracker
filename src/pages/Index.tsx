@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -6,6 +7,7 @@ import Header from '@/components/Header';
 import CategoryCard from '@/components/CategoryCard';
 import AddCategoryForm from '@/components/AddCategoryForm';
 import ResultsDisplay from '@/components/ResultsDisplay';
+import GradeNeededCalculator from '@/components/GradeNeededCalculator';
 import { Button } from '@/components/ui/button';
 import { Toaster } from "@/components/ui/sonner";
 import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen } from 'lucide-react';
@@ -188,21 +190,21 @@ const Index = () => {
       
       <main className="container px-4 py-8 md:px-6 mx-auto max-w-6xl">
         {/* App Introduction */}
-        <div className="mb-8 p-6 rounded-lg bg-gradient-to-r from-education-primary/10 to-education-secondary/10 dark:from-education-primary/20 dark:to-education-secondary/20 border border-education-primary/20 dark:border-education-secondary/20">
+        <div className="mb-8 p-6 rounded-lg bg-gradient-to-r from-education-primary/10 to-education-secondary/10 dark:from-education-primary/20 dark:to-education-secondary/20 border border-education-primary/20 dark:border-education-secondary/20 shadow-md hover:shadow-lg transition-shadow duration-300">
           <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent">
             {t('appName') || 'HABY Score Tracker'}
           </h1>
           <p className="text-gray-700 dark:text-gray-300 max-w-3xl">
             {language === 'es' ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando pesos específicos para obtener tu calificación final de manera precisa." : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific weights to obtain your final grade accurately."}
           </p>
-          <div className="flex gap-2 mt-4">
+          <div className="flex flex-wrap gap-2 mt-4">
             <Link to="/guide">
-              <Button variant="outline" className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30">
+              <Button variant="outline" className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30 transition-colors duration-300">
                 <BookOpen size={16} />
                 {language === 'es' ? "Ver guía completa" : "View complete guide"}
               </Button>
             </Link>
-            <Button variant="outline" className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30" onClick={() => setShowIntro(true)}>
+            <Button variant="outline" className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30 transition-colors duration-300" onClick={() => setShowIntro(true)}>
               <HelpCircle size={16} />
               {language === 'es' ? "Mostrar introducción" : "Show introduction"}
             </Button>
@@ -246,19 +248,25 @@ const Index = () => {
             <AddCategoryForm onAddCategory={handleAddCategory} />
           </div>
           
-          {/* Right side - Results */}
+          {/* Right side - Results and Calculator */}
           <div className="lg:col-span-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{t('finalResults')}</h3>
               <span className="text-sm text-gray-500 dark:text-gray-400">{t('gradeWeightExplanation')}</span>
             </div>
-            <ResultsDisplay categories={categories} />
+            
+            {/* Results Display */}
+            <div className="mb-8">
+              <ResultsDisplay categories={categories} />
+            </div>
+            
+            {/* Grade Needed Calculator */}
+            <div className="mt-8">
+              <GradeNeededCalculator categories={categories} />
+            </div>
           </div>
         </div>
       </main>
-      
-      {/* Footer */}
-      
       
       {/* Toast notifications */}
       <Toaster />
