@@ -1,10 +1,10 @@
 
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Guide from "./pages/Guide";
@@ -12,7 +12,6 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Contact from "./pages/Contact";
 import VersionHistory from "./pages/VersionHistory";
-import { useI18n } from "@/lib/i18n";
 import Footer from "./components/Footer";
 
 /**
