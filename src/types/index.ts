@@ -3,7 +3,7 @@ export interface Activity {
   id: string;
   name: string;
   weight: number;
-  grade: number;
+  grade: number | string;
 }
 
 export interface Category {

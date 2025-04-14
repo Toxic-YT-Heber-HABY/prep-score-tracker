@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Activity } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -86,6 +85,7 @@ const ActivityItem = ({ activity, onUpdate, onDelete }: ActivityItemProps) => {
   // Determine color class based on grade value for visual feedback
   const getGradeColorClass = () => {
     if (activity.grade === '' || activity.grade === undefined) return "";
+    if (typeof activity.grade === 'string') return "";
     if (activity.grade < 60) return "text-red-600 dark:text-red-400";
     if (activity.grade < 70) return "text-amber-600 dark:text-amber-400";
     if (activity.grade < 85) return "text-blue-600 dark:text-blue-400";
