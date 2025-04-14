@@ -39,25 +39,29 @@ const AddActivityForm = ({ onAddActivity }: AddActivityFormProps) => {
       return;
     }
     
-    if (!grade || isNaN(parseFloat(grade))) {
-      setError(language === 'es' ? 'La calificación debe ser un número válido' : 'Grade must be a valid number');
-      return;
+    // La calificación puede estar vacía ahora
+    let gradeValue: number | string = '';
+    if (grade !== '') {
+      if (isNaN(parseFloat(grade))) {
+        setError(language === 'es' ? 'La calificación debe ser un número válido' : 'Grade must be a valid number');
+        return;
+      }
+      gradeValue = parseFloat(grade);
+      
+      if (gradeValue < 0 || gradeValue > 100) {
+        setError(language === 'es' 
+          ? 'La calificación debe estar entre 0 y 100' 
+          : 'Grade must be between 0 and 100');
+        return;
+      }
     }
     
     const weightValue = parseFloat(weight);
-    const gradeValue = parseFloat(grade);
     
     if (weightValue <= 0 || weightValue > 100) {
       setError(language === 'es' 
         ? 'El peso debe estar entre 1 y 100' 
         : 'Weight must be between 1 and 100');
-      return;
-    }
-    
-    if (gradeValue < 0 || gradeValue > 100) {
-      setError(language === 'es' 
-        ? 'La calificación debe estar entre 0 y 100' 
-        : 'Grade must be between 0 and 100');
       return;
     }
     

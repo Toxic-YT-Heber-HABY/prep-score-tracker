@@ -46,7 +46,17 @@ const App = () => (
     >
       <TooltipProvider>
         <Toaster />
-        <Sonner richColors closeButton position="top-right" />
+        <Sonner 
+          richColors 
+          closeButton 
+          position="top-right" 
+          theme="system"
+          toastOptions={{
+            duration: 5000, // 5 seconds
+            className: "max-w-md"
+          }}
+          visibleToasts={3} // Limitar a 3 notificaciones visibles
+        />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />

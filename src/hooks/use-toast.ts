@@ -1,3 +1,4 @@
+
 import * as React from "react"
 
 import type {
@@ -5,8 +6,8 @@ import type {
   ToastProps,
 } from "@/components/ui/toast"
 
-const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
+const TOAST_LIMIT = 3 // Limitado a 3 notificaciones máximo
+const TOAST_REMOVE_DELAY = 5000 // Reducido a 5 segundos para que desaparezcan más rápido
 
 type ToasterToast = ToastProps & {
   id: string

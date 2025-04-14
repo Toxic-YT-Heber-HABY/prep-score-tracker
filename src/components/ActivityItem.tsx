@@ -25,7 +25,7 @@ const ActivityItem = ({ activity, onUpdate, onDelete }: ActivityItemProps) => {
    * @param value The new value for the field
    */
   const handleChange = (field: keyof Activity, value: string) => {
-    // Handle empty values and validation
+    // Handle empty name
     if (field === 'name' && !value.trim()) {
       toast.error(language === 'es' 
         ? 'El nombre de la actividad no puede estar vacío' 
@@ -36,26 +36,29 @@ const ActivityItem = ({ activity, onUpdate, onDelete }: ActivityItemProps) => {
     let parsedValue: string | number = value;
     
     if (field === 'weight' || field === 'grade') {
-      // Handle non-numeric values
-      if (value === '' || isNaN(parseFloat(value))) {
+      // Allow empty values for weight and grade fields
+      if (value === '') {
+        parsedValue = '';
+      } else if (isNaN(parseFloat(value))) {
+        // Only show error if input is not empty and not a number
         toast.error(language === 'es' 
           ? 'Por favor ingresa un número válido' 
           : 'Please enter a valid number');
         return;
-      }
-      
-      // Ensure values stay within valid ranges
-      parsedValue = value === '' ? 0 : Math.min(100, Math.max(0, parseFloat(value)));
-      
-      // Provide feedback on capped values
-      if (parseFloat(value) > 100) {
-        toast.info(language === 'es' 
-          ? 'El valor máximo permitido es 100' 
-          : 'Maximum allowed value is 100');
-      } else if (parseFloat(value) < 0) {
-        toast.info(language === 'es' 
-          ? 'El valor mínimo permitido es 0' 
-          : 'Minimum allowed value is 0');
+      } else {
+        // Parse and limit numerical values
+        parsedValue = Math.min(100, Math.max(0, parseFloat(value)));
+        
+        // Provide feedback on capped values
+        if (parseFloat(value) > 100) {
+          toast.info(language === 'es' 
+            ? 'El valor máximo permitido es 100' 
+            : 'Maximum allowed value is 100');
+        } else if (parseFloat(value) < 0) {
+          toast.info(language === 'es' 
+            ? 'El valor mínimo permitido es 0' 
+            : 'Minimum allowed value is 0');
+        }
       }
     }
     
@@ -82,6 +85,7 @@ const ActivityItem = ({ activity, onUpdate, onDelete }: ActivityItemProps) => {
 
   // Determine color class based on grade value for visual feedback
   const getGradeColorClass = () => {
+    if (activity.grade === '' || activity.grade === undefined) return "";
     if (activity.grade < 60) return "text-red-600 dark:text-red-400";
     if (activity.grade < 70) return "text-amber-600 dark:text-amber-400";
     if (activity.grade < 85) return "text-blue-600 dark:text-blue-400";
