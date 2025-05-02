@@ -10,7 +10,7 @@ import ResultsDisplay from '@/components/ResultsDisplay';
 import GradeNeededCalculator from '@/components/GradeNeededCalculator';
 import { Button } from '@/components/ui/button';
 import { Toaster } from "@/components/ui/sonner";
-import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen } from 'lucide-react';
+import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen, LayoutDashboard } from 'lucide-react';
 import { toast } from "sonner";
 import { useTheme } from 'next-themes';
 import { useI18n } from '@/lib/i18n';
@@ -26,7 +26,8 @@ const LOCAL_STORAGE_KEY = 'haby-score-tracker-data';
 const Index = () => {
   const {
     t,
-    language
+    language,
+    toggleLanguage
   } = useI18n();
 
   // State for showing intro panel
@@ -109,22 +110,22 @@ const Index = () => {
       weight: 50,
       activities: [{
         id: uuidv4(),
-        name: "Activity A",
+        name: language === 'es' ? "Actividad A" : "Activity A",
         weight: 25,
         grade: 100
       }, {
         id: uuidv4(),
-        name: "Activity B",
+        name: language === 'es' ? "Actividad B" : "Activity B",
         weight: 25,
         grade: 100
       }, {
         id: uuidv4(),
-        name: "Activity C",
+        name: language === 'es' ? "Actividad C" : "Activity C",
         weight: 25,
         grade: 100
       }, {
         id: uuidv4(),
-        name: "Activity D",
+        name: language === 'es' ? "Actividad D" : "Activity D",
         weight: 25,
         grade: 60
       }]
@@ -195,7 +196,7 @@ const Index = () => {
             {t('appName') || 'HABY Score Tracker'}
           </h1>
           <p className="text-gray-700 dark:text-gray-300 max-w-3xl">
-            {language === 'es' ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando pesos específicos para obtener tu calificación final de manera precisa." : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific weights to obtain your final grade accurately."}
+            {language === 'es' ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando importancia específica para obtener tu calificación final de manera precisa." : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific importance to obtain your final grade accurately."}
           </p>
           <div className="flex flex-wrap gap-2 mt-4">
             <Link to="/guide">
@@ -221,6 +222,10 @@ const Index = () => {
               {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
               {theme === 'dark' ? t('lightMode') : t('darkMode')}
             </Button>
+            <Button variant="outline" onClick={toggleLanguage} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
+              <LayoutDashboard className="h-4 w-4 mr-1" />
+              {language === 'es' ? "EN" : "ES"}
+            </Button>
             <Button variant="outline" onClick={handleLoadExample} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
               <Info className="h-4 w-4 mr-1" />
               {t('loadExample')}
@@ -242,7 +247,15 @@ const Index = () => {
             </div>
             
             {/* Category list */}
-            {categories.map(category => <CategoryCard key={category.id} category={category} onUpdate={handleUpdateCategory} onDelete={handleDeleteCategory} />)}
+            {categories.length > 0 ? (
+              categories.map(category => <CategoryCard key={category.id} category={category} onUpdate={handleUpdateCategory} onDelete={handleDeleteCategory} />)
+            ) : (
+              <div className="text-center py-10 border border-dashed rounded-lg bg-gray-50 dark:bg-gray-800/50">
+                <p className="text-gray-500 dark:text-gray-400">
+                  {language === 'es' ? "No hay categorías. Añade una para empezar." : "No categories. Add one to get started."}
+                </p>
+              </div>
+            )}
             
             {/* Form to add new categories */}
             <AddCategoryForm onAddCategory={handleAddCategory} />
