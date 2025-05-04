@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail, History } from 'lucide-react';
+import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail, History, MessageCircle } from 'lucide-react';
 import { toast } from "sonner";
 
 /**
@@ -75,6 +75,17 @@ const Header = () => {
               <MessageSquare size={18} />
             </a>
           </div>
+          <Link to="/chat-calculator">
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="bg-white/10 hover:bg-white/20 text-white border-white/20 transition-all"
+              title={language === 'es' ? "Calculadora por chat" : "Chat calculator"}
+            >
+              <MessageCircle className="h-4 w-4 mr-1" />
+              {language === 'es' ? 'ChatIA' : 'ChatAI'}
+            </Button>
+          </Link>
           <Link to="/version-history">
             <Button 
               variant="outline" 

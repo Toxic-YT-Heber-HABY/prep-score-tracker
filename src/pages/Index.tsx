@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,7 +9,7 @@ import ResultsDisplay from '@/components/ResultsDisplay';
 import GradeNeededCalculator from '@/components/GradeNeededCalculator';
 import { Button } from '@/components/ui/button';
 import { Toaster } from "@/components/ui/sonner";
-import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen, LayoutDashboard } from 'lucide-react';
+import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen, LayoutDashboard, MessageCircle } from 'lucide-react';
 import { toast } from "sonner";
 import { useTheme } from 'next-themes';
 import { useI18n } from '@/lib/i18n';
@@ -209,7 +208,35 @@ const Index = () => {
               <HelpCircle size={16} />
               {language === 'es' ? "Mostrar introducción" : "Show introduction"}
             </Button>
+            <Link to="/chat-calculator">
+              <Button variant="secondary" className="flex items-center gap-2 bg-education-primary/10 hover:bg-education-primary/20 text-education-primary border border-education-primary/30 transition-colors duration-300">
+                <MessageCircle size={16} />
+                {language === 'es' ? "Usa nuestro ChatIA" : "Use our ChatAI"}
+              </Button>
+            </Link>
           </div>
+        </div>
+
+        {/* Nueva sección destacando el Chat Calculator */}
+        <div className="mb-8 p-5 rounded-lg border-2 border-dashed border-education-primary/30 bg-education-primary/5 dark:bg-education-primary/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="bg-education-primary/20 dark:bg-education-primary/30 h-12 w-12 rounded-full flex items-center justify-center">
+              <MessageCircle size={24} className="text-education-primary" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg text-education-primary">
+                {language === 'es' ? '¡Prueba la nueva calculadora por ChatIA!' : 'Try the new ChatAI calculator!'}
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {language === 'es' ? 'Una forma conversacional y sencilla de calcular tu calificación.' : 'A conversational and simple way to calculate your grade.'}
+              </p>
+            </div>
+          </div>
+          <Link to="/chat-calculator">
+            <Button className="bg-education-primary hover:bg-education-dark text-white">
+              {language === 'es' ? 'Ir al ChatIA' : 'Go to ChatAI'}
+            </Button>
+          </Link>
         </div>
 
         {/* Header with action buttons */}
