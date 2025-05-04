@@ -10,7 +10,7 @@ import ResultsDisplay from '@/components/ResultsDisplay';
 import GradeNeededCalculator from '@/components/GradeNeededCalculator';
 import { Button } from '@/components/ui/button';
 import { Toaster } from "@/components/ui/sonner";
-import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen, LayoutDashboard, MessageSquare } from 'lucide-react';
+import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen, LayoutDashboard } from 'lucide-react';
 import { toast } from "sonner";
 import { useTheme } from 'next-themes';
 import { useI18n } from '@/lib/i18n';
@@ -199,12 +199,6 @@ const Index = () => {
             {language === 'es' ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando importancia específica para obtener tu calificación final de manera precisa." : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific importance to obtain your final grade accurately."}
           </p>
           <div className="flex flex-wrap gap-2 mt-4">
-            <Link to="/chat-calculator">
-              <Button className="flex items-center gap-2 bg-education-primary hover:bg-education-dark text-white transition-colors duration-300">
-                <MessageSquare size={16} />
-                {language === 'es' ? "Usar calculadora por chat" : "Use chat calculator"}
-              </Button>
-            </Link>
             <Link to="/guide">
               <Button variant="outline" className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30 transition-colors duration-300">
                 <BookOpen size={16} />

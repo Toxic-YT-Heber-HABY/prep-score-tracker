@@ -12,7 +12,6 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Contact from "./pages/Contact";
 import VersionHistory from "./pages/VersionHistory";
-import ChatCalculator from "./pages/ChatCalculator";
 import Footer from "./components/Footer";
 
 /**
@@ -65,7 +64,6 @@ const App = () => (
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/version-history" element={<VersionHistory />} />
-            <Route path="/chat-calculator" element={<ChatCalculator />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
