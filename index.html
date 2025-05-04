@@ -3,7 +3,7 @@
 <html lang="es-MX">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Metadatos para SEO y compartir enlaces -->
@@ -30,10 +30,31 @@
     
     <!-- Tema de color para móviles -->
     <meta name="theme-color" content="#9b87f5" />
+    
+    <!-- Soporte para PWA (Aplicación Web Progresiva) para funcionamiento sin Internet -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="HABY Score Tracker" />
+    <link rel="apple-touch-icon" href="/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png" />
   </head>
   <body>
     <div id="root"></div>
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Service Worker para soporte offline -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+              console.log('Service Worker registrado correctamente:', registration);
+            })
+            .catch(error => {
+              console.log('Error al registrar el Service Worker:', error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

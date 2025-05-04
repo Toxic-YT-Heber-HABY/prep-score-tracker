@@ -1,0 +1,22 @@
+
+{
+  "name": "HABY Score Tracker",
+  "short_name": "HABY",
+  "description": "Calculadora de calificaciones para estudiantes",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#9b87f5",
+  "icons": [
+    {
+      "src": "/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
