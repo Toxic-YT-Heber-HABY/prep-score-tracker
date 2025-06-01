@@ -1,141 +1,150 @@
-import React from 'react';
-import { Activity } from '@/types';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { X, AlertCircle } from 'lucide-react';
+
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Activity } from "@/types";
+import { Trash2, Edit2, Check, X } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
-import { toast } from "sonner";
 
 interface ActivityItemProps {
   activity: Activity;
-  onUpdate: (updatedActivity: Activity) => void;
+  onUpdate: (activity: Activity) => void;
   onDelete: (id: string) => void;
 }
 
-/**
- * Component for displaying and editing a single activity within a category
- */
-const ActivityItem = ({ activity, onUpdate, onDelete }: ActivityItemProps) => {
-  const { t, language } = useI18n();
-  
-  /**
-   * Handles changes to activity fields
-   * @param field The field to update (name, weight, grade)
-   * @param value The new value for the field
-   */
-  const handleChange = (field: keyof Activity, value: string) => {
-    // Handle empty name
-    if (field === 'name' && !value.trim()) {
-      toast.error(language === 'es' 
-        ? 'El nombre de la actividad no puede estar vacío' 
-        : 'Activity name cannot be empty');
-      return;
-    }
-    
-    let parsedValue: string | number = value;
-    
-    if (field === 'weight' || field === 'grade') {
-      // Allow empty values for weight and grade fields
-      if (value === '') {
-        parsedValue = '';
-      } else if (isNaN(parseFloat(value))) {
-        // Only show error if input is not empty and not a number
-        toast.error(language === 'es' 
-          ? 'Por favor ingresa un número válido' 
-          : 'Please enter a valid number');
-        return;
-      } else {
-        // Parse and limit numerical values
-        parsedValue = Math.min(100, Math.max(0, parseFloat(value)));
+const ActivityItem: React.FC<ActivityItemProps> = ({ activity, onUpdate, onDelete }) => {
+  const { language } = useI18n();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedActivity, setEditedActivity] = useState(activity);
+
+  const handleSave = () => {
+    onUpdate(editedActivity);
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setEditedActivity(activity);
+    setIsEditing(false);
+  };
+
+  if (isEditing) {
+    return (
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border-2 border-education-primary/30 shadow-md space-y-4">
+        <Input
+          value={editedActivity.name}
+          onChange={(e) => setEditedActivity({...editedActivity, name: e.target.value})}
+          placeholder={language === 'es' ? "Nombre de la actividad" : "Activity name"}
+          className="rounded-lg border-2 focus:border-education-primary"
+        />
         
-        // Provide feedback on capped values
-        if (parseFloat(value) > 100) {
-          toast.info(language === 'es' 
-            ? 'El valor máximo permitido es 100' 
-            : 'Maximum allowed value is 100');
-        } else if (parseFloat(value) < 0) {
-          toast.info(language === 'es' 
-            ? 'El valor mínimo permitido es 0' 
-            : 'Minimum allowed value is 0');
-        }
-      }
-    }
-    
-    // Update the activity with the validated value
-    onUpdate({
-      ...activity,
-      [field]: parsedValue
-    });
-  };
-
-  /**
-   * Handles activity deletion with confirmation
-   */
-  const confirmDelete = () => {
-    if (window.confirm(language === 'es' 
-      ? `¿Estás seguro de que deseas eliminar la actividad "${activity.name}"?` 
-      : `Are you sure you want to delete the activity "${activity.name}"?`)) {
-      onDelete(activity.id);
-      toast.success(language === 'es' 
-        ? `Actividad "${activity.name}" eliminada` 
-        : `Activity "${activity.name}" deleted`);
-    }
-  };
-
-  // Determine color class based on grade value for visual feedback
-  const getGradeColorClass = () => {
-    if (activity.grade === '' || activity.grade === undefined) return "";
-    if (typeof activity.grade === 'string') return "";
-    if (activity.grade < 60) return "text-red-600 dark:text-red-400";
-    if (activity.grade < 70) return "text-amber-600 dark:text-amber-400";
-    if (activity.grade < 85) return "text-blue-600 dark:text-blue-400";
-    return "text-green-600 dark:text-green-400";
-  };
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="text-sm font-medium text-gray-600 dark:text-gray-400 block mb-1">
+              {language === 'es' ? 'Valor (%)' : 'Value (%)'}
+            </label>
+            <Input
+              type="number"
+              min="0"
+              max="100"
+              value={editedActivity.weight}
+              onChange={(e) => setEditedActivity({...editedActivity, weight: Number(e.target.value)})}
+              className="rounded-lg border-2 focus:border-education-primary"
+            />
+          </div>
+          
+          <div>
+            <label className="text-sm font-medium text-gray-600 dark:text-gray-400 block mb-1">
+              {language === 'es' ? 'Calificación obtenida' : 'Grade obtained'}
+            </label>
+            <Input
+              type="number"
+              min="0"
+              max="100"
+              step="0.1"
+              value={editedActivity.grade}
+              onChange={(e) => setEditedActivity({...editedActivity, grade: e.target.value})}
+              className="rounded-lg border-2 focus:border-education-primary"
+            />
+          </div>
+        </div>
+        
+        <div className="flex gap-2 justify-end">
+          <Button 
+            onClick={handleSave} 
+            size="sm" 
+            className="bg-green-600 hover:bg-green-700 text-white rounded-lg"
+          >
+            <Check size={16} />
+          </Button>
+          <Button 
+            onClick={handleCancel} 
+            size="sm" 
+            variant="outline"
+            className="rounded-lg border-2"
+          >
+            <X size={16} />
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-wrap items-center gap-2 p-3 border rounded-md bg-white dark:bg-gray-800 mb-2 hover:shadow-md transition-all">
-      <div className="flex-1 min-w-[150px]">
-        <label className="text-xs text-gray-500 dark:text-gray-400 block">{t('activityName')}</label>
-        <Input
-          value={activity.name}
-          onChange={(e) => handleChange('name', e.target.value)}
-          className="mt-1 dark:bg-gray-700 dark:border-gray-600 focus:ring-education-primary"
-          placeholder={t('activityName')}
-        />
+    <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-md hover:shadow-lg transition-all duration-200 hover:border-education-primary/30">
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
+            {activity.name}
+          </h4>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-500 dark:text-gray-400 font-medium">
+                {language === 'es' ? 'Valor:' : 'Value:'}
+              </span>
+              <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 px-2 py-1 rounded-lg font-semibold">
+                {activity.weight}%
+              </span>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <span className="text-gray-500 dark:text-gray-400 font-medium">
+                {language === 'es' ? 'Calificación:' : 'Grade:'}
+              </span>
+              <span className={`px-2 py-1 rounded-lg font-semibold ${
+                activity.grade === '' || activity.grade === null || activity.grade === undefined
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+                  : Number(activity.grade) >= 70 
+                    ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400'
+                    : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400'
+              }`}>
+                {activity.grade === '' || activity.grade === null || activity.grade === undefined 
+                  ? (language === 'es' ? 'Sin calificar' : 'Not graded')
+                  : `${activity.grade}/100`}
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex gap-2 ml-4">
+          <Button 
+            onClick={() => setIsEditing(true)}
+            size="sm" 
+            variant="outline"
+            className="text-education-primary hover:bg-education-primary hover:text-white rounded-lg border-2"
+          >
+            <Edit2 size={16} />
+          </Button>
+          <Button 
+            onClick={() => onDelete(activity.id)}
+            size="sm" 
+            variant="outline"
+            className="text-red-600 hover:bg-red-600 hover:text-white rounded-lg border-2"
+          >
+            <Trash2 size={16} />
+          </Button>
+        </div>
       </div>
-      <div className="w-24">
-        <label className="text-xs text-gray-500 dark:text-gray-400 block">{t('activityWeight')}</label>
-        <Input
-          type="number"
-          min="0"
-          max="100"
-          step="0.1"
-          value={activity.weight}
-          onChange={(e) => handleChange('weight', e.target.value)}
-          className="mt-1 dark:bg-gray-700 dark:border-gray-600 focus:ring-education-primary"
-        />
-      </div>
-      <div className="w-24">
-        <label className="text-xs text-gray-500 dark:text-gray-400 block">{t('grade')}</label>
-        <Input
-          type="number"
-          min="0"
-          max="100"
-          step="0.1"
-          value={activity.grade}
-          onChange={(e) => handleChange('grade', e.target.value)}
-          className={`mt-1 dark:bg-gray-700 dark:border-gray-600 focus:ring-education-primary ${getGradeColorClass()}`}
-        />
-      </div>
-      <Button 
-        variant="ghost" 
-        size="icon"
-        onClick={confirmDelete}
-        className="h-8 w-8 mt-4 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400"
-        title={language === 'es' ? "Eliminar actividad" : "Delete activity"}
-      >
-        <X className="h-4 w-4" />
-      </Button>
     </div>
   );
 };
