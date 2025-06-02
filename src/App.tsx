@@ -13,7 +13,6 @@ import Privacy from "./pages/Privacy";
 import Contact from "./pages/Contact";
 import VersionHistory from "./pages/VersionHistory";
 import ChatCalculator from "./pages/ChatCalculator";
-import Footer from "./components/Footer";
 
 /**
  * Create React Query client with optimized configuration
@@ -68,7 +67,6 @@ const App = () => (
             <Route path="/chat-calculator" element={<ChatCalculator />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Footer />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
