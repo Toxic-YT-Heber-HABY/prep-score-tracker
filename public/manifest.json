@@ -2,21 +2,74 @@
 {
   "name": "HABY Score Tracker",
   "short_name": "HABY",
-  "description": "Calculadora de calificaciones para estudiantes",
+  "description": "Calculadora de calificaciones para estudiantes con funcionalidad offline",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#9b87f5",
+  "categories": ["education", "productivity", "utilities"],
+  "lang": "es",
+  "dir": "ltr",
+  "scope": "/",
   "icons": [
     {
       "src": "/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Calculadora de notas",
+      "short_name": "Calculadora",
+      "description": "Acceso directo a la calculadora de calificaciones",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Guía de usuario",
+      "short_name": "Guía",
+      "description": "Acceso directo a la guía de usuario",
+      "url": "/guide",
+      "icons": [
+        {
+          "src": "/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Vista principal de HABY Score Tracker"
+    },
+    {
+      "src": "/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Vista móvil de HABY Score Tracker"
     }
   ]
 }

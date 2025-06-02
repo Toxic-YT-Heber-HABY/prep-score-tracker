@@ -6,8 +6,8 @@ import type {
   ToastProps,
 } from "@/components/ui/toast"
 
-const TOAST_LIMIT = 3 // Limitado a 3 notificaciones máximo
-const TOAST_REMOVE_DELAY = 5000 // Reducido a 5 segundos para que desaparezcan más rápido
+const TOAST_LIMIT = 3 // Limitado estrictamente a 3 notificaciones máximo
+const TOAST_REMOVE_DELAY = 5000 // 5 segundos para que desaparezcan más rápido
 
 type ToasterToast = ToastProps & {
   id: string
@@ -75,9 +75,18 @@ const addToRemoveQueue = (toastId: string) => {
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_TOAST":
+      // Si ya hay 3 toasts, remover el más antiguo automáticamente
+      let newToasts = [action.toast, ...state.toasts];
+      if (newToasts.length > TOAST_LIMIT) {
+        const toastsToRemove = newToasts.slice(TOAST_LIMIT);
+        toastsToRemove.forEach(toast => {
+          addToRemoveQueue(toast.id);
+        });
+        newToasts = newToasts.slice(0, TOAST_LIMIT);
+      }
       return {
         ...state,
-        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
+        toasts: newToasts,
       }
 
     case "UPDATE_TOAST":
@@ -91,8 +100,7 @@ export const reducer = (state: State, action: Action): State => {
     case "DISMISS_TOAST": {
       const { toastId } = action
 
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
+      // Efecto secundario para agregar a la cola de eliminación
       if (toastId) {
         addToRemoveQueue(toastId)
       } else {

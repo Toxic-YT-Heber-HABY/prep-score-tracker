@@ -1,7 +1,6 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, Tag, BookOpen, Code, Bug, Zap, LucideIcon } from 'lucide-react';
+import { ArrowLeft, Clock, Tag, BookOpen, Code, Bug, Zap, LucideIcon, Download } from 'lucide-react';
 import Header from "@/components/Header";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
@@ -34,151 +33,124 @@ interface Version {
 
 const versions: Version[] = [
   {
-    version: "1.0.0",
-    date: "2025-04-01",
+    version: "1.5.0",
+    date: "2025-06-02",
     title: {
-      es: "Lanzamiento inicial",
-      en: "Initial Release"
+      es: "Funcionalidad offline y optimizaciones móviles",
+      en: "Offline functionality and mobile optimizations"
     },
     description: {
       es: [
-        "Primera versión oficial de HABY Score Tracker con funcionalidades básicas para el cálculo de calificaciones"
+        "Implementación de funcionalidad offline completa para dispositivos móviles y mejoras significativas en el rendimiento y escalabilidad del sitio web"
       ],
       en: [
-        "First official version of HABY Score Tracker with basic grade calculation functionalities"
+        "Implementation of complete offline functionality for mobile devices and significant improvements in website performance and scalability"
       ]
     },
     technicalDetails: {
       es: [
-        "Implementación de la calculadora básica de calificaciones usando React y TypeScript",
-        "Sistema de categorías con pesos específicos para cada una",
-        "Actividades individuales dentro de cada categoría con pesos personalizables",
-        "Cálculo automático del promedio final ponderado"
+        "Service Worker mejorado para descarga completa del sitio web offline",
+        "Sistema de caché avanzado para todos los recursos estáticos y dinámicos",
+        "Optimización de rendimiento específica para dispositivos móviles",
+        "Mejoras en la responsividad para diferentes tamaños de pantalla",
+        "Limitación de notificaciones simultáneas mejorada a máximo 3"
       ],
       en: [
-        "Implementation of the basic grade calculator using React and TypeScript",
-        "Category system with specific weights for each one",
-        "Individual activities within each category with customizable weights",
-        "Automatic calculation of the weighted final average"
+        "Enhanced Service Worker for complete offline website download",
+        "Advanced caching system for all static and dynamic resources",
+        "Mobile-specific performance optimizations",
+        "Responsiveness improvements for different screen sizes",
+        "Enhanced simultaneous notification limitation to maximum 3"
       ]
     },
     improvements: {
       es: [
-        "Interfaz de usuario intuitiva y fácil de usar",
-        "Navegación simple entre componentes",
-        "Estructura clara para la organización de calificaciones"
+        "Capacidad de usar toda la aplicación sin conexión a internet",
+        "Tiempo de carga reducido en un 50% en dispositivos móviles",
+        "Interfaz más limpia con control de notificaciones mejorado",
+        "Mejor adaptación a pantallas pequeñas y grandes",
+        "Experiencia de usuario optimizada para áreas con conectividad limitada"
       ],
       en: [
-        "Intuitive and easy-to-use user interface",
-        "Simple navigation between components",
-        "Clear structure for grade organization"
-      ]
-    },
-    icon: BookOpen
-  },
-  {
-    version: "1.1.0",
-    date: "2025-04-05",
-    title: {
-      es: "Mejora de la experiencia de usuario",
-      en: "User Experience Enhancement"
-    },
-    description: {
-      es: [
-        "Actualización centrada en mejorar la experiencia del usuario con nuevas características de accesibilidad y personalización"
-      ],
-      en: [
-        "Update focused on improving the user experience with new accessibility and customization features"
-      ]
-    },
-    technicalDetails: {
-      es: [
-        "Implementación de modos claro y oscuro con detección automática según preferencias del sistema",
-        "Internacionalización completa con soporte para español e inglés",
-        "Mejoras en la accesibilidad según estándares WCAG 2.1",
-        "Optimización de rendimiento en dispositivos de gama baja"
-      ],
-      en: [
-        "Implementation of light and dark modes with automatic detection according to system preferences",
-        "Complete internationalization with support for Spanish and English",
-        "Accessibility improvements according to WCAG 2.1 standards",
-        "Performance optimization on low-end devices"
-      ]
-    },
-    improvements: {
-      es: [
-        "Transiciones suaves entre modos claro y oscuro",
-        "Alternancia de idiomas en tiempo real sin recargar la página",
-        "Diseño completamente responsivo para todos los tamaños de pantalla",
-        "Mejor contraste y legibilidad para usuarios con discapacidades visuales"
-      ],
-      en: [
-        "Smooth transitions between light and dark modes",
-        "Real-time language switching without page reloading",
-        "Fully responsive design for all screen sizes",
-        "Better contrast and readability for users with visual disabilities"
-      ]
-    },
-    icon: Zap
-  },
-  {
-    version: "1.2.0",
-    date: "2025-04-10",
-    title: {
-      es: "Nuevas funcionalidades",
-      en: "New Features"
-    },
-    description: {
-      es: [
-        "Ampliación significativa de características con nuevas herramientas para mejorar la experiencia del usuario"
-      ],
-      en: [
-        "Significant feature expansion with new tools to enhance the user experience"
-      ]
-    },
-    technicalDetails: {
-      es: [
-        "Desarrollo de un panel de introducción interactivo para nuevos usuarios",
-        "Creación de ejemplos precargados con distintos escenarios educativos",
-        "Implementación de una página de guía de usuario completa",
-        "Desarrollo e integración de términos y condiciones, y política de privacidad",
-        "Sistema de almacenamiento local para guardar datos del usuario"
-      ],
-      en: [
-        "Development of an interactive introduction panel for new users",
-        "Creation of preloaded examples with different educational scenarios",
-        "Implementation of a complete user guide page",
-        "Development and integration of terms and conditions, and privacy policy",
-        "Local storage system to save user data"
-      ]
-    },
-    improvements: {
-      es: [
-        "Tutorial interactivo para usuarios que usan la aplicación por primera vez",
-        "Funcionalidad de reinicio de datos con confirmación",
-        "Ejemplos realistas para diferentes situaciones educativas",
-        "Documentación detallada sobre el uso de cada función"
-      ],
-      en: [
-        "Interactive tutorial for users using the application for the first time",
-        "Data reset functionality with confirmation",
-        "Realistic examples for different educational situations",
-        "Detailed documentation on the use of each function"
+        "Ability to use the entire application without internet connection",
+        "50% reduced loading time on mobile devices",
+        "Cleaner interface with improved notification control",
+        "Better adaptation to small and large screens",
+        "Optimized user experience for areas with limited connectivity"
       ]
     },
     bugFixes: {
       es: [
-        "Corrección de cálculos incorrectos en situaciones específicas",
-        "Arreglo de problemas de visualización en pantallas muy pequeñas",
-        "Solución a errores en la validación de datos"
+        "Corrección de problemas de renderizado en dispositivos de baja gama",
+        "Solución a errores de caché en actualizaciones de la aplicación",
+        "Arreglo de problemas de scroll en dispositivos táctiles"
       ],
       en: [
-        "Correction of incorrect calculations in specific situations",
-        "Fix for display issues on very small screens",
-        "Solution to data validation errors"
+        "Fixed rendering issues on low-end devices",
+        "Solution to cache errors in application updates",
+        "Fixed scroll issues on touch devices"
       ]
     },
-    icon: Code
+    icon: Download
+  },
+  {
+    version: "1.4.0",
+    date: "2025-04-14",
+    title: {
+      es: "Mejoras en la experiencia del usuario y correcciones",
+      en: "User Experience Improvements and Fixes"
+    },
+    description: {
+      es: [
+        "Actualización centrada en resolver problemas de usabilidad y mejorar la interacción del usuario"
+      ],
+      en: [
+        "Update focused on solving usability issues and improving user interaction"
+      ]
+    },
+    technicalDetails: {
+      es: [
+        "Implementación de campos de calificación que pueden quedar vacíos",
+        "Limitación del número de notificaciones mostradas simultáneamente a 3",
+        "Reducción del tiempo de permanencia de las notificaciones a 5 segundos",
+        "Mejora detallada de la página de historial de versiones",
+        "Cambio de nombre del apartado 'Historial' a 'Historial de versiones'"
+      ],
+      en: [
+        "Implementation of grade fields that can be left empty",
+        "Limitation of the number of notifications shown simultaneously to 3",
+        "Reduction of notification duration to 5 seconds",
+        "Detailed improvement of the version history page",
+        "Renaming of the 'History' section to 'Version History'"
+      ]
+    },
+    improvements: {
+      es: [
+        "Mayor flexibilidad al permitir campos de calificación vacíos",
+        "Experiencia de notificaciones más limpia y menos intrusiva",
+        "Documentación más detallada y transparente sobre el desarrollo",
+        "Mejor organización y claridad en la página de historial"
+      ],
+      en: [
+        "Greater flexibility by allowing empty grade fields",
+        "Cleaner and less intrusive notification experience",
+        "More detailed and transparent documentation on development",
+        "Better organization and clarity on the history page"
+      ]
+    },
+    bugFixes: {
+      es: [
+        "Solución al problema de no poder eliminar valores de calificación",
+        "Corrección del exceso de notificaciones simultáneas",
+        "Mejora de la información ambigua en el historial de versiones"
+      ],
+      en: [
+        "Solution to the problem of not being able to delete grade values",
+        "Correction of excessive simultaneous notifications",
+        "Improvement of ambiguous information in version history"
+      ]
+    },
+    icon: Zap
   },
   {
     version: "1.3.0",
@@ -244,63 +216,151 @@ const versions: Version[] = [
     icon: Bug
   },
   {
-    version: "1.4.0",
-    date: "2025-04-14",
+    version: "1.2.0",
+    date: "2025-04-10",
     title: {
-      es: "Mejoras en la experiencia del usuario y correcciones",
-      en: "User Experience Improvements and Fixes"
+      es: "Nuevas funcionalidades",
+      en: "New Features"
     },
     description: {
       es: [
-        "Actualización centrada en resolver problemas de usabilidad y mejorar la interacción del usuario"
+        "Ampliación significativa de características con nuevas herramientas para mejorar la experiencia del usuario"
       ],
       en: [
-        "Update focused on solving usability issues and improving user interaction"
+        "Significant feature expansion with new tools to enhance the user experience"
       ]
     },
     technicalDetails: {
       es: [
-        "Implementación de campos de calificación que pueden quedar vacíos",
-        "Limitación del número de notificaciones mostradas simultáneamente a 3",
-        "Reducción del tiempo de permanencia de las notificaciones a 5 segundos",
-        "Mejora detallada de la página de historial de versiones",
-        "Cambio de nombre del apartado 'Historial' a 'Historial de versiones'"
+        "Desarrollo de un panel de introducción interactivo para nuevos usuarios",
+        "Creación de ejemplos precargados con distintos escenarios educativos",
+        "Implementación de una página de guía de usuario completa",
+        "Desarrollo e integración de términos y condiciones, y política de privacidad",
+        "Sistema de almacenamiento local para guardar datos del usuario"
       ],
       en: [
-        "Implementation of grade fields that can be left empty",
-        "Limitation of the number of notifications shown simultaneously to 3",
-        "Reduction of notification duration to 5 seconds",
-        "Detailed improvement of the version history page",
-        "Renaming of the 'History' section to 'Version History'"
+        "Development of an interactive introduction panel for new users",
+        "Creation of preloaded examples with different educational scenarios",
+        "Implementation of a complete user guide page",
+        "Development and integration of terms and conditions, and privacy policy",
+        "Local storage system to save user data"
       ]
     },
     improvements: {
       es: [
-        "Mayor flexibilidad al permitir campos de calificación vacíos",
-        "Experiencia de notificaciones más limpia y menos intrusiva",
-        "Documentación más detallada y transparente sobre el desarrollo",
-        "Mejor organización y claridad en la página de historial"
+        "Tutorial interactivo para usuarios que usan la aplicación por primera vez",
+        "Funcionalidad de reinicio de datos con confirmación",
+        "Ejemplos realistas para diferentes situaciones educativas",
+        "Documentación detallada sobre el uso de cada función"
       ],
       en: [
-        "Greater flexibility by allowing empty grade fields",
-        "Cleaner and less intrusive notification experience",
-        "More detailed and transparent documentation on development",
-        "Better organization and clarity on the history page"
+        "Interactive tutorial for users using the application for the first time",
+        "Data reset functionality with confirmation",
+        "Realistic examples for different educational situations",
+        "Detailed documentation on the use of each function"
       ]
     },
     bugFixes: {
       es: [
-        "Solución al problema de no poder eliminar valores de calificación",
-        "Corrección del exceso de notificaciones simultáneas",
-        "Mejora de la información ambigua en el historial de versiones"
+        "Corrección de cálculos incorrectos en situaciones específicas",
+        "Arreglo de problemas de visualización en pantallas muy pequeñas",
+        "Solución a errores en la validación de datos"
       ],
       en: [
-        "Solution to the problem of not being able to delete grade values",
-        "Correction of excessive simultaneous notifications",
-        "Improvement of ambiguous information in version history"
+        "Correction of incorrect calculations in specific situations",
+        "Fix for display issues on very small screens",
+        "Solution to data validation errors"
+      ]
+    },
+    icon: Code
+  },
+  {
+    version: "1.1.0",
+    date: "2025-04-05",
+    title: {
+      es: "Mejora de la experiencia de usuario",
+      en: "User Experience Enhancement"
+    },
+    description: {
+      es: [
+        "Actualización centrada en mejorar la experiencia del usuario con nuevas características de accesibilidad y personalización"
+      ],
+      en: [
+        "Update focused on improving the user experience with new accessibility and customization features"
+      ]
+    },
+    technicalDetails: {
+      es: [
+        "Implementación de modos claro y oscuro con detección automática según preferencias del sistema",
+        "Internacionalización completa con soporte para español e inglés",
+        "Mejoras en la accesibilidad según estándares WCAG 2.1",
+        "Optimización de rendimiento en dispositivos de gama baja"
+      ],
+      en: [
+        "Implementation of light and dark modes with automatic detection according to system preferences",
+        "Complete internationalization with support for Spanish and English",
+        "Accessibility improvements according to WCAG 2.1 standards",
+        "Performance optimization on low-end devices"
+      ]
+    },
+    improvements: {
+      es: [
+        "Transiciones suaves entre modos claro y oscuro",
+        "Alternancia de idiomas en tiempo real sin recargar la página",
+        "Diseño completamente responsivo para todos los tamaños de pantalla",
+        "Mejor contraste y legibilidad para usuarios con discapacidades visuales"
+      ],
+      en: [
+        "Smooth transitions between light and dark modes",
+        "Real-time language switching without page reloading",
+        "Fully responsive design for all screen sizes",
+        "Better contrast and readability for users with visual disabilities"
       ]
     },
     icon: Zap
+  },
+  {
+    version: "1.0.0",
+    date: "2025-04-01",
+    title: {
+      es: "Lanzamiento inicial",
+      en: "Initial Release"
+    },
+    description: {
+      es: [
+        "Primera versión oficial de HABY Score Tracker con funcionalidades básicas para el cálculo de calificaciones"
+      ],
+      en: [
+        "First official version of HABY Score Tracker with basic grade calculation functionalities"
+      ]
+    },
+    technicalDetails: {
+      es: [
+        "Implementación de la calculadora básica de calificaciones usando React y TypeScript",
+        "Sistema de categorías con pesos específicos para cada una",
+        "Actividades individuales dentro de cada categoría con pesos personalizables",
+        "Cálculo automático del promedio final ponderado"
+      ],
+      en: [
+        "Implementation of the basic grade calculator using React and TypeScript",
+        "Category system with specific weights for each one",
+        "Individual activities within each category with customizable weights",
+        "Automatic calculation of the weighted final average"
+      ]
+    },
+    improvements: {
+      es: [
+        "Interfaz de usuario intuitiva y fácil de usar",
+        "Navegación simple entre componentes",
+        "Estructura clara para la organización de calificaciones"
+      ],
+      en: [
+        "Intuitive and easy-to-use user interface",
+        "Simple navigation between components",
+        "Clear structure for grade organization"
+      ]
+    },
+    icon: BookOpen
   }
 ];
 
