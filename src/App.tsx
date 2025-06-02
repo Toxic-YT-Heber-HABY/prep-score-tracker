@@ -1,4 +1,4 @@
-
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -34,43 +34,45 @@ const queryClient = new QueryClient({
  * - UI components (tooltips, toasts)
  * - Routing
  */
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider 
-      attribute="class" 
-      defaultTheme="system"
-      enableSystem={true}
-      storageKey="haby-theme-preference"
-      disableTransitionOnChange={false} // Enable smooth transitions between themes
-    >
-      <TooltipProvider>
-        <Toaster />
-        <Sonner 
-          richColors 
-          closeButton 
-          position="top-right" 
-          theme="system"
-          toastOptions={{
-            duration: 5000, // 5 seconds
-            className: "max-w-md"
-          }}
-          visibleToasts={3} // Limitar a 3 notificaciones visibles
-        />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/guide" element={<Guide />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/version-history" element={<VersionHistory />} />
-            <Route path="/chat-calculator" element={<ChatCalculator />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider 
+        attribute="class" 
+        defaultTheme="system"
+        enableSystem={true}
+        storageKey="haby-theme-preference"
+        disableTransitionOnChange={false}
+      >
+        <TooltipProvider>
+          <Toaster />
+          <Sonner 
+            richColors 
+            closeButton 
+            position="top-right" 
+            theme="system"
+            toastOptions={{
+              duration: 5000,
+              className: "max-w-md"
+            }}
+            visibleToasts={3}
+          />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/guide" element={<Guide />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/version-history" element={<VersionHistory />} />
+              <Route path="/chat-calculator" element={<ChatCalculator />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
