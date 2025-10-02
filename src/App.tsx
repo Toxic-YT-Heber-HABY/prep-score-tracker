@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Guide from "./pages/Guide";
@@ -45,6 +47,7 @@ const App = () => {
         disableTransitionOnChange={false}
       >
         <TooltipProvider>
+          <AnimatedBackground />
           <Toaster />
           <Sonner 
             richColors 
@@ -59,14 +62,14 @@ const App = () => {
           />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/guide" element={<Guide />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/version-history" element={<VersionHistory />} />
-              <Route path="/chat-calculator" element={<ChatCalculator />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+              <Route path="/guide" element={<PageTransition><Guide /></PageTransition>} />
+              <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+              <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
+              <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+              <Route path="/version-history" element={<PageTransition><VersionHistory /></PageTransition>} />
+              <Route path="/chat-calculator" element={<PageTransition><ChatCalculator /></PageTransition>} />
+              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>

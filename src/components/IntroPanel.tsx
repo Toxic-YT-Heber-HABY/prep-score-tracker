@@ -63,7 +63,7 @@ const IntroPanel: React.FC<IntroPanelProps> = ({ onClose }) => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring", stiffness: 100 }
+      transition: { type: "spring" as const, stiffness: 100 }
     }
   };
 
@@ -72,7 +72,7 @@ const IntroPanel: React.FC<IntroPanelProps> = ({ onClose }) => {
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.3, type: "spring" }}
+        transition={{ duration: 0.3, type: "spring" as const }}
         className="w-full max-w-3xl"
       >
         <Card className="shadow-xl border-t-4 border-t-education-primary overflow-hidden">

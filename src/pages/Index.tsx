@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
 import { Category } from '@/types';
 import Header from '@/components/Header';
@@ -182,87 +183,139 @@ const Index = () => {
   if (!mounted) {
     return <div className="min-h-screen bg-gray-50 dark:bg-gray-900"></div>;
   }
-  return <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+  return <div className="min-h-screen transition-colors duration-500 relative overflow-hidden">
       <Header />
       
       {/* Intro Panel - shown only on first visit */}
       {showIntro && <IntroPanel onClose={handleCloseIntro} />}
       
-      <main className="container px-4 py-8 md:px-6 mx-auto max-w-6xl">
-        {/* App Introduction */}
-        <div className="mb-8 p-6 rounded-lg bg-gradient-to-r from-education-primary/10 to-education-secondary/10 dark:from-education-primary/20 dark:to-education-secondary/20 border border-education-primary/20 dark:border-education-secondary/20 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent">
+      <main className="container px-4 py-8 md:px-6 mx-auto max-w-6xl relative z-10">
+        {/* App Introduction with animations */}
+        <motion.div 
+          className="mb-8 p-8 rounded-3xl glass-card hover-glow border-2 border-education-primary/20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+        >
+          <motion.h1 
+            className="text-4xl font-bold mb-4 gradient-text"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             {t('appName') || 'HABY Score Tracker'}
-          </h1>
-          <p className="text-gray-700 dark:text-gray-300 max-w-3xl">
+          </motion.h1>
+          <motion.p 
+            className="text-gray-700 dark:text-gray-300 max-w-3xl text-lg leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             {language === 'es' ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando importancia específica para obtener tu calificación final de manera precisa." : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific importance to obtain your final grade accurately."}
-          </p>
-          <div className="flex flex-wrap gap-2 mt-4">
+          </motion.p>
+          <motion.div 
+            className="flex flex-wrap gap-3 mt-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          >
             <Link to="/guide">
-              <Button variant="outline" className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30 transition-colors duration-300">
-                <BookOpen size={16} />
-                {language === 'es' ? "Ver guía completa" : "View complete guide"}
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="outline" className="flex items-center gap-2 btn-hover border-education-primary/30 hover:bg-education-light/50 dark:hover:bg-education-dark/30">
+                  <BookOpen size={16} />
+                  {language === 'es' ? "Ver guía completa" : "View complete guide"}
+                </Button>
+              </motion.div>
             </Link>
-            <Button variant="outline" className="flex items-center gap-2 hover:bg-education-light dark:hover:bg-education-dark/30 transition-colors duration-300" onClick={() => setShowIntro(true)}>
-              <HelpCircle size={16} />
-              {language === 'es' ? "Mostrar introducción" : "Show introduction"}
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="outline" className="flex items-center gap-2 btn-hover border-education-primary/30 hover:bg-education-light/50 dark:hover:bg-education-dark/30" onClick={() => setShowIntro(true)}>
+                <HelpCircle size={16} />
+                {language === 'es' ? "Mostrar introducción" : "Show introduction"}
+              </Button>
+            </motion.div>
             <Link to="/chat-calculator">
-              <Button variant="secondary" className="flex items-center gap-2 bg-education-primary/10 hover:bg-education-primary/20 text-education-primary border border-education-primary/30 transition-colors duration-300">
-                <MessageCircle size={16} />
-                {language === 'es' ? "Usa nuestro ChatIA" : "Use our ChatAI"}
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button className="flex items-center gap-2 btn-glow gradient-primary text-white border-0">
+                  <MessageCircle size={16} />
+                  {language === 'es' ? "Usa nuestro ChatIA" : "Use our ChatAI"}
+                </Button>
+              </motion.div>
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        {/* Chat Calculator highlight section with animations */}
+        <motion.div 
+          className="mb-8 p-6 rounded-2xl glass-card border-2 border-dashed border-education-primary/40 hover-lift"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <motion.div 
+                className="gradient-primary h-14 w-14 rounded-2xl flex items-center justify-center shadow-lg"
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <MessageCircle size={28} className="text-white" />
+              </motion.div>
+              <div>
+                <h3 className="font-bold text-xl gradient-text">
+                  {language === 'es' ? '¡Prueba la nueva calculadora por ChatIA!' : 'Try the new ChatAI calculator!'}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {language === 'es' ? 'Una forma conversacional y sencilla de calcular tu calificación.' : 'A conversational and simple way to calculate your grade.'}
+                </p>
+              </div>
+            </div>
+            <Link to="/chat-calculator">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button className="gradient-primary text-white btn-glow shadow-xl">
+                  {language === 'es' ? 'Ir al ChatIA' : 'Go to ChatAI'}
+                </Button>
+              </motion.div>
             </Link>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Nueva sección destacando el Chat Calculator */}
-        <div className="mb-8 p-5 rounded-lg border-2 border-dashed border-education-primary/30 bg-education-primary/5 dark:bg-education-primary/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="bg-education-primary/20 dark:bg-education-primary/30 h-12 w-12 rounded-full flex items-center justify-center">
-              <MessageCircle size={24} className="text-education-primary" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg text-education-primary">
-                {language === 'es' ? '¡Prueba la nueva calculadora por ChatIA!' : 'Try the new ChatAI calculator!'}
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {language === 'es' ? 'Una forma conversacional y sencilla de calcular tu calificación.' : 'A conversational and simple way to calculate your grade.'}
-              </p>
-            </div>
-          </div>
-          <Link to="/chat-calculator">
-            <Button className="bg-education-primary hover:bg-education-dark text-white">
-              {language === 'es' ? 'Ir al ChatIA' : 'Go to ChatAI'}
-            </Button>
-          </Link>
-        </div>
-
-        {/* Header with action buttons */}
-        <div className="flex flex-wrap justify-between items-center mb-8 gap-3">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent pb-1">
+        {/* Header with action buttons - with animations */}
+        <motion.div 
+          className="flex flex-wrap justify-between items-center mb-8 gap-3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          <h2 className="text-3xl font-bold gradient-text">
             {t('categories')}
           </h2>
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" onClick={toggleTheme} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
-              {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
-              {theme === 'dark' ? t('lightMode') : t('darkMode')}
-            </Button>
-            <Button variant="outline" onClick={toggleLanguage} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
-              <LayoutDashboard className="h-4 w-4 mr-1" />
-              {language === 'es' ? "EN" : "ES"}
-            </Button>
-            <Button variant="outline" onClick={handleLoadExample} className="text-sm transition-all hover:bg-education-light dark:hover:bg-education-dark/30">
-              <Info className="h-4 w-4 mr-1" />
-              {t('loadExample')}
-            </Button>
-            <Button variant="outline" onClick={handleReset} className="text-sm text-destructive hover:text-destructive-foreground hover:bg-destructive/10">
-              <RefreshCw className="h-4 w-4 mr-1" />
-              {t('reset')}
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="outline" onClick={toggleTheme} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
+                {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
+                {theme === 'dark' ? t('lightMode') : t('darkMode')}
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="outline" onClick={toggleLanguage} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
+                <LayoutDashboard className="h-4 w-4 mr-1" />
+                {language === 'es' ? "EN" : "ES"}
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="outline" onClick={handleLoadExample} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
+                <Info className="h-4 w-4 mr-1" />
+                {t('loadExample')}
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="outline" onClick={handleReset} className="text-sm text-destructive hover:text-destructive-foreground hover:bg-destructive/10 border-destructive/20">
+                <RefreshCw className="h-4 w-4 mr-1" />
+                {t('reset')}
+              </Button>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
         
         {/* Main content area */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
