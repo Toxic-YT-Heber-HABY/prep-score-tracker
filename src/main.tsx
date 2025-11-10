@@ -9,17 +9,12 @@ if (!container) throw new Error('Failed to find the root element');
 
 const root = createRoot(container);
 
-// Optimizaciones de rendimiento para móviles
-if ('requestIdleCallback' in window) {
-  requestIdleCallback(() => {
-    root.render(<App />);
-  });
-} else {
-  // Fallback para navegadores que no soportan requestIdleCallback
-  setTimeout(() => {
-    root.render(<App />);
-  }, 1);
-}
+// Renderizado estándar de React
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
 // Registro del Service Worker mejorado
 if ('serviceWorker' in navigator) {
