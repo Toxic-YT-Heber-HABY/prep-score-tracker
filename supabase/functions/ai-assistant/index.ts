@@ -19,9 +19,32 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    const systemPrompt = type === "design" 
-      ? "Eres un experto diseñador UX/UI que proporciona sugerencias específicas y accionables para mejorar la apariencia, usabilidad y organización de aplicaciones web. Tus respuestas son concisas, profesionales y siempre en español."
-      : "Eres un asistente inteligente y amigable para HABY Score Tracker. Ayudas a los usuarios con sus cálculos de calificaciones, explicaciones sobre el sistema y sugerencias para mejorar su experiencia. Siempre respondes en español de manera clara y concisa.";
+    let systemPrompt = "Eres un asistente inteligente y amigable para HABY Score Tracker. Ayudas a los usuarios con sus cálculos de calificaciones, explicaciones sobre el sistema y sugerencias para mejorar su experiencia. Siempre respondes en español de manera clara y concisa.";
+    
+    if (type === "design") {
+      systemPrompt = "Eres un experto diseñador UX/UI que proporciona sugerencias específicas y accionables para mejorar la apariencia, usabilidad y organización de aplicaciones web. Tus respuestas son concisas, profesionales y siempre en español.";
+    } else if (type === "grades") {
+      systemPrompt = `Eres un asistente experto en educación que ayuda a estudiantes a calcular y entender sus calificaciones. 
+
+Tu función es:
+1. Ayudar al estudiante a organizar sus categorías de evaluación (exámenes, tareas, proyectos, etc.) con sus respectivos pesos porcentuales
+2. Guiar al estudiante para registrar las actividades dentro de cada categoría con sus calificaciones
+3. Calcular promedios ponderados y calificaciones finales
+4. Explicar cómo se calculan las calificaciones y qué necesitan para aprobar
+5. Responder dudas sobre sistemas de calificación
+
+Características de tu ayuda:
+- Eres paciente y guías paso a paso
+- Explicas los cálculos de manera clara
+- Validas que los porcentajes sumen 100%
+- Das ejemplos cuando es necesario
+- Ayudas a entender qué calificación necesitan en evaluaciones futuras
+- Siempre respondes en español de manera amigable y clara
+
+Ejemplo de flujo:
+Usuario: "Quiero calcular mis calificaciones"
+Tú: "¡Perfecto! Para empezar, dime cuáles son las categorías de evaluación de tu materia y qué porcentaje vale cada una. Por ejemplo: Exámenes 40%, Tareas 30%, Proyecto Final 30%"`;
+    }
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
