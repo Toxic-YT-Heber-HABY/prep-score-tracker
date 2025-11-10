@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TooltipProvider } from "@/components/ui/tooltip";
+
 import AnimatedBackground from "@/components/AnimatedBackground";
 import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index";
@@ -46,7 +46,7 @@ const App = () => {
         storageKey="haby-theme-preference"
         disableTransitionOnChange={false}
       >
-        <TooltipProvider>
+        <>
           <AnimatedBackground />
           <Toaster />
           <Sonner 
@@ -72,7 +72,7 @@ const App = () => {
               <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
             </Routes>
           </BrowserRouter>
-        </TooltipProvider>
+        </>
       </ThemeProvider>
     </QueryClientProvider>
   );
