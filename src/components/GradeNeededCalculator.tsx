@@ -130,7 +130,7 @@ const GradeNeededCalculator: React.FC<GradeNeededCalculatorProps> = ({ categorie
       <CardContent className="pt-4">
         <div className="space-y-4">
           <div>
-            <Label htmlFor="target-grade">
+            <Label htmlFor="target-grade" className="text-gray-700 dark:text-gray-300">
               {language === 'es' ? 'Calificación objetivo' : 'Target grade'}
             </Label>
             <Input
@@ -142,24 +142,24 @@ const GradeNeededCalculator: React.FC<GradeNeededCalculatorProps> = ({ categorie
               value={targetGrade}
               onChange={(e) => setTargetGrade(e.target.value)}
               placeholder="70"
-              className="mt-1"
+              className="mt-1 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100"
             />
           </div>
           
           <div>
-            <Label htmlFor="category-select">
+            <Label htmlFor="category-select" className="text-gray-700 dark:text-gray-300">
               {language === 'es' ? 'Categoría' : 'Category'}
             </Label>
             <Select
               value={selectedCategoryId}
               onValueChange={setSelectedCategoryId}
             >
-              <SelectTrigger id="category-select" className="mt-1">
+              <SelectTrigger id="category-select" className="mt-1 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100">
                 <SelectValue placeholder={language === 'es' ? 'Selecciona una categoría' : 'Select a category'} />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                 {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
+                  <SelectItem key={category.id} value={category.id} className="dark:text-gray-100 dark:focus:bg-gray-700">
                     {category.name}
                   </SelectItem>
                 ))}
@@ -169,19 +169,19 @@ const GradeNeededCalculator: React.FC<GradeNeededCalculatorProps> = ({ categorie
           
           {selectedCategory && (
             <div>
-              <Label htmlFor="activity-select">
+              <Label htmlFor="activity-select" className="text-gray-700 dark:text-gray-300">
                 {language === 'es' ? 'Actividad' : 'Activity'}
               </Label>
               <Select
                 value={selectedActivityId}
                 onValueChange={setSelectedActivityId}
               >
-                <SelectTrigger id="activity-select" className="mt-1">
+                <SelectTrigger id="activity-select" className="mt-1 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100">
                   <SelectValue placeholder={language === 'es' ? 'Selecciona una actividad' : 'Select an activity'} />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                   {selectedCategory.activities.map((activity) => (
-                    <SelectItem key={activity.id} value={activity.id}>
+                    <SelectItem key={activity.id} value={activity.id} className="dark:text-gray-100 dark:focus:bg-gray-700">
                       {activity.name}
                     </SelectItem>
                   ))}
@@ -201,7 +201,7 @@ const GradeNeededCalculator: React.FC<GradeNeededCalculatorProps> = ({ categorie
           {calculatedGrade !== null && (
             <div className="mt-4 p-3 bg-education-light dark:bg-education-dark/20 rounded-md border border-education-primary/20 flex items-center gap-2">
               <Trophy className="h-5 w-5 text-education-primary flex-shrink-0" />
-              <p>
+              <p className="text-gray-900 dark:text-gray-100">
                 {language === 'es' 
                   ? `Necesitas obtener ${calculatedGrade} en esta actividad para alcanzar una calificación final de ${targetGrade}.` 
                   : `You need to get ${calculatedGrade} in this activity to reach a final grade of ${targetGrade}.`}

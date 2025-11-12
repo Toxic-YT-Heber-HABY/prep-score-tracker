@@ -34,7 +34,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ activity, onUpdate, onDelet
           value={editedActivity.name}
           onChange={(e) => setEditedActivity({...editedActivity, name: e.target.value})}
           placeholder={language === 'es' ? "Nombre de la actividad" : "Activity name"}
-          className="rounded-lg border-2 focus:border-education-primary"
+          className="rounded-lg border-2 focus:border-education-primary dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
         />
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -48,7 +48,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ activity, onUpdate, onDelet
               max="100"
               value={editedActivity.weight}
               onChange={(e) => setEditedActivity({...editedActivity, weight: Number(e.target.value)})}
-              className="rounded-lg border-2 focus:border-education-primary"
+              className="rounded-lg border-2 focus:border-education-primary dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
             />
           </div>
           
@@ -63,7 +63,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ activity, onUpdate, onDelet
               step="0.1"
               value={editedActivity.grade}
               onChange={(e) => setEditedActivity({...editedActivity, grade: e.target.value})}
-              className="rounded-lg border-2 focus:border-education-primary"
+              className="rounded-lg border-2 focus:border-education-primary dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
             />
           </div>
         </div>

@@ -74,7 +74,7 @@ const AddCategoryForm = ({ onAddCategory }: AddCategoryFormProps) => {
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
               placeholder={t('categoryName')}
-              className="w-full dark:bg-gray-700 dark:border-gray-600 focus:ring-education-primary"
+              className="w-full dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 focus:ring-education-primary"
             />
           </div>
           <div className="w-32">
@@ -86,7 +86,7 @@ const AddCategoryForm = ({ onAddCategory }: AddCategoryFormProps) => {
               min="0"
               max="100"
               step="0.1"
-              className="w-full dark:bg-gray-700 dark:border-gray-600 focus:ring-education-primary"
+              className="w-full dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 focus:ring-education-primary"
             />
           </div>
           <div>
@@ -96,7 +96,7 @@ const AddCategoryForm = ({ onAddCategory }: AddCategoryFormProps) => {
           </div>
           
           {error && (
-            <div className="w-full mt-2 flex items-center text-destructive text-sm">
+            <div className="w-full mt-2 flex items-center text-red-600 dark:text-red-400 text-sm">
               <AlertCircle className="h-4 w-4 mr-1" />
               {error}
             </div>

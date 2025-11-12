@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail, History, MessageCircle, Sparkles } from 'lucide-react';
+import { Globe, HelpCircle, Facebook, Instagram, Youtube, Twitter, MessageSquare, Mail, History, MessageCircle, Sparkles, Moon, Sun } from 'lucide-react';
 import { toast } from "sonner";
+import { useTheme } from 'next-themes';
 import AISidebar from './AISidebar';
 
 /**
@@ -13,6 +14,7 @@ import AISidebar from './AISidebar';
  */
 const Header = () => {
   const { language, toggleLanguage, t } = useI18n();
+  const { theme, setTheme } = useTheme();
   const [isAISidebarOpen, setIsAISidebarOpen] = useState(false);
   
   /**
@@ -36,6 +38,13 @@ const Header = () => {
     toast.success(language === 'es' 
       ? 'Abriendo cliente de correo electrónico' 
       : 'Opening email client');
+  };
+
+  /**
+   * Toggle theme between light and dark mode
+   */
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
   
   return (
@@ -64,8 +73,19 @@ const Header = () => {
               </p>
             </div>
           </Link>
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex gap-3 mr-4">
+          <div className="flex items-center gap-2">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                onClick={toggleTheme}
+                variant="outline"
+                size="sm"
+                className="bg-white/10 hover:bg-white/30 text-white border-white/30 transition-all"
+                title={theme === 'dark' ? (language === 'es' ? 'Modo claro' : 'Light mode') : (language === 'es' ? 'Modo oscuro' : 'Dark mode')}
+              >
+                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </Button>
+            </motion.div>
+            <div className="hidden sm:flex gap-3 mr-2">
               <motion.a 
                 href="https://www.facebook.com/zadkiel.garcia.31" 
                 target="_blank" 

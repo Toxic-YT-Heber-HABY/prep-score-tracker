@@ -81,7 +81,7 @@ const CategoryCard = ({ category, onUpdate, onDelete }: CategoryCardProps) => {
                   value={categoryName}
                   onChange={handleNameChange}
                   placeholder={t('categoryName')}
-                  className="input-focused dark:bg-gray-700 dark:border-gray-600 rounded-xl"
+                  className="input-focused dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 rounded-xl"
                 />
               </div>
               <div className="w-32">
@@ -93,7 +93,7 @@ const CategoryCard = ({ category, onUpdate, onDelete }: CategoryCardProps) => {
                   value={categoryWeight}
                   onChange={handleWeightChange}
                   placeholder={t('categoryWeight')}
-                  className="input-focused dark:bg-gray-700 dark:border-gray-600 rounded-xl"
+                  className="input-focused dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 rounded-xl"
                 />
               </div>
               <div className="flex items-end mt-2 gap-2">

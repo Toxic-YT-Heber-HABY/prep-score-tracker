@@ -53,7 +53,7 @@ const AddActivityForm: React.FC<AddActivityFormProps> = ({ onAdd }) => {
               value={activityName}
               onChange={(e) => setActivityName(e.target.value)}
               placeholder={language === 'es' ? 'Ej: Examen parcial, Tarea 1, Proyecto final...' : 'E.g.: Midterm exam, Assignment 1, Final project...'}
-              className="rounded-xl border-2 focus:border-education-primary"
+              className="rounded-xl border-2 focus:border-education-primary dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
               required
             />
           </div>
@@ -70,7 +70,7 @@ const AddActivityForm: React.FC<AddActivityFormProps> = ({ onAdd }) => {
               value={weight}
               onChange={(e) => setWeight(Number(e.target.value))}
               placeholder={language === 'es' ? 'Ej: 25 (significa 25% del total)' : 'E.g.: 25 (means 25% of total)'}
-              className="rounded-xl border-2 focus:border-education-primary"
+              className="rounded-xl border-2 focus:border-education-primary dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
               required
             />
           </div>
@@ -88,7 +88,7 @@ const AddActivityForm: React.FC<AddActivityFormProps> = ({ onAdd }) => {
               value={grade}
               onChange={(e) => setGrade(e.target.value)}
               placeholder={language === 'es' ? 'Ej: 85 (tu calificación del 0 al 100)' : 'E.g.: 85 (your grade from 0 to 100)'}
-              className="rounded-xl border-2 focus:border-education-primary"
+              className="rounded-xl border-2 focus:border-education-primary dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
             />
           </div>
 
