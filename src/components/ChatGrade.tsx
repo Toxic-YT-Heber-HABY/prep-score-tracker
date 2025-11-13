@@ -11,7 +11,9 @@ import {
   Sparkles, 
   RefreshCw,
   Brain,
-  Loader2
+  Loader2,
+  Image as ImageIcon,
+  X
 } from 'lucide-react';
 import { toast } from "sonner";
 import { useI18n } from '@/lib/i18n';
@@ -20,6 +22,7 @@ import { supabase } from '@/integrations/supabase/client';
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  imageUrl?: string;
 }
 
 const suggestionExamples = {
@@ -42,7 +45,9 @@ const ChatGrade: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -50,14 +55,54 @@ const ChatGrade: React.FC = () => {
     }
   }, [messages]);
 
-  const streamChat = async (userMessage: string) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 20 * 1024 * 1024) {
+        toast.error(language === 'es' ? 'La imagen no puede ser mayor a 20MB' : 'Image cannot be larger than 20MB');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const streamChat = async (userMessage: string, imageUrl?: string) => {
     setIsLoading(true);
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    
+    let messageContent: any;
+    if (imageUrl) {
+      messageContent = [
+        { type: 'text', text: userMessage },
+        { type: 'image_url', image_url: { url: imageUrl } }
+      ];
+    } else {
+      messageContent = userMessage;
+    }
+    
+    const userMsg: Message = { 
+      role: 'user', 
+      content: userMessage,
+      imageUrl: imageUrl 
+    };
+    
+    setMessages(prev => [...prev, userMsg]);
     
     try {
       const { data, error } = await supabase.functions.invoke('ai-assistant', {
         body: { 
-          messages: [...messages, { role: 'user', content: userMessage }],
+          messages: [...messages.map(m => ({
+            role: m.role,
+            content: m.imageUrl 
+              ? [
+                  { type: 'text', text: m.content },
+                  { type: 'image_url', image_url: { url: m.imageUrl } }
+                ]
+              : m.content
+          })), { role: 'user', content: messageContent }],
           type: 'grades'
         }
       });
@@ -128,11 +173,16 @@ const ChatGrade: React.FC = () => {
   };
 
   const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+    if ((!input.trim() && !selectedImage) || isLoading) return;
     
-    const message = input.trim();
+    const message = input.trim() || (language === 'es' ? '¿Qué calificaciones ves en esta imagen?' : 'What grades do you see in this image?');
+    const image = selectedImage;
     setInput('');
-    await streamChat(message);
+    setSelectedImage(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+    await streamChat(message, image || undefined);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -149,6 +199,13 @@ const ChatGrade: React.FC = () => {
 
   const useSuggestion = (suggestion: string) => {
     setInput(suggestion);
+  };
+
+  const removeImage = () => {
+    setSelectedImage(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   /**
@@ -191,8 +248,8 @@ const ChatGrade: React.FC = () => {
             </p>
             <p className="text-gray-500 dark:text-gray-500 text-sm">
               {language === 'es' 
-                ? 'Pregúntame sobre cómo calcular tus calificaciones o usa una de las sugerencias de abajo'
-                : 'Ask me about how to calculate your grades or use one of the suggestions below'}
+                ? 'Pregúntame sobre cómo calcular tus calificaciones, sube una foto de tu boleta o usa una de las sugerencias de abajo'
+                : 'Ask me about how to calculate your grades, upload a photo of your report card, or use one of the suggestions below'}
             </p>
           </div>
         ) : (
@@ -215,6 +272,13 @@ const ChatGrade: React.FC = () => {
                       : 'bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100'
                   }`}
                 >
+                  {message.imageUrl && (
+                    <img 
+                      src={message.imageUrl} 
+                      alt="Uploaded grade sheet" 
+                      className="max-w-full rounded-lg mb-2 max-h-64 object-contain border-2 border-gray-200 dark:border-gray-600"
+                    />
+                  )}
                   <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</p>
                 </div>
                 
@@ -260,32 +324,67 @@ const ChatGrade: React.FC = () => {
         <Sparkles size={18} className="text-education-primary" />
         <p className="text-sm text-gray-600 dark:text-gray-400">
           {language === 'es' 
-            ? 'Asistente IA que te ayuda a calcular tus calificaciones paso a paso.'
-            : 'AI assistant that helps you calculate your grades step by step.'}
+            ? 'Asistente IA que te ayuda a calcular tus calificaciones paso a paso o analiza fotos de tus calificaciones.'
+            : 'AI assistant that helps you calculate your grades step by step or analyzes photos of your grades.'}
         </p>
       </div>
       
       {/* Controles del chat con bordes redondeados */}
-      <div className="p-6 bg-white dark:bg-gray-900 border-t-2 border-gray-200 dark:border-gray-800 flex items-center gap-3">
-        <Input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyPress}
-          placeholder={language === 'es' ? 'Escribe tu pregunta...' : 'Type your question...'}
-          className="flex-grow rounded-xl border-2 focus:border-education-primary bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-          disabled={isLoading}
-        />
+      <div className="p-6 bg-white dark:bg-gray-900 border-t-2 border-gray-200 dark:border-gray-800">
+        {selectedImage && (
+          <div className="mb-3 relative inline-block">
+            <img 
+              src={selectedImage} 
+              alt="Preview" 
+              className="max-h-32 rounded-lg border-2 border-education-primary/30"
+            />
+            <button
+              onClick={removeImage}
+              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors shadow-lg"
+              aria-label="Remove image"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        )}
         
-        <Button 
-          onClick={handleSend} 
-          disabled={!input.trim() || isLoading}
-          className="flex-shrink-0 bg-education-primary hover:bg-education-dark text-white rounded-xl"
-        >
-          {isLoading ? 
-            <Loader2 size={18} className="animate-spin" /> : 
-            <Send size={18} />
-          }
-        </Button>
+        <div className="flex items-center gap-3">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="hidden"
+            id="image-upload"
+          />
+          <label
+            htmlFor="image-upload"
+            className="cursor-pointer p-3 rounded-xl border-2 border-education-primary/20 hover:border-education-primary hover:bg-education-primary/5 transition-colors flex items-center justify-center"
+            title={language === 'es' ? 'Subir imagen de calificaciones' : 'Upload grade image'}
+          >
+            <ImageIcon size={20} className="text-education-primary" />
+          </label>
+          
+          <Input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyPress}
+            placeholder={language === 'es' ? 'Escribe tu pregunta o sube una imagen...' : 'Type your question or upload an image...'}
+            className="flex-grow rounded-xl border-2 focus:border-education-primary bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            disabled={isLoading}
+          />
+          
+          <Button 
+            onClick={handleSend} 
+            disabled={(!input.trim() && !selectedImage) || isLoading}
+            className="flex-shrink-0 bg-education-primary hover:bg-education-dark text-white rounded-xl"
+          >
+            {isLoading ? 
+              <Loader2 size={18} className="animate-spin" /> : 
+              <Send size={18} />
+            }
+          </Button>
+        </div>
       </div>
     </Card>
   );
