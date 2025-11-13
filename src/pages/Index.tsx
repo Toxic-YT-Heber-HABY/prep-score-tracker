@@ -210,7 +210,7 @@ const Index = () => {
         }} transition={{
           delay: 0.2,
           duration: 0.5
-        }} className="text-4xl font-bold mb-4 gradient-text text-white">
+        }} className="text-4xl font-bold mb-4 gradient-text">
             {t('appName') || 'HABY Score Tracker'}
           </motion.h1>
           <motion.p className="text-gray-700 dark:text-gray-300 max-w-3xl text-lg leading-relaxed" initial={{
@@ -293,7 +293,7 @@ const Index = () => {
                 <MessageCircle size={28} className="text-white" />
               </motion.div>
               <div>
-                <h3 className="font-bold text-xl gradient-text text-white/[0.31]">
+                <h3 className="font-bold text-xl gradient-text">
                   {language === 'es' ? '¡Prueba la nueva calculadora por ChatIA!' : 'Try the new ChatAI calculator!'}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -326,7 +326,7 @@ const Index = () => {
         delay: 0.6,
         duration: 0.5
       }}>
-          <h2 className="text-3xl font-bold gradient-text text-slate-50">
+          <h2 className="text-3xl font-bold gradient-text">
             {t('categories')}
           </h2>
           <div className="flex flex-wrap gap-2">
