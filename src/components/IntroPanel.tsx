@@ -148,7 +148,7 @@ const IntroPanel: React.FC<IntroPanelProps> = ({ onClose }) => {
                       <p className="text-gray-700 dark:text-gray-300">{t('step3')}</p>
                       <div className="mt-2 py-1 px-3 bg-education-primary/10 dark:bg-education-primary/30 rounded-md inline-block border border-education-primary/20">
                         <span className="font-semibold text-education-primary">85.5</span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">/100</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">/100</span>
                       </div>
                     </div>
                   </motion.li>
