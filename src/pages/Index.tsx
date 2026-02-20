@@ -293,9 +293,9 @@ const Index = () => {
                 <MessageCircle size={28} className="text-white" />
               </motion.div>
               <div>
-                <h3 className="font-bold text-xl gradient-text">
+                <h2 className="font-bold text-xl gradient-text">
                   {language === 'es' ? '¡Prueba la nueva calculadora por ChatIA!' : 'Try the new ChatAI calculator!'}
-                </h3>
+                </h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   {language === 'es' ? 'Una forma conversacional y sencilla de calcular tu calificación.' : 'A conversational and simple way to calculate your grade.'}
                 </p>
