@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle2, Calculator, PlusCircle, BarChart, BookOpen, Menu, LightbulbIcon } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
@@ -78,10 +78,10 @@ const IntroPanel: React.FC<IntroPanelProps> = ({ onClose }) => {
         <Card className="shadow-xl border-t-4 border-t-education-primary overflow-hidden">
           <CardHeader className="bg-gradient-to-r from-education-primary to-education-secondary text-white">
             <div className="flex justify-between items-center">
-              <CardTitle className="text-2xl font-bold flex items-center gap-2">
+              <h2 className="text-2xl font-semibold leading-none tracking-tight font-bold flex items-center gap-2">
                 <LightbulbIcon className="h-6 w-6" />
                 {t('title')}
-              </CardTitle>
+              </h2>
               <Button variant="ghost" size="icon" onClick={onClose} className="text-white hover:bg-white/20">
                 <span className="sr-only">Cerrar</span>
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4">
