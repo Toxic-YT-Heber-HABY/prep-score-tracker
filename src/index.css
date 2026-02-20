@@ -27,7 +27,7 @@
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84.2% 47%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
@@ -37,31 +37,31 @@
     --radius: 0.75rem;
 
     /* Education theme - All HSL values */
-    --education-primary: 262 83% 75%;
-    --education-secondary: 258 90% 77%;
-    --education-dark: 262 48% 64%;
+    --education-primary: 262 83% 55%;
+    --education-secondary: 258 90% 55%;
+    --education-dark: 262 48% 40%;
     --education-light: 258 91% 95%;
     --education-accent: 262 32% 51%;
     --education-highlight: 270 87% 87%;
     --education-muted: 255 92% 98%;
 
     /* Advanced gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 75%) 0%, hsl(258 90% 77%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(258 90% 77%) 0%, hsl(270 87% 87%) 100%);
-    --gradient-dark: linear-gradient(135deg, hsl(262 48% 64%) 0%, hsl(262 83% 75%) 100%);
-    --gradient-glow: linear-gradient(135deg, hsl(262 83% 75% / 0.2) 0%, hsl(258 90% 77% / 0.2) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 55%) 0%, hsl(258 90% 55%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(258 90% 55%) 0%, hsl(270 87% 87%) 100%);
+    --gradient-dark: linear-gradient(135deg, hsl(262 48% 40%) 0%, hsl(262 83% 55%) 100%);
+    --gradient-glow: linear-gradient(135deg, hsl(262 83% 55% / 0.2) 0%, hsl(258 90% 55% / 0.2) 100%);
     
     /* Glassmorphism effects */
     --glass-background: hsl(0 0% 100% / 0.7);
-    --glass-border: hsl(262 83% 75% / 0.2);
-    --glass-shadow: 0 8px 32px 0 hsl(262 83% 75% / 0.15);
+    --glass-border: hsl(262 83% 55% / 0.2);
+    --glass-shadow: 0 8px 32px 0 hsl(262 83% 55% / 0.15);
     
     /* Advanced shadows */
-    --shadow-sm: 0 2px 8px hsl(262 83% 75% / 0.08);
-    --shadow-md: 0 4px 16px hsl(262 83% 75% / 0.12);
-    --shadow-lg: 0 8px 32px hsl(262 83% 75% / 0.16);
-    --shadow-xl: 0 16px 48px hsl(262 83% 75% / 0.2);
-    --shadow-glow: 0 0 40px hsl(262 83% 75% / 0.3);
+    --shadow-sm: 0 2px 8px hsl(262 83% 55% / 0.08);
+    --shadow-md: 0 4px 16px hsl(262 83% 55% / 0.12);
+    --shadow-lg: 0 8px 32px hsl(262 83% 55% / 0.16);
+    --shadow-xl: 0 16px 48px hsl(262 83% 55% / 0.2);
+    --shadow-glow: 0 0 40px hsl(262 83% 55% / 0.3);
     
     /* Animation timings */
     --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
