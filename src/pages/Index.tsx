@@ -201,28 +201,12 @@ const Index = () => {
         duration: 0.6,
         ease: [0.23, 1, 0.32, 1]
       }}>
-          <motion.h1 initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          delay: 0.2,
-          duration: 0.5
-        }} className="text-4xl font-bold mb-4 gradient-text">
+          <h1 className="text-4xl font-bold mb-4 gradient-text">
             {t('appName') || 'HABY Score Tracker'}
-          </motion.h1>
-          <motion.p className="text-gray-700 dark:text-gray-300 max-w-3xl text-lg leading-relaxed" initial={{
-          opacity: 0
-        }} animate={{
-          opacity: 1
-        }} transition={{
-          delay: 0.3,
-          duration: 0.5
-        }}>
+          </h1>
+          <p className="text-gray-700 dark:text-gray-300 max-w-3xl text-lg leading-relaxed">
             {language === 'es' ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando importancia específica para obtener tu calificación final de manera precisa." : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific importance to obtain your final grade accurately."}
-          </motion.p>
+          </p>
           <motion.div className="flex flex-wrap gap-3 mt-6" initial={{
           opacity: 0,
           y: 20
