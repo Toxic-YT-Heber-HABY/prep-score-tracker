@@ -168,7 +168,7 @@ const Header = () => {
                 </Button>
               </motion.div>
             </Link>
-            <Link to="/version-history">
+            <Link to="/version-history" aria-label={language === 'es' ? 'Historial de versiones' : 'Version history'}>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button 
                   variant="outline" 
