@@ -30,13 +30,6 @@ const queryClient = new QueryClient({
   },
 });
 
-/**
- * Main application component with providers for:
- * - State management (React Query)
- * - Theming (dark/light mode)
- * - UI components (tooltips, toasts)
- * - Routing
- */
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
@@ -47,7 +40,7 @@ const App = () => {
         storageKey="haby-theme-preference"
         disableTransitionOnChange={false}
       >
-        <>
+        <BrowserRouter>
           <React.Suspense fallback={null}>
             <AnimatedBackground />
           </React.Suspense>
@@ -63,21 +56,19 @@ const App = () => {
             }}
             visibleToasts={3}
           />
-          <BrowserRouter>
-            <React.Suspense fallback={<div className="min-h-screen" />}>
-              <Routes>
-                <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-                <Route path="/guide" element={<PageTransition><Guide /></PageTransition>} />
-                <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
-                <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
-                <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-                <Route path="/version-history" element={<PageTransition><VersionHistory /></PageTransition>} />
-                <Route path="/chat-calculator" element={<PageTransition><ChatCalculator /></PageTransition>} />
-                <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-              </Routes>
-            </React.Suspense>
-          </BrowserRouter>
-        </>
+          <React.Suspense fallback={<div className="min-h-screen" />}>
+            <Routes>
+              <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+              <Route path="/guide" element={<PageTransition><Guide /></PageTransition>} />
+              <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+              <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
+              <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+              <Route path="/version-history" element={<PageTransition><VersionHistory /></PageTransition>} />
+              <Route path="/chat-calculator" element={<PageTransition><ChatCalculator /></PageTransition>} />
+              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+            </Routes>
+          </React.Suspense>
+        </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>
   );
