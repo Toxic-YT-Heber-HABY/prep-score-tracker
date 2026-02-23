@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import AnimatedBackground from "@/components/AnimatedBackground";
+const AnimatedBackground = React.lazy(() => import("@/components/AnimatedBackground"));
 import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index";
 
@@ -48,7 +48,9 @@ const App = () => {
         disableTransitionOnChange={false}
       >
         <>
-          <AnimatedBackground />
+          <React.Suspense fallback={null}>
+            <AnimatedBackground />
+          </React.Suspense>
           <Toaster />
           <Sonner 
             richColors 
