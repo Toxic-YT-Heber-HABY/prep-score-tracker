@@ -63,6 +63,8 @@ const Header = () => {
               src="/lovable-uploads/22c442b5-67ed-4e06-a4bc-4be99d33c236.png" 
               alt="HABY Logo" 
               className="h-10 w-auto filter drop-shadow-lg"
+              width={28}
+              height={40}
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             />
