@@ -9,7 +9,7 @@ import AddCategoryForm from '@/components/AddCategoryForm';
 import ResultsDisplay from '@/components/ResultsDisplay';
 import { Button } from '@/components/ui/button';
 import { Toaster } from "@/components/ui/sonner";
-import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen, LayoutDashboard, MessageCircle } from 'lucide-react';
+import { Info, RefreshCw, HelpCircle, BookOpen, MessageCircle } from 'lucide-react';
 import { toast } from "sonner";
 import { useTheme } from 'next-themes';
 import { useI18n } from '@/lib/i18n';
@@ -190,91 +190,59 @@ const Index = () => {
       {/* Intro Panel - shown only on first visit */}
       {showIntro && <React.Suspense fallback={null}><IntroPanel onClose={handleCloseIntro} /></React.Suspense>}
       
-      <main className="container px-4 py-8 md:px-6 mx-auto max-w-6xl relative z-10">
-        {/* App Introduction with animations */}
-        <div className="mb-8 p-8 rounded-3xl glass-card hover-glow border-2 border-education-primary/20">
-          <h1 className="text-4xl font-bold mb-4 gradient-text">
+      <main className="container px-3 py-4 sm:px-4 sm:py-8 md:px-6 mx-auto max-w-6xl relative z-10">
+        {/* App Introduction */}
+        <div className="mb-4 sm:mb-8 p-4 sm:p-8 rounded-2xl sm:rounded-3xl glass-card hover-glow border-2 border-education-primary/20">
+          <h1 className="text-2xl sm:text-4xl font-bold mb-2 sm:mb-4 gradient-text">
             {t('appName') || 'HABY Score Tracker'}
           </h1>
-          <p className="text-gray-700 dark:text-gray-300 max-w-3xl text-lg leading-relaxed">
-            {language === 'es' ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando importancia específica para obtener tu calificación final de manera precisa." : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific importance to obtain your final grade accurately."}
+          <p className="text-sm sm:text-lg text-gray-700 dark:text-gray-300 max-w-3xl leading-relaxed">
+            {language === 'es' ? "Organiza tus evaluaciones por categorías y actividades para obtener tu calificación final de manera precisa." : "Organize your evaluations by categories and activities to get your final grade accurately."}
           </p>
-          <div className="flex flex-wrap gap-3 mt-6">
-            <Link to="/guide">
-              <Button variant="outline" className="flex items-center gap-2 btn-hover border-education-primary/30 hover:bg-education-light/50 dark:hover:bg-education-dark/30">
-                <BookOpen size={16} />
-                {language === 'es' ? "Ver guía completa" : "View complete guide"}
+          <div className="flex flex-wrap gap-2 mt-3 sm:mt-6">
+            <Link to="/chat-calculator">
+              <Button size="sm" className="flex items-center gap-1.5 btn-glow gradient-primary text-white border-0 text-xs sm:text-sm">
+                <MessageCircle size={14} />
+                {language === 'es' ? "ChatIA" : "ChatAI"}
               </Button>
             </Link>
-            <Button variant="outline" className="flex items-center gap-2 btn-hover border-education-primary/30 hover:bg-education-light/50 dark:hover:bg-education-dark/30" onClick={() => setShowIntro(true)}>
-              <HelpCircle size={16} />
-              {language === 'es' ? "Mostrar introducción" : "Show introduction"}
+            <Button variant="outline" size="sm" className="flex items-center gap-1.5 border-education-primary/30 text-xs sm:text-sm" onClick={() => setShowIntro(true)}>
+              <HelpCircle size={14} />
+              {language === 'es' ? "Introducción" : "Introduction"}
             </Button>
-            <Link to="/chat-calculator">
-              <Button className="flex items-center gap-2 btn-glow gradient-primary text-white border-0">
-                <MessageCircle size={16} />
-                {language === 'es' ? "Usa nuestro ChatIA" : "Use our ChatAI"}
+            <Link to="/guide" className="hidden sm:block">
+              <Button variant="outline" size="sm" className="flex items-center gap-1.5 border-education-primary/30 text-xs sm:text-sm">
+                <BookOpen size={14} />
+                {language === 'es' ? "Guía completa" : "Full guide"}
               </Button>
             </Link>
           </div>
         </div>
 
-        {/* Chat Calculator highlight section */}
-        <div className="mb-8 p-6 rounded-2xl glass-card border-2 border-dashed border-education-primary/40 hover-lift">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="gradient-primary h-14 w-14 rounded-2xl flex items-center justify-center shadow-lg">
-                <MessageCircle size={28} className="text-white" />
-              </div>
-              <div>
-                <h2 className="font-bold text-xl gradient-text">
-                  {language === 'es' ? '¡Prueba la nueva calculadora por ChatIA!' : 'Try the new ChatAI calculator!'}
-                </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {language === 'es' ? 'Una forma conversacional y sencilla de calcular tu calificación.' : 'A conversational and simple way to calculate your grade.'}
-                </p>
-              </div>
-            </div>
-            <Link to="/chat-calculator">
-              <Button className="gradient-primary text-white btn-glow shadow-xl">
-                {language === 'es' ? 'Ir al ChatIA' : 'Go to ChatAI'}
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Header with action buttons */}
-        <div className="flex flex-wrap justify-between items-center mb-8 gap-3">
-          <h2 className="text-3xl font-bold gradient-text">
+        {/* Action buttons row */}
+        <div className="flex flex-wrap justify-between items-center mb-4 sm:mb-8 gap-2">
+          <h2 className="text-xl sm:text-3xl font-bold gradient-text">
             {t('categories')}
           </h2>
-          <div className="flex flex-wrap gap-2">
-            <Button variant="outline" onClick={toggleTheme} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
-              {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
-              {theme === 'dark' ? t('lightMode') : t('darkMode')}
-            </Button>
-            <Button variant="outline" onClick={toggleLanguage} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
-              <LayoutDashboard className="h-4 w-4 mr-1" />
-              {language === 'es' ? "EN" : "ES"}
-            </Button>
-            <Button variant="outline" onClick={handleLoadExample} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
-              <Info className="h-4 w-4 mr-1" />
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+            <Button variant="outline" size="sm" onClick={handleLoadExample} className="text-xs sm:text-sm border-education-primary/20 h-8">
+              <Info className="h-3.5 w-3.5 mr-1" />
               {t('loadExample')}
             </Button>
-            <Button variant="outline" onClick={handleReset} className="text-sm text-destructive hover:text-destructive-foreground hover:bg-destructive/10 border-destructive/20">
-              <RefreshCw className="h-4 w-4 mr-1" />
+            <Button variant="outline" size="sm" onClick={handleReset} className="text-xs sm:text-sm text-destructive border-destructive/20 h-8">
+              <RefreshCw className="h-3.5 w-3.5 mr-1" />
               {t('reset')}
             </Button>
           </div>
         </div>
         
         {/* Main content area */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8">
           {/* Left side - Categories */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{t('categories')}</h3>
-              <span className="text-sm text-gray-500 dark:text-gray-400">{t('categoryWeightExplanation')}</span>
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-100">{t('categories')}</h3>
+              <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{t('categoryWeightExplanation')}</span>
             </div>
             
             {/* Category list */}
@@ -290,9 +258,9 @@ const Index = () => {
           
           {/* Right side - Results and Calculator */}
           <div className="lg:col-span-5">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{t('finalResults')}</h3>
-              <span className="text-sm text-gray-500 dark:text-gray-400">{t('gradeWeightExplanation')}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-100">{t('finalResults')}</h3>
+              <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{t('gradeWeightExplanation')}</span>
             </div>
             
             {/* Results Display */}
