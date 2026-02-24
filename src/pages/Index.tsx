@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+
 import { v4 as uuidv4 } from 'uuid';
 import { Category } from '@/types';
 import Header from '@/components/Header';
 import CategoryCard from '@/components/CategoryCard';
 import AddCategoryForm from '@/components/AddCategoryForm';
 import ResultsDisplay from '@/components/ResultsDisplay';
-import GradeNeededCalculator from '@/components/GradeNeededCalculator';
 import { Button } from '@/components/ui/button';
 import { Toaster } from "@/components/ui/sonner";
 import { Info, RefreshCw, MoonIcon, SunIcon, HelpCircle, BookOpen, LayoutDashboard, MessageCircle } from 'lucide-react';
 import { toast } from "sonner";
 import { useTheme } from 'next-themes';
 import { useI18n } from '@/lib/i18n';
-import IntroPanel from '@/components/IntroPanel';
+
+const IntroPanel = React.lazy(() => import('@/components/IntroPanel'));
+const GradeNeededCalculator = React.lazy(() => import('@/components/GradeNeededCalculator'));
 
 // Local storage key for persisting user data
 const LOCAL_STORAGE_KEY = 'haby-score-tracker-data';
@@ -187,95 +188,44 @@ const Index = () => {
       <Header />
       
       {/* Intro Panel - shown only on first visit */}
-      {showIntro && <IntroPanel onClose={handleCloseIntro} />}
+      {showIntro && <React.Suspense fallback={null}><IntroPanel onClose={handleCloseIntro} /></React.Suspense>}
       
       <main className="container px-4 py-8 md:px-6 mx-auto max-w-6xl relative z-10">
         {/* App Introduction with animations */}
-        <motion.div className="mb-8 p-8 rounded-3xl glass-card hover-glow border-2 border-education-primary/20" initial={{
-        opacity: 0,
-        y: 30
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        duration: 0.6,
-        ease: [0.23, 1, 0.32, 1]
-      }}>
+        <div className="mb-8 p-8 rounded-3xl glass-card hover-glow border-2 border-education-primary/20">
           <h1 className="text-4xl font-bold mb-4 gradient-text">
             {t('appName') || 'HABY Score Tracker'}
           </h1>
           <p className="text-gray-700 dark:text-gray-300 max-w-3xl text-lg leading-relaxed">
             {language === 'es' ? "Calculadora de calificaciones que te permite organizar tus evaluaciones por categorías y actividades, asignando importancia específica para obtener tu calificación final de manera precisa." : "Grade calculator that allows you to organize your evaluations by categories and activities, assigning specific importance to obtain your final grade accurately."}
           </p>
-          <motion.div className="flex flex-wrap gap-3 mt-6" initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          delay: 0.4,
-          duration: 0.5
-        }}>
+          <div className="flex flex-wrap gap-3 mt-6">
             <Link to="/guide">
-              <motion.div whileHover={{
-              scale: 1.05
-            }} whileTap={{
-              scale: 0.95
-            }}>
-                <Button variant="outline" className="flex items-center gap-2 btn-hover border-education-primary/30 hover:bg-education-light/50 dark:hover:bg-education-dark/30">
-                  <BookOpen size={16} />
-                  {language === 'es' ? "Ver guía completa" : "View complete guide"}
-                </Button>
-              </motion.div>
-            </Link>
-            <motion.div whileHover={{
-            scale: 1.05
-          }} whileTap={{
-            scale: 0.95
-          }}>
-              <Button variant="outline" className="flex items-center gap-2 btn-hover border-education-primary/30 hover:bg-education-light/50 dark:hover:bg-education-dark/30" onClick={() => setShowIntro(true)}>
-                <HelpCircle size={16} />
-                {language === 'es' ? "Mostrar introducción" : "Show introduction"}
+              <Button variant="outline" className="flex items-center gap-2 btn-hover border-education-primary/30 hover:bg-education-light/50 dark:hover:bg-education-dark/30">
+                <BookOpen size={16} />
+                {language === 'es' ? "Ver guía completa" : "View complete guide"}
               </Button>
-            </motion.div>
-            <Link to="/chat-calculator">
-              <motion.div whileHover={{
-              scale: 1.05
-            }} whileTap={{
-              scale: 0.95
-            }}>
-                <Button className="flex items-center gap-2 btn-glow gradient-primary text-white border-0">
-                  <MessageCircle size={16} />
-                  {language === 'es' ? "Usa nuestro ChatIA" : "Use our ChatAI"}
-                </Button>
-              </motion.div>
             </Link>
-          </motion.div>
-        </motion.div>
+            <Button variant="outline" className="flex items-center gap-2 btn-hover border-education-primary/30 hover:bg-education-light/50 dark:hover:bg-education-dark/30" onClick={() => setShowIntro(true)}>
+              <HelpCircle size={16} />
+              {language === 'es' ? "Mostrar introducción" : "Show introduction"}
+            </Button>
+            <Link to="/chat-calculator">
+              <Button className="flex items-center gap-2 btn-glow gradient-primary text-white border-0">
+                <MessageCircle size={16} />
+                {language === 'es' ? "Usa nuestro ChatIA" : "Use our ChatAI"}
+              </Button>
+            </Link>
+          </div>
+        </div>
 
-        {/* Chat Calculator highlight section with animations */}
-        <motion.div className="mb-8 p-6 rounded-2xl glass-card border-2 border-dashed border-education-primary/40 hover-lift" initial={{
-        opacity: 0,
-        scale: 0.95
-      }} animate={{
-        opacity: 1,
-        scale: 1
-      }} transition={{
-        delay: 0.5,
-        duration: 0.5
-      }}>
+        {/* Chat Calculator highlight section */}
+        <div className="mb-8 p-6 rounded-2xl glass-card border-2 border-dashed border-education-primary/40 hover-lift">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <motion.div className="gradient-primary h-14 w-14 rounded-2xl flex items-center justify-center shadow-lg" animate={{
-              rotate: [0, 5, -5, 0]
-            }} transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}>
+              <div className="gradient-primary h-14 w-14 rounded-2xl flex items-center justify-center shadow-lg">
                 <MessageCircle size={28} className="text-white" />
-              </motion.div>
+              </div>
               <div>
                 <h2 className="font-bold text-xl gradient-text">
                   {language === 'es' ? '¡Prueba la nueva calculadora por ChatIA!' : 'Try the new ChatAI calculator!'}
@@ -286,76 +236,37 @@ const Index = () => {
               </div>
             </div>
             <Link to="/chat-calculator">
-              <motion.div whileHover={{
-              scale: 1.05
-            }} whileTap={{
-              scale: 0.95
-            }}>
-                <Button className="gradient-primary text-white btn-glow shadow-xl">
-                  {language === 'es' ? 'Ir al ChatIA' : 'Go to ChatAI'}
-                </Button>
-              </motion.div>
+              <Button className="gradient-primary text-white btn-glow shadow-xl">
+                {language === 'es' ? 'Ir al ChatIA' : 'Go to ChatAI'}
+              </Button>
             </Link>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Header with action buttons - with animations */}
-        <motion.div className="flex flex-wrap justify-between items-center mb-8 gap-3" initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        delay: 0.6,
-        duration: 0.5
-      }}>
+        {/* Header with action buttons */}
+        <div className="flex flex-wrap justify-between items-center mb-8 gap-3">
           <h2 className="text-3xl font-bold gradient-text">
             {t('categories')}
           </h2>
           <div className="flex flex-wrap gap-2">
-            <motion.div whileHover={{
-            scale: 1.05
-          }} whileTap={{
-            scale: 0.95
-          }}>
-              <Button variant="outline" onClick={toggleTheme} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
-                {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
-                {theme === 'dark' ? t('lightMode') : t('darkMode')}
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{
-            scale: 1.05
-          }} whileTap={{
-            scale: 0.95
-          }}>
-              <Button variant="outline" onClick={toggleLanguage} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
-                <LayoutDashboard className="h-4 w-4 mr-1" />
-                {language === 'es' ? "EN" : "ES"}
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{
-            scale: 1.05
-          }} whileTap={{
-            scale: 0.95
-          }}>
-              <Button variant="outline" onClick={handleLoadExample} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
-                <Info className="h-4 w-4 mr-1" />
-                {t('loadExample')}
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{
-            scale: 1.05
-          }} whileTap={{
-            scale: 0.95
-          }}>
-              <Button variant="outline" onClick={handleReset} className="text-sm text-destructive hover:text-destructive-foreground hover:bg-destructive/10 border-destructive/20">
-                <RefreshCw className="h-4 w-4 mr-1" />
-                {t('reset')}
-              </Button>
-            </motion.div>
+            <Button variant="outline" onClick={toggleTheme} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
+              {theme === 'dark' ? <SunIcon className="h-4 w-4 mr-1" /> : <MoonIcon className="h-4 w-4 mr-1" />}
+              {theme === 'dark' ? t('lightMode') : t('darkMode')}
+            </Button>
+            <Button variant="outline" onClick={toggleLanguage} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
+              <LayoutDashboard className="h-4 w-4 mr-1" />
+              {language === 'es' ? "EN" : "ES"}
+            </Button>
+            <Button variant="outline" onClick={handleLoadExample} className="text-sm btn-hover shadow-sm hover:shadow-md border-education-primary/20">
+              <Info className="h-4 w-4 mr-1" />
+              {t('loadExample')}
+            </Button>
+            <Button variant="outline" onClick={handleReset} className="text-sm text-destructive hover:text-destructive-foreground hover:bg-destructive/10 border-destructive/20">
+              <RefreshCw className="h-4 w-4 mr-1" />
+              {t('reset')}
+            </Button>
           </div>
-        </motion.div>
+        </div>
         
         {/* Main content area */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -391,7 +302,9 @@ const Index = () => {
             
             {/* Grade Needed Calculator */}
             <div className="mt-8">
-              <GradeNeededCalculator categories={categories} />
+              <React.Suspense fallback={<div className="h-32" />}>
+                <GradeNeededCalculator categories={categories} />
+              </React.Suspense>
             </div>
           </div>
         </div>
