@@ -37,27 +37,27 @@ const Footer = () => {
         <div className="flex flex-col items-center md:items-end">
           <div className="flex gap-4 mb-3">
             <a href="https://www.facebook.com/zadkiel.garcia.31" target="_blank" rel="noopener noreferrer" 
-              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="Facebook">
+              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="Facebook" aria-label="Facebook">
               <Facebook size={20} />
             </a>
             <a href="https://www.instagram.com/habydoors/" target="_blank" rel="noopener noreferrer" 
-              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="Instagram">
+              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="Instagram" aria-label="Instagram">
               <Instagram size={20} />
             </a>
             <a href="https://www.youtube.com/@HABYOpenDoors?themeRefresh=1" target="_blank" rel="noopener noreferrer" 
-              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="YouTube">
+              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="YouTube" aria-label="YouTube">
               <Youtube size={20} />
             </a>
             <a href="https://x.com/Haby_Open_Doors" target="_blank" rel="noopener noreferrer" 
-              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="Twitter">
+              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="Twitter" aria-label="Twitter">
               <Twitter size={20} />
             </a>
             <a href="https://wa.me/5256536812377" target="_blank" rel="noopener noreferrer" 
-              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="WhatsApp">
+              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title="WhatsApp" aria-label="WhatsApp">
               <MessageSquare size={20} />
             </a>
             <button onClick={handleEmailSupport} 
-              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title={language === 'es' ? "Soporte técnico" : "Technical support"}>
+              className="text-education-primary hover:text-education-secondary transition-colors p-2 rounded-full hover:bg-education-light/20" title={language === 'es' ? "Soporte técnico" : "Technical support"} aria-label={language === 'es' ? "Soporte técnico" : "Technical support"}>
               <Mail size={20} />
             </button>
           </div>

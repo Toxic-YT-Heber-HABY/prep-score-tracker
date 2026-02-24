@@ -18,7 +18,7 @@ interface CategoryCardProps {
 }
 
 const CategoryCard = ({ category, onUpdate, onDelete }: CategoryCardProps) => {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [isEditing, setIsEditing] = useState(false);
   const [categoryName, setCategoryName] = useState(category.name);
   const [categoryWeight, setCategoryWeight] = useState(category.weight.toString());
@@ -134,6 +134,7 @@ const CategoryCard = ({ category, onUpdate, onDelete }: CategoryCardProps) => {
                   className="text-destructive hover:bg-destructive hover:text-destructive-foreground btn-hover rounded-xl"
                   onClick={() => onDelete(category.id)}
                   size="sm"
+                  aria-label={language === 'es' ? `Eliminar categoría ${category.name}` : `Delete category ${category.name}`}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
