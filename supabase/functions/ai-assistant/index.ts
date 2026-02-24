@@ -1,10 +1,31 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
+
+// Input validation schemas
+const MessageContentSchema = z.union([
+  z.string().max(10000),
+  z.array(z.object({
+    type: z.enum(['text', 'image_url']),
+    text: z.string().max(10000).optional(),
+    image_url: z.object({ url: z.string().max(50000) }).optional(),
+  }))
+]);
+
+const MessageSchema = z.object({
+  role: z.enum(['user', 'assistant', 'system']),
+  content: MessageContentSchema,
+});
+
+const RequestSchema = z.object({
+  messages: z.array(MessageSchema).min(1).max(50),
+  type: z.enum(['chat', 'design', 'grades']).default('chat'),
+});
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -12,7 +33,19 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, type = "chat" } = await req.json();
+    // Parse and validate input
+    const rawBody = await req.json();
+    const validationResult = RequestSchema.safeParse(rawBody);
+
+    if (!validationResult.success) {
+      return new Response(JSON.stringify({ error: 'Invalid request format', details: validationResult.error.issues }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { messages, type } = validationResult.data;
+
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     
     if (!LOVABLE_API_KEY) {
