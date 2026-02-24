@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -8,6 +8,23 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const AnimatedBackground = React.lazy(() => import("@/components/AnimatedBackground"));
 import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index";
+
+/**
+ * Deferred background component - loads after initial paint to avoid critical chain
+ */
+const DeferredBackground: React.FC = () => {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const id = requestIdleCallback(() => setShow(true));
+    return () => cancelIdleCallback(id);
+  }, []);
+  if (!show) return null;
+  return (
+    <React.Suspense fallback={null}>
+      <AnimatedBackground />
+    </React.Suspense>
+  );
+};
 
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Guide = React.lazy(() => import("./pages/Guide"));
@@ -41,9 +58,7 @@ const App: React.FC = () => {
         disableTransitionOnChange={false}
       >
         <BrowserRouter>
-          <React.Suspense fallback={null}>
-            <AnimatedBackground />
-          </React.Suspense>
+          <DeferredBackground />
           <Toaster />
           <Sonner 
             richColors 
