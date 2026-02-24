@@ -75,12 +75,14 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ activity, onUpdate, onDelet
             className="bg-green-600 hover:bg-green-700 text-white rounded-lg"
           >
             <Check size={16} />
+            <span className="sr-only">{language === 'es' ? 'Guardar' : 'Save'}</span>
           </Button>
           <Button 
             onClick={handleCancel} 
             size="sm" 
             variant="outline"
             className="rounded-lg border-2"
+            aria-label={language === 'es' ? 'Cancelar edición' : 'Cancel editing'}
           >
             <X size={16} />
           </Button>
@@ -132,6 +134,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ activity, onUpdate, onDelet
             size="sm" 
             variant="outline"
             className="text-education-primary hover:bg-education-primary hover:text-white rounded-lg border-2"
+            aria-label={language === 'es' ? `Editar ${activity.name}` : `Edit ${activity.name}`}
           >
             <Edit2 size={16} />
           </Button>
@@ -140,6 +143,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ activity, onUpdate, onDelet
             size="sm" 
             variant="outline"
             className="text-red-600 hover:bg-red-600 hover:text-white rounded-lg border-2"
+            aria-label={language === 'es' ? `Eliminar ${activity.name}` : `Delete ${activity.name}`}
           >
             <Trash2 size={16} />
           </Button>

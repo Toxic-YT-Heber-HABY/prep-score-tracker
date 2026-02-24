@@ -361,6 +361,7 @@ const ChatGrade: React.FC = () => {
             htmlFor="image-upload"
             className="cursor-pointer p-3 rounded-xl border-2 border-education-primary/20 hover:border-education-primary hover:bg-education-primary/5 transition-colors flex items-center justify-center"
             title={language === 'es' ? 'Subir imagen de calificaciones' : 'Upload grade image'}
+            aria-label={language === 'es' ? 'Subir imagen de calificaciones' : 'Upload grade image'}
           >
             <ImageIcon size={20} className="text-education-primary" />
           </label>
@@ -378,6 +379,7 @@ const ChatGrade: React.FC = () => {
             onClick={handleSend} 
             disabled={(!input.trim() && !selectedImage) || isLoading}
             className="flex-shrink-0 bg-education-primary hover:bg-education-dark text-white rounded-xl"
+            aria-label={language === 'es' ? 'Enviar mensaje' : 'Send message'}
           >
             {isLoading ? 
               <Loader2 size={18} className="animate-spin" /> : 

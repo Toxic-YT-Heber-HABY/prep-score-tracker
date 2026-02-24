@@ -94,6 +94,7 @@ const Header = () => {
                 rel="noopener noreferrer" 
                 className="text-white hover:text-white transition-all" 
                 title="Facebook"
+                aria-label="Facebook"
                 whileHover={{ scale: 1.2, y: -2 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -105,6 +106,7 @@ const Header = () => {
                 rel="noopener noreferrer" 
                 className="text-white hover:text-white transition-all" 
                 title="Instagram"
+                aria-label="Instagram"
                 whileHover={{ scale: 1.2, y: -2 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -116,6 +118,7 @@ const Header = () => {
                 rel="noopener noreferrer" 
                 className="text-white hover:text-white transition-all" 
                 title="YouTube"
+                aria-label="YouTube"
                 whileHover={{ scale: 1.2, y: -2 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -127,6 +130,7 @@ const Header = () => {
                 rel="noopener noreferrer" 
                 className="text-white hover:text-white transition-all" 
                 title="Twitter"
+                aria-label="Twitter"
                 whileHover={{ scale: 1.2, y: -2 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -138,6 +142,7 @@ const Header = () => {
                 rel="noopener noreferrer" 
                 className="text-white hover:text-white transition-all" 
                 title="WhatsApp"
+                aria-label="WhatsApp"
                 whileHover={{ scale: 1.2, y: -2 }}
                 whileTap={{ scale: 0.9 }}
               >
