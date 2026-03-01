@@ -15,8 +15,13 @@ import Index from "./pages/Index";
 const DeferredBackground: React.FC = () => {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    const id = requestIdleCallback(() => setShow(true));
-    return () => cancelIdleCallback(id);
+    if (typeof requestIdleCallback === 'function') {
+      const id = requestIdleCallback(() => setShow(true));
+      return () => cancelIdleCallback(id);
+    } else {
+      const id = setTimeout(() => setShow(true), 200);
+      return () => clearTimeout(id);
+    }
   }, []);
   if (!show) return null;
   return (
