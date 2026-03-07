@@ -21,12 +21,6 @@ const Terms = () => {
         </div>
               
         <div className="space-y-6">
-                {language === 'es' 
-                  ? 'Este documento establece los términos y condiciones bajo los cuales puede utilizar la aplicación HABY Score Tracker. Al acceder y utilizar nuestra aplicación, acepta estos términos en su totalidad.' 
-                  : 'This document sets forth the terms and conditions under which you may use the HABY Score Tracker application. By accessing and using our application, you accept these terms in their entirety.'}
-              </p>
-              
-              <div className="space-y-10">
                 {language === 'es' ? (
                   <>
                     <section className="transform transition-all hover:-translate-y-1 hover:shadow-md p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
@@ -234,18 +228,14 @@ const Terms = () => {
                 )}
               </div>
               
-              <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  {language === 'es' ? 'Última actualización:' : 'Last updated:'} {currentYear}
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-      </main>
+              
+        <div className="mt-8 pt-4 border-t border-border">
+          <p className="text-xs text-muted-foreground">
+            &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
