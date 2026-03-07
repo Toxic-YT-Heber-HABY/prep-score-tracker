@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ArrowLeft, Shield, UserCheck, Database, Share2, User, Lock, RefreshCw, Phone } from 'lucide-react';
 import { Shield, UserCheck, Database, Share2, User, Lock, RefreshCw, Phone } from 'lucide-react';
 import { useI18n } from "@/lib/i18n";
 
