@@ -226,9 +226,7 @@ const Terms = () => {
                     </section>
                   </>
                 )}
-              </div>
-              
-        </div>
+
               
         <div className="mt-8 pt-4 border-t border-border">
           <p className="text-xs text-muted-foreground">
