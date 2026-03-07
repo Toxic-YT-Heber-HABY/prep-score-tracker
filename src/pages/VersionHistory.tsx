@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, Tag, BookOpen, Code, Bug, Zap, LucideIcon, Download } from 'lucide-react';
-import Header from "@/components/Header";
+import { Clock, Tag, BookOpen, Code, Bug, Zap, LucideIcon, Download } from 'lucide-react';
 import { useI18n } from "@/lib/i18n";
-import { Button } from "@/components/ui/button";
 
 interface Version {
   version: string;
