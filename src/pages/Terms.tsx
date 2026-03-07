@@ -226,8 +226,7 @@ const Terms = () => {
                     </section>
                   </>
                 )}
-
-              
+        </div>
         <div className="mt-8 pt-4 border-t border-border">
           <p className="text-xs text-muted-foreground">
             &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
