@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, Tag, BookOpen, Code, Bug, Zap, LucideIcon, Download } from 'lucide-react';
-import Header from "@/components/Header";
+import { Clock, Tag, BookOpen, Code, Bug, Zap, LucideIcon, Download } from 'lucide-react';
 import { useI18n } from "@/lib/i18n";
-import { Button } from "@/components/ui/button";
 
 interface Version {
   version: string;
@@ -372,25 +370,16 @@ const VersionHistory = () => {
   const { language } = useI18n();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <Header />
-      <main className="container px-4 py-8 md:px-6 mx-auto max-w-4xl">
-        <div className="mb-6">
-          <Link to="/">
-            <Button variant="outline" className="mb-4 flex items-center gap-2">
-              <ArrowLeft size={16} />
-              {language === 'es' ? "Volver al inicio" : "Back to home"}
-            </Button>
-          </Link>
-          
-          <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent">
+    <div className="min-h-screen bg-background">
+      <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground">
             {language === 'es' ? "Historial de versiones" : "Version History"}
           </h1>
-          
-          <p className="text-gray-700 dark:text-gray-300 mb-6">
+          <p className="text-muted-foreground mt-2">
             {language === 'es' 
-              ? "Un registro detallado de todas las actualizaciones y cambios realizados en HABY Score Tracker, mostrando su evolución continua y mejoras implementadas."
-              : "A detailed record of all updates and changes made to HABY Score Tracker, showing its continuous evolution and implemented improvements."}
+              ? "Registro de todas las actualizaciones de HABY Score Tracker."
+              : "Record of all updates to HABY Score Tracker."}
           </p>
         </div>
 
@@ -492,7 +481,7 @@ const VersionHistory = () => {
             ))}
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 };

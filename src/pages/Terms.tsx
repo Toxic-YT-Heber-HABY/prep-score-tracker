@@ -1,45 +1,26 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Header from "@/components/Header";
 import { useI18n } from "@/lib/i18n";
 
-/**
- * Terms and Conditions page with enhanced visual design
- */
 const Terms = () => {
   const { language } = useI18n();
   const currentYear = new Date().getFullYear();
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-8 flex-1">
-        <div className="max-w-4xl mx-auto">
-          <Link to="/">
-            <Button variant="ghost" className="mb-6 -ml-4 hover:bg-white/20 dark:hover:bg-gray-800/30 transition-all">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              {language === 'es' ? 'Volver al inicio' : 'Back to home'}
-            </Button>
-          </Link>
-          
-          <div className="relative">
-            <div className="absolute inset-0 bg-education-primary/5 rounded-3xl transform rotate-1"></div>
-            <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-10">
-              <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent">
-                {language === 'es' ? 'Términos y condiciones' : 'Terms and conditions'}
-              </h1>
+    <div className="min-h-screen bg-background">
+      <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground">
+            {language === 'es' ? 'Términos y condiciones' : 'Terms and conditions'}
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            {language === 'es' 
+              ? 'Términos bajo los cuales puede utilizar HABY Score Tracker.' 
+              : 'Terms under which you may use HABY Score Tracker.'}
+          </p>
+        </div>
               
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed font-light">
-                {language === 'es' 
-                  ? 'Este documento establece los términos y condiciones bajo los cuales puede utilizar la aplicación HABY Score Tracker. Al acceder y utilizar nuestra aplicación, acepta estos términos en su totalidad.' 
-                  : 'This document sets forth the terms and conditions under which you may use the HABY Score Tracker application. By accessing and using our application, you accept these terms in their entirety.'}
-              </p>
-              
-              <div className="space-y-10">
+        <div className="space-y-6">
                 {language === 'es' ? (
                   <>
                     <section className="transform transition-all hover:-translate-y-1 hover:shadow-md p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
@@ -245,20 +226,13 @@ const Terms = () => {
                     </section>
                   </>
                 )}
-              </div>
-              
-              <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  {language === 'es' ? 'Última actualización:' : 'Last updated:'} {currentYear}
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-      </main>
+        <div className="mt-8 pt-4 border-t border-border">
+          <p className="text-xs text-muted-foreground">
+            &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

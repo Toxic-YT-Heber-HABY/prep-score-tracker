@@ -1,44 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Shield, UserCheck, Database, Share2, User, Lock, RefreshCw, Phone } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import Header from "@/components/Header";
 import { useI18n } from "@/lib/i18n";
 
-/**
- * Enhanced Privacy Policy page with modern design
- */
 const Privacy = () => {
   const { language } = useI18n();
   const currentYear = new Date().getFullYear();
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-8 flex-1">
-        <div className="max-w-4xl mx-auto">
-          <Link to="/">
-            <Button variant="ghost" className="mb-6 -ml-4 hover:bg-white/20 dark:hover:bg-gray-800/30 transition-all">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              {language === 'es' ? 'Volver al inicio' : 'Back to home'}
-            </Button>
-          </Link>
-          
-          <div className="relative">
-            <div className="absolute inset-0 bg-education-primary/5 rounded-3xl transform -rotate-1"></div>
-            <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-10">
-              <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent">
-                {language === 'es' ? 'Política de privacidad' : 'Privacy policy'}
-              </h1>
+    <div className="min-h-screen bg-background">
+      <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground">
+            {language === 'es' ? 'Política de privacidad' : 'Privacy policy'}
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            {language === 'es' 
+              ? 'Su privacidad es importante para nosotros.' 
+              : 'Your privacy is important to us.'}
+          </p>
+        </div>
               
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed font-light">
-                {language === 'es' 
-                  ? 'Esta política de privacidad describe cómo HABY Score Tracker recopila, utiliza y comparte su información cuando utiliza nuestra aplicación. Su privacidad es importante para nosotros.' 
-                  : 'This privacy policy describes how HABY Score Tracker collects, uses, and shares your information when you use our application. Your privacy is important to us.'}
-              </p>
-              
-              <div className="space-y-10">
+        <div className="space-y-6">
                 {language === 'es' ? (
                   <>
                     <section className="transform transition-all hover:-translate-y-1 hover:shadow-md p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
@@ -416,20 +399,14 @@ const Privacy = () => {
                     </section>
                   </>
                 )}
-              </div>
-              
-              <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  {language === 'es' ? 'Última actualización:' : 'Last updated:'} {currentYear}
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-      </main>
+              
+        <div className="mt-8 pt-4 border-t border-border">
+          <p className="text-xs text-muted-foreground">
+            &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
