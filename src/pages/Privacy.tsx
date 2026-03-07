@@ -22,7 +22,7 @@ const Privacy = () => {
         </div>
               
         <div className="space-y-6">
-                  ? 'Esta política de privacidad describe cómo HABY Score Tracker recopila, utiliza y comparte su información cuando utiliza nuestra aplicación. Su privacidad es importante para nosotros.' 
+                {language === 'es' ? (
                   <>
                     <section className="transform transition-all hover:-translate-y-1 hover:shadow-md p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
                       <div className="flex items-start">
