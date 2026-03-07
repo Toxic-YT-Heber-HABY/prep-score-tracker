@@ -399,20 +399,14 @@ const Privacy = () => {
                     </section>
                   </>
                 )}
-              </div>
-              
-              <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  {language === 'es' ? 'Última actualización:' : 'Last updated:'} {currentYear}
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-      </main>
+              
+        <div className="mt-8 pt-4 border-t border-border">
+          <p className="text-xs text-muted-foreground">
+            &copy; {currentYear} HABY Score Tracker. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
