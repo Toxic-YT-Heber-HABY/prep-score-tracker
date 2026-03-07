@@ -12,17 +12,17 @@ const Privacy = () => {
       <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">
-                {language === 'es' ? 'Política de privacidad' : 'Privacy policy'}
-              </h1>
+            {language === 'es' ? 'Política de privacidad' : 'Privacy policy'}
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            {language === 'es' 
+              ? 'Su privacidad es importante para nosotros.' 
+              : 'Your privacy is important to us.'}
+          </p>
+        </div>
               
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed font-light">
-                {language === 'es' 
+        <div className="space-y-6">
                   ? 'Esta política de privacidad describe cómo HABY Score Tracker recopila, utiliza y comparte su información cuando utiliza nuestra aplicación. Su privacidad es importante para nosotros.' 
-                  : 'This privacy policy describes how HABY Score Tracker collects, uses, and shares your information when you use our application. Your privacy is important to us.'}
-              </p>
-              
-              <div className="space-y-10">
-                {language === 'es' ? (
                   <>
                     <section className="transform transition-all hover:-translate-y-1 hover:shadow-md p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
                       <div className="flex items-start">
