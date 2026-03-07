@@ -1,34 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Shield, UserCheck, Database, Share2, User, Lock, RefreshCw, Phone } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import Header from "@/components/Header";
+import { Shield, UserCheck, Database, Share2, User, Lock, RefreshCw, Phone } from 'lucide-react';
 import { useI18n } from "@/lib/i18n";
 
-/**
- * Enhanced Privacy Policy page with modern design
- */
 const Privacy = () => {
   const { language } = useI18n();
   const currentYear = new Date().getFullYear();
   
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-8 flex-1">
-        <div className="max-w-4xl mx-auto">
-          <Link to="/">
-            <Button variant="ghost" className="mb-6 -ml-4 hover:bg-white/20 dark:hover:bg-gray-800/30 transition-all">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              {language === 'es' ? 'Volver al inicio' : 'Back to home'}
-            </Button>
-          </Link>
-          
-          <div className="relative">
-            <div className="absolute inset-0 bg-education-primary/5 rounded-3xl transform -rotate-1"></div>
-            <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-10">
-              <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-education-primary to-education-secondary bg-clip-text text-transparent">
+    <div className="min-h-screen bg-background">
+      <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground">
                 {language === 'es' ? 'Política de privacidad' : 'Privacy policy'}
               </h1>
               
