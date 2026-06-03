@@ -21,6 +21,6 @@ export default defineConfig(({ mode }) => ({
     dedupe: ["react", "react-dom"],
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "next-themes", "@radix-ui/react-tooltip"],
+    include: ["react", "react-dom", "next-themes", "@radix-ui/react-tooltip", "react-helmet-async"],
   },
 }));
