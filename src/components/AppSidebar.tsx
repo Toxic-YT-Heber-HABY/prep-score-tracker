@@ -116,6 +116,7 @@ const AppSidebar = () => {
                   onClick={() => setIsAISidebarOpen(true)}
                   className="bg-education-primary/10 hover:bg-education-primary/20 text-education-primary font-medium"
                   tooltip={language === 'es' ? 'Asistente IA' : 'AI Assistant'}
+                  aria-label={language === 'es' ? 'Abrir Asistente IA' : 'Open AI Assistant'}
                 >
                   <Sparkles className="h-4 w-4" />
                   {!collapsed && <span>{language === 'es' ? 'Asistente IA' : 'AI Assistant'}</span>}
@@ -197,6 +198,7 @@ const AppSidebar = () => {
               onClick={toggleTheme}
               className="h-8 w-8 p-0"
               title={theme === 'dark' ? (language === 'es' ? 'Modo claro' : 'Light mode') : (language === 'es' ? 'Modo oscuro' : 'Dark mode')}
+              aria-label={theme === 'dark' ? (language === 'es' ? 'Activar modo claro' : 'Switch to light mode') : (language === 'es' ? 'Activar modo oscuro' : 'Switch to dark mode')}
             >
               {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
@@ -205,6 +207,7 @@ const AppSidebar = () => {
               size="sm"
               onClick={handleLanguageToggle}
               className={collapsed ? 'h-8 w-8 p-0' : 'h-8 px-2 text-xs'}
+              aria-label={language === 'es' ? 'Cambiar idioma a inglés' : 'Switch language to Spanish'}
             >
               <Globe className="h-4 w-4" />
               {!collapsed && <span className="ml-1">{language === 'es' ? 'EN' : 'ES'}</span>}
