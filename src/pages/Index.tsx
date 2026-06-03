@@ -87,6 +87,43 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background transition-colors duration-300">
+      <SEO
+        title="HABY Score Tracker - Calculadora de calificaciones"
+        description="Calcula tu promedio final ponderado organizando categorías y actividades. Asistente IA, exportación a PDF y soporte offline (PWA)."
+        path="/"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "HABY Score Tracker",
+            url: "https://prep-score-tracker.lovable.app/",
+            inLanguage: "es-MX",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "HABY",
+            url: "https://prep-score-tracker.lovable.app/",
+            founder: { "@type": "Person", name: "Heber Zadkiel García Pérez" },
+            contactPoint: {
+              "@type": "ContactPoint",
+              email: "habyopenthedoors@gmail.com",
+              telephone: "+52-56-5368-1237",
+              contactType: "customer support",
+              availableLanguage: ["Spanish", "English"],
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "HABY Score Tracker",
+            applicationCategory: "EducationalApplication",
+            operatingSystem: "Web",
+            description: "Calculadora de calificaciones ponderadas para estudiantes con asistente IA.",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+          },
+        ]}
+      />
       {showIntro && <React.Suspense fallback={null}><IntroPanel onClose={() => setShowIntro(false)} /></React.Suspense>}
 
       <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-6xl mx-auto">

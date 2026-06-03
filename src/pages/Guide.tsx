@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useI18n } from '@/lib/i18n';
+import SEO from '@/components/SEO';
 import { Calculator, BookOpen, Target, Lightbulb, Brain } from 'lucide-react';
 
 const Guide = () => {
@@ -8,6 +9,11 @@ const Guide = () => {
   
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Guía de uso - HABY Score Tracker"
+        description="Aprende a usar HABY Score Tracker: categorías, actividades, ejemplos prácticos y consejos para calcular tus calificaciones."
+        path="/guide"
+      />
       <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">
@@ -49,7 +55,7 @@ const Guide = () => {
                   color: 'border-l-orange-500 bg-orange-50 dark:bg-orange-900/10' },
               ].map(({ emoji, titleEs, titleEn, descEs, descEn, color }) => (
                 <div key={titleEn} className={`p-4 rounded-lg border-l-4 ${color}`}>
-                  <h3 className="font-medium mb-1 text-foreground">{emoji} {language === 'es' ? titleEs : titleEn}</h3>
+                  <h3 className="font-medium mb-1 text-foreground text-sm">{emoji} {language === 'es' ? titleEs : titleEn}</h3>
                   <p className="text-sm text-muted-foreground">{language === 'es' ? descEs : descEn}</p>
                 </div>
               ))}
