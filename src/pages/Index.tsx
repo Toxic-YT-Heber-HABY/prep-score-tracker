@@ -4,6 +4,7 @@ import { Category } from '@/types';
 import CategoryCard from '@/components/CategoryCard';
 import AddCategoryForm from '@/components/AddCategoryForm';
 import ResultsDisplay from '@/components/ResultsDisplay';
+import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { Info, RefreshCw } from 'lucide-react';
 import { toast } from "sonner";
