@@ -40,7 +40,7 @@ const ChatCalculator = () => {
             <div key={titleEn} className="bg-card border border-border p-5 rounded-xl">
               <div className="flex items-center gap-2 mb-2 text-education-primary">
                 <Icon className="h-5 w-5" />
-                <h3 className="font-medium">{language === 'es' ? titleEs : titleEn}</h3>
+                <h2 className="font-medium text-base">{language === 'es' ? titleEs : titleEn}</h2>
               </div>
               <p className="text-sm text-muted-foreground">
                 {language === 'es' ? descEs : descEn}
