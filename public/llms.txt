@@ -1,0 +1,18 @@
+# HABY Score Tracker
+
+> Calculadora de calificaciones para estudiantes. Organiza tus evaluaciones por categorías y actividades para obtener tu calificación final ponderada de forma precisa, con soporte offline (PWA) y un asistente IA.
+
+HABY Score Tracker es una aplicación web educativa desarrollada por Heber Zadkiel García Pérez. Permite a estudiantes crear categorías ponderadas (exámenes, tareas, proyectos, etc.), agregar actividades con sus calificaciones, y calcular el promedio final. Incluye un asistente conversacional con OCR para extraer calificaciones de imágenes de boletas.
+
+## Pages
+
+- [Inicio](/): Calculadora principal con categorías, actividades y resultados.
+- [Calculadora con IA](/chat-calculator): Asistente conversacional que calcula calificaciones paso a paso y analiza imágenes de boletas.
+- [Guía de uso](/guide): Conceptos básicos, ejemplos prácticos y consejos para usar la herramienta.
+- [Historial de versiones](/version-history): Cambios y mejoras por versión.
+- [Contacto](/contact): Correo y WhatsApp del desarrollador.
+
+## Optional
+
+- [Privacidad](/privacy): Política de privacidad.
+- [Términos](/terms): Términos de uso.

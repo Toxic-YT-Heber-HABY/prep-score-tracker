@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Clock, Tag, BookOpen, Code, Bug, Zap, LucideIcon, Download } from 'lucide-react';
 import { useI18n } from "@/lib/i18n";
+import SEO from "@/components/SEO";
 
 interface Version {
   version: string;
@@ -371,6 +372,11 @@ const VersionHistory = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Historial de versiones - HABY Score Tracker"
+        description="Registro de cambios, nuevas funcionalidades y mejoras de HABY Score Tracker a lo largo del tiempo."
+        path="/version-history"
+      />
       <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">

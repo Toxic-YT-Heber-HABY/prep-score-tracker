@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://prep-score-tracker.lovable.app/sitemap.xml

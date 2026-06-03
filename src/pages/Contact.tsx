@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useI18n } from "@/lib/i18n";
+import SEO from "@/components/SEO";
 
 const Contact = () => {
   const { language } = useI18n();
@@ -27,6 +28,30 @@ const Contact = () => {
   
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Contacto - HABY Score Tracker"
+        description="Contacta a HABY Score Tracker por correo o WhatsApp. Soporte de lunes a viernes 9:00-18:00 (CDMX)."
+        path="/contact"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "HABY",
+          url: "https://prep-score-tracker.lovable.app/",
+          contactPoint: {
+            "@type": "ContactPoint",
+            email: "habyopenthedoors@gmail.com",
+            telephone: "+52-56-5368-1237",
+            contactType: "customer support",
+            availableLanguage: ["Spanish", "English"],
+            hoursAvailable: {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              opens: "09:00",
+              closes: "18:00",
+            },
+          },
+        }}
+      />
       <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">

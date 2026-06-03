@@ -1,6 +1,7 @@
 import React from 'react';
 import ChatGrade from '@/components/ChatGrade';
 import { useI18n } from '@/lib/i18n';
+import SEO from '@/components/SEO';
 import { Sparkles, Calculator, MessageCircle, Brain } from 'lucide-react';
 
 const ChatCalculator = () => {
@@ -8,6 +9,11 @@ const ChatCalculator = () => {
   
   return (
     <div className="min-h-screen bg-background transition-colors duration-300">
+      <SEO
+        title="Calculadora con IA - HABY Score Tracker"
+        description="Conversa con el asistente IA para calcular tus calificaciones paso a paso. Soporta análisis de imágenes de boletas con OCR."
+        path="/chat-calculator"
+      />
       <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -40,7 +46,7 @@ const ChatCalculator = () => {
             <div key={titleEn} className="bg-card border border-border p-5 rounded-xl">
               <div className="flex items-center gap-2 mb-2 text-education-primary">
                 <Icon className="h-5 w-5" />
-                <h3 className="font-medium">{language === 'es' ? titleEs : titleEn}</h3>
+                <h2 className="font-medium text-base">{language === 'es' ? titleEs : titleEn}</h2>
               </div>
               <p className="text-sm text-muted-foreground">
                 {language === 'es' ? descEs : descEn}

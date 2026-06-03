@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Shield, UserCheck, Database, Share2, User, Lock, RefreshCw, Phone } from 'lucide-react';
 import { useI18n } from "@/lib/i18n";
+import SEO from "@/components/SEO";
 
 const Privacy = () => {
   const { language } = useI18n();
@@ -9,6 +10,11 @@ const Privacy = () => {
   
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Política de privacidad - HABY Score Tracker"
+        description="Cómo HABY Score Tracker maneja tus datos personales, almacenamiento local y derechos como usuario."
+        path="/privacy"
+      />
       <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">
