@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "@/lib/i18n";
+import SEO from "@/components/SEO";
 
 const Terms = () => {
   const { language } = useI18n();
@@ -8,6 +9,11 @@ const Terms = () => {
   
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Términos y condiciones - HABY Score Tracker"
+        description="Términos de uso de HABY Score Tracker: derechos, responsabilidades y condiciones del servicio."
+        path="/terms"
+      />
       <div className="px-4 py-6 sm:px-8 sm:py-10 max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">
